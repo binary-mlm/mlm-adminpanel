@@ -9,7 +9,6 @@ import {
   cilDrop,
   cilNotes,
   cilPencil,
-  cilPuzzle,
   cilSpeedometer,
   cilStar,
 } from '@coreui/icons'

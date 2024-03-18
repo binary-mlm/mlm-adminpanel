@@ -53,7 +53,7 @@ const Addproduct = () => {
                         <CForm className='mt-4 ms-4 mb-3'>
                             <div className="mb-3">
 
-                                <CFormLabel htmlFor="exampleFormControlInput1">CourseID</CFormLabel>
+                                <CFormLabel htmlFor="exampleFormControlInput1">CourseID<sup><i className="fa fa-asterisk" style={{fontSize:"9px"}}></i></sup></CFormLabel>
                                 <CFormInput
                                     type="text"
                                     id="exampleFormControlInput1"
@@ -63,7 +63,7 @@ const Addproduct = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <CFormLabel htmlFor="exampleFormControlInput2">Course name</CFormLabel>
+                                <CFormLabel htmlFor="exampleFormControlInput2">Course name<sup><i className="fa fa-asterisk" style={{fontSize:"9px"}}></i></sup></CFormLabel>
                                 <CFormInput type="text"
                                     id="exampleFormControlInput2"
                                     name='course_name'
@@ -74,17 +74,17 @@ const Addproduct = () => {
                             </div>
 
                             <div className="mb-3">
-                                <CFormLabel htmlFor="exampleFormControlInput3">Course review</CFormLabel>
+                                <CFormLabel htmlFor="exampleFormControlInput3">Course review<sup><i className="fa fa-asterisk" style={{fontSize:"9px"}}></i></sup></CFormLabel>
                                 <CFormInput
                                     type="text"
                                     name='course_review'
                                     id="exampleFormControlInput3"
-                                    placeholder="Enter course review"
+                                    placeholder="Enter course review out of 5"
                                     onChange={e => setCoursereview(e.target.value)}
                                 />
                             </div>
                             <div className="mb-3">
-                                <CFormLabel htmlFor="exampleFormControlInput6">Total Video</CFormLabel>
+                                <CFormLabel htmlFor="exampleFormControlInput6">Total Video<sup><i className="fa fa-asterisk" style={{fontSize:"9px"}}></i></sup></CFormLabel>
                                 <CFormInput
                                     type="text"
                                     name='videos'
@@ -94,7 +94,7 @@ const Addproduct = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <CFormLabel htmlFor="exampleFormControlInput4">Teachers name</CFormLabel>
+                                <CFormLabel htmlFor="exampleFormControlInput4">Teachers name<sup><i className="fa fa-asterisk" style={{fontSize:"9px"}}></i></sup></CFormLabel>
                                 <CFormInput
                                     type="text"
                                     name='teacher_name'
@@ -104,7 +104,7 @@ const Addproduct = () => {
                                 />
                             </div>
                             <div className="mb-3">
-                                <CFormLabel htmlFor="exampleFormControlInput5">Teachers dept</CFormLabel>
+                                <CFormLabel htmlFor="exampleFormControlInput5">Teachers dept<sup><i className="fa fa-asterisk" style={{fontSize:"9px"}}></i></sup></CFormLabel>
                                 <CFormInput
                                     type="text"
                                     name='teacher_dept'
