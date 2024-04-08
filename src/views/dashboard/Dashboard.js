@@ -49,6 +49,7 @@ const Dashboard = () => {
                 <CTableHeaderCell scope="col">Total video</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Teacher name</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Teacher dept</CTableHeaderCell>
+                <CTableHeaderCell scope="col">Product image</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
             <CTableBody>
@@ -62,6 +63,7 @@ const Dashboard = () => {
                     <CTableDataCell>{product.teacher_name}</CTableDataCell>
                     
                     <CTableDataCell>{product.teacher_dept}</CTableDataCell>
+                    <CTableDataCell><img width={100}  height={100} src={product.image}/></CTableDataCell>
 
                 </CTableRow>
               })

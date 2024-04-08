@@ -33,7 +33,7 @@ const Login = () => {
     }
     else {
       event.preventDefault();
-         alert("submit");
+        //  alert("submit");
       axios.post('http://localhost:8000/api/v1/login', { username, password })
         .then(res => {
           console.log(res);
