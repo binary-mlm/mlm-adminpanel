@@ -7,12 +7,14 @@ import {
     CCol,
     CRow,
     CForm,
+    CFormSelect,
     CFormLabel,
     CButton
 } from '@coreui/react'
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-import uploadpic from '../Image/uploadimage.jpg';
+import uploadpic from '../Image/upload.png';
 const Addproduct = () => {
     const [courseid, setCourseid] = useState('')
     const [course_name, setCoursename] = useState('')
@@ -22,7 +24,7 @@ const Addproduct = () => {
     const [teacher_name, setTeacher_name] = useState('')
     const [teacher_dept, setTeacher_dept] = useState('')
     const [image, setImage] = useState(null)
-    const [video_file, setchangeVideo] = useState(null)
+    const [file_resource, setFile] = useState(null)
 
 
     const convertToBase64 = (file) => {
@@ -37,10 +39,10 @@ const Addproduct = () => {
         })
         return data;
     }
-    const convertToBase64_file = (videofile) => {
-        console.log(videofile);
+    const convertToBase64_file = (resource_file) => {
+        console.log(resource_file);
         const reader = new FileReader();
-        reader.readAsDataURL(videofile);
+        reader.readAsDataURL(resource_file);
         const data = new Promise((resolve, reject) => {
             reader.onload = () => resolve(reader.result)
             reader.onerror = (err) => {
@@ -57,11 +59,11 @@ const Addproduct = () => {
         // console.log(image);
     };
 
-    const handlevideo = async(e) => {
-        const videofile = e.target.files[0];
-        const changevideofile = await convertToBase64_file(videofile)
-        setchangeVideo(changevideofile);
-        console.log(changevideofile)
+    const handlefile_resurce = async (e) => {
+        const file = e.target.files[0];
+        const resorce_file = await convertToBase64_file(file)
+        setFile(resorce_file);
+        console.log(resorce_file)
     }
     //handle submit
     const handleSubmit = async (event) => {
@@ -103,7 +105,8 @@ const Addproduct = () => {
         <>
             <CRow>
                 <CCol xs={12} >
-                    <CCard className="mb-4">
+                <div className=' fw-bold mt-2 mb-3' style={{ fontSize: "25px" }}>Add new course </div>
+                    <CCard className="mb-4 cardform">
                         <CForm className='mt-4 ms-4 mb-3' method="post" encType="multipart/form-data">
 
                             <div className='row'>
@@ -209,7 +212,7 @@ const Addproduct = () => {
 
                                     </div>
                                     <div className='text-center' >
-                                        {image ? <img width={400} height={300} src={image} /> : <img width={300} height={300} src={uploadpic} />}
+                                        {image ? <img width={400} height={300} src={image} /> : <img width={150} height={150} src={uploadpic} />}
                                     </div>
 
 
@@ -220,7 +223,7 @@ const Addproduct = () => {
                                             <div className='col-6'>
                                                 <CFormLabel htmlFor="exampleFormControlInput6">Course chapters<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
                                             </div>
-                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit chapter</span></div>
+                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><Link to='/addchapter'><span className='ms-2 fw-bold me-3'>Add chapter</span></Link></div>
                                         </div>
                                         <ul className='border me-3 border_ul'>
                                             <li>Introduction</li>
@@ -279,23 +282,38 @@ const Addproduct = () => {
                                         />
                                     </div>
                                     <div className="mb-3">
+                                        
+                                                <CFormLabel htmlFor="exampleFormControlInput6">Course category<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
+                                        
 
-                                        <CFormLabel htmlFor="exampleFormControlInput7">Course Video<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
+                                        <CFormSelect  className=" me-2" aria-label="Default select example">
+                                            <option>Select one category</option>
+                                            <option value="music">Music</option>
+                                            <option value="blockchain">Blockchain</option>
+                                            <option value="python">Python</option>
+                                        </CFormSelect>
+                                    </div>
+                                    <div className="mb-3">
+
+                                        <CFormLabel htmlFor="exampleFormControlInput7">Resources & Attachments</CFormLabel>
                                         <CFormInput
                                             type="file"
-                                            name='video'
+                                            name='file_resource'
                                             id="exampleFormControlInput7"
-                                            accept="video/*"
-                                            onChange={handlevideo}
+
+                                            onChange={handlefile_resurce}
                                         />
+                                        {/* <div className='text-center mt-2' >
+                                            {file_resource ? <video
+
+                                                src={file_resource}
+                                                width="500"
+                                                height="400"
+                                            /> : <img width={150} height={150} src={uploadpic} />}
+                                        </div> */}
                                     </div>
-                                    <div className='text-center' >
-                                        {video_file ? <video controls  width={300} height={300}>
-                                            <source src={video_file} type="video/mp4" />
-                                            
-                                        </video> : <img width={300} height={300} src={uploadpic} /> }
-                                        
-                                    </div>
+                                    
+
                                 </div>
                             </div>
                             <div className='text-center'>
