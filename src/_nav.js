@@ -27,7 +27,7 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'Product',
+    name: 'Course',
   },
   {
     component: CNavItem,
@@ -40,6 +40,22 @@ const _nav = [
     name: 'All Courses',
     to: '/dashboard',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'Blog',
+  },
+  {
+    component: CNavItem,
+    name: 'Add Blog',
+    to: '/Addblog',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'All Blogs',
+    to: '/Allblog',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,

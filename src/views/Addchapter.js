@@ -1,8 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { useState, React } from 'react';
-
 import {
-    CCardFooter,
     CCard,
     CFormInput,
     CCol,
@@ -10,10 +8,12 @@ import {
     CForm,
     CFormLabel,
     CFormTextarea,
-    CFormCheck
+    CFormCheck,CButton
 } from '@coreui/react';
 import { Link } from 'react-router-dom';
 import uploadpic from '../Image/upload.png';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 
 const Addchapter = () => {
@@ -77,7 +77,7 @@ const Addchapter = () => {
                                             <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2  me-3 fw-bold'>Edit description</span></div>
                                         </div>
 
-                                        <CFormTextarea
+                                        {/* <CFormTextarea
                                             id="exampleFormControlTextarea1"
                                             
                                             rows={3}
@@ -85,7 +85,13 @@ const Addchapter = () => {
                                             name='chapterdescription'
                                             onChange={e => Setchapterdescription(e.target.value)}
 
-                                        ></CFormTextarea>
+                                        ></CFormTextarea> */}
+                                         <ReactQuill
+                                            theme="snow" // Specify theme 
+                                            name="chapterdescription" // Set editor content
+                                            value={chapterdescription}
+                                            onChange={(value) => Setchapterdescription(value)}
+                                        />
                                         
 
                                     </div>
@@ -121,6 +127,10 @@ const Addchapter = () => {
 
                                 </div>
                             </div>
+                            <div className='text-center mt-4'>
+                                <CButton as="input" className='btn w-25' type="submit" color="primary" value="Save"  />
+                            </div>
+
                         </CForm>
                     </CCard>
                 </CCol>

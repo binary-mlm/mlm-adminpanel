@@ -14,7 +14,9 @@ import {
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import swal from 'sweetalert';
-import uploadpic from '../Image/upload.png';
+import uploadpic from '../Image/uploadimage.png';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 const Addproduct = () => {
     const [courseid, setCourseid] = useState('')
     const [course_name, setCoursename] = useState('')
@@ -39,18 +41,7 @@ const Addproduct = () => {
         })
         return data;
     }
-    const convertToBase64_file = (resource_file) => {
-        console.log(resource_file);
-        const reader = new FileReader();
-        reader.readAsDataURL(resource_file);
-        const data = new Promise((resolve, reject) => {
-            reader.onload = () => resolve(reader.result)
-            reader.onerror = (err) => {
-                reject(err)
-            }
-        })
-        return data;
-    }
+   
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
@@ -61,13 +52,14 @@ const Addproduct = () => {
 
     const handlefile_resurce = async (e) => {
         const file = e.target.files[0];
-        const resorce_file = await convertToBase64_file(file)
+        const resorce_file = await convertToBase64(file)
         setFile(resorce_file);
         console.log(resorce_file)
     }
     //handle submit
     const handleSubmit = async (event) => {
         event.preventDefault();
+        console.log(course_description);
 
         // alert("submit works")
         if (courseid === "" || course_name === "" || course_description === "" || course_review === "" || teacher_name === "" || teacher_dept === "" || videos === "" || image === "") {
@@ -105,7 +97,7 @@ const Addproduct = () => {
         <>
             <CRow>
                 <CCol xs={12} >
-                <div className=' fw-bold mt-2 mb-3' style={{ fontSize: "25px" }}>Add new course </div>
+                    <div className=' fw-bold mt-2 mb-3' style={{ fontSize: "25px" }}>Add new course </div>
                     <CCard className="mb-4 cardform">
                         <CForm className='mt-4 ms-4 mb-3' method="post" encType="multipart/form-data">
 
@@ -156,12 +148,21 @@ const Addproduct = () => {
                                             </div>
                                             <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit description</span></div>
                                         </div>
-                                        <CFormInput type="text"
+                                        {/* <CFormInput type="text"
                                             id="exampleFormControlInput2"
                                             name='course_description'
                                             placeholder="Enter course description"
                                             onChange={e => setCourse_description(e.target.value)}
+                                        /> */}
+                                        <ReactQuill
+                                            theme="snow" // Specify theme 
+                                            name="course_description" // Set editor content
+                                            value={course_description}
+                                            onChange={(value) => setCourse_description(value)}
+                                            
                                         />
+
+
                                     </div>
 
                                     <div className="mb-3">
@@ -282,11 +283,11 @@ const Addproduct = () => {
                                         />
                                     </div>
                                     <div className="mb-3">
-                                        
-                                                <CFormLabel htmlFor="exampleFormControlInput6">Course category<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-                                        
 
-                                        <CFormSelect  className=" me-2" aria-label="Default select example">
+                                        <CFormLabel htmlFor="exampleFormControlInput6">Course category<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
+
+
+                                        <CFormSelect className=" me-2" aria-label="Default select example">
                                             <option>Select one category</option>
                                             <option value="music">Music</option>
                                             <option value="blockchain">Blockchain</option>
@@ -312,7 +313,7 @@ const Addproduct = () => {
                                             /> : <img width={150} height={150} src={uploadpic} />}
                                         </div> */}
                                     </div>
-                                    
+
 
                                 </div>
                             </div>

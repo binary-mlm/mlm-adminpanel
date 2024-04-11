@@ -31,11 +31,10 @@ const Dashboard = () => {
    
 }, []);
 
-
   return (
     <>
       <WidgetsDropdown className="mb-4" />
-      <CCard className="mb-4">
+      
         <CCardHeader>
           <strong>All Products</strong>
         </CCardHeader>
@@ -71,8 +70,8 @@ const Dashboard = () => {
             </CTableBody>
           </CTable>
         </CCardBody>
-      </CCard>
-      <CRow> </CRow>
+     
+    
       <CCardFooter></CCardFooter>
     </>
   )
