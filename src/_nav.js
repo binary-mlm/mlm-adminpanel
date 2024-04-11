@@ -4,9 +4,6 @@ import {
   cilBell,
   cilCalculator,
   cilChartPie,
-  cilCursor,
-  cilDescription,
-  cilDrop,
   cilNotes,
   cilPencil,
   cilSpeedometer,
@@ -59,8 +56,18 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'Components',
+    name: 'User',
   },
+  {
+    component: CNavItem,
+    name: 'Userlist',
+    to: '/userlist',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Components',
+  // },
   // {
   //   component: CNavGroup,
   //   name: 'Base',

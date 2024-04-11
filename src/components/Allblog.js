@@ -16,7 +16,7 @@ const Allblog = () => {
     <>
     <div className='fw-bold'>
         <h3>All Blogs:-</h3></div> 
-        <CTable color="dark" className='mt-2'>
+        <CTable color="dark">
         <CTableHead align="middle">
           <CTableRow  >
             <CTableHeaderCell scope="col" className='col-3' >Blog title</CTableHeaderCell>
@@ -25,11 +25,11 @@ const Allblog = () => {
             <CTableHeaderCell scope="col" className='col-1'>Blog Action</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
-        <CTableBody>
-        <CTableRow active  align="middle">
-        <CTableDataCell>example1</CTableDataCell>
-                <CTableDataCell>exampleghghghgghgfshgshghggfgghg</CTableDataCell>
-                <CTableDataCell><img width={150}  height={150} src={img} /></CTableDataCell>
+        <CTableBody align="middle">
+        <CTableRow active  >
+        <CTableDataCell className='col-3'>example1</CTableDataCell>
+                <CTableDataCell className='col-5' >exampleghghghgghgfshgshghggfgghg</CTableDataCell>
+                <CTableDataCell className='col-3'><img width={150}  height={150} src={img} /></CTableDataCell>
                 <CTableDataCell>
                   <a><i className="fa fa-edit ms-2 editicon"></i></a> 
                   <a><i className="fa fa-trash-o ms-3 deleteicon"></i></a></CTableDataCell>
