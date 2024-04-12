@@ -26,7 +26,7 @@ const Allblog = () => {
           </CTableRow>
         </CTableHead>
         <CTableBody align="middle">
-        <CTableRow active  >
+        <CTableRow active align="middle" >
         <CTableDataCell className='col-3'>example1</CTableDataCell>
                 <CTableDataCell className='col-5' >exampleghghghgghgfshgshghggfgghg</CTableDataCell>
                 <CTableDataCell className='col-3'><img width={150}  height={150} src={img} /></CTableDataCell>

@@ -8,6 +8,7 @@ import {
     CTableHeaderCell,
     CTableRow,
 } from '@coreui/react'
+import { Link } from 'react-router-dom';
 
 const Userlist = () => {
     return (
@@ -37,7 +38,12 @@ const Userlist = () => {
                             </div>
                         </CTableDataCell>
                         <CTableDataCell className='col-1'>
-                            <a><i className="fa fa-edit ms-2 editicon"></i></a>
+                            <div className='d-flex'>
+                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
+                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
+
+                            </div>
+                            
                         </CTableDataCell>
                     </CTableRow>
                     <CTableRow active align="middle">
@@ -51,7 +57,11 @@ const Userlist = () => {
                             </div>
                         </CTableDataCell>
                         <CTableDataCell className='col-1'>
-                            <a><i className="fa fa-edit ms-2 editicon"></i></a>
+                        <div className='d-flex'>
+                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
+                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
+
+                            </div>
                         </CTableDataCell>
                     </CTableRow>
                     <CTableRow active align="middle">
@@ -65,7 +75,11 @@ const Userlist = () => {
                             </div>
                         </CTableDataCell>
                         <CTableDataCell className='col-1'>
-                            <a><i className="fa fa-edit ms-2 editicon"></i></a>
+                        <div className='d-flex'>
+                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
+                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
+
+                            </div>
                         </CTableDataCell>
                     </CTableRow>
 

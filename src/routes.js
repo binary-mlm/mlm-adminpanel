@@ -6,6 +6,9 @@ const Addchapter = React.lazy(() => import('./views/Addchapter'))
 const Addblog = React.lazy(() => import('./components/Addblog'))
 const Allblog = React.lazy(() => import('./components/Allblog'))
 const Userlist = React.lazy(() => import('./components/Userlist'))
+const Viewuserlist = React.lazy(() => import('./components/Viewuserlist'))
+const Order = React.lazy(() => import('./components/Order/Orders'))
+const Transaction = React.lazy(() => import('./components/Order/Transactions'))
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -64,6 +67,9 @@ const routes = [
   { path: '/addblog', name: 'Addblog', element: Addblog },
   { path: '/allblog', name: 'Allblog', element: Allblog },
   { path: '/userlist', name: 'Userlist', element: Userlist },
+  { path: '/viewuserlist', name: 'Viewuserlist', element: Viewuserlist },
+  { path: '/order', name: 'order', element: Order },
+  { path: '/transaction', name: 'transaction', element: Transaction },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
