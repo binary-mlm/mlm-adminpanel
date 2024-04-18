@@ -76,8 +76,8 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Transaction',
-    to: '/transaction',
+    name: 'Invoice',
+    to: '/invoice',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   //     {

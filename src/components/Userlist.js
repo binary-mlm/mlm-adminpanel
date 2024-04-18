@@ -15,7 +15,7 @@ const Userlist = () => {
         <>
             <div className='fw-bold'>
                 <h3>All Users:-</h3></div>
-            <CTable color="dark" className='mt-2'>
+            <CTable  responsive="sm" color="dark" className='mt-2'>
                 <CTableHead align="middle">
                     <CTableRow  >
                         <CTableHeaderCell scope="col" className='col-2' >Name</CTableHeaderCell>

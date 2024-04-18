@@ -26,7 +26,7 @@ const Addproduct = () => {
     const [teacher_name, setTeacher_name] = useState('')
     const [teacher_dept, setTeacher_dept] = useState('')
     const [image, setImage] = useState(null)
-    const [file_resource, setFile] = useState(null)
+    // const [file_resource, setFile] = useState(null)
 
 
     const convertToBase64 = (file) => {
@@ -47,33 +47,36 @@ const Addproduct = () => {
         const file = e.target.files[0];
         const image = await convertToBase64(file)
         setImage(image);
-        // console.log(image);
+         console.log(image);
     };
 
-    const handlefile_resurce = async (e) => {
-        const file = e.target.files[0];
-        const resorce_file = await convertToBase64(file)
-        setFile(resorce_file);
-        console.log(resorce_file)
-    }
+    // const handlefile_resurce = async (e) => {
+    //     const file = e.target.files[0];
+    //     const resorce_file = await convertToBase64(file)
+    //     setFile(resorce_file);
+    //     console.log(resorce_file)
+    // }
     //handle submit
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(course_description);
 
         // alert("submit works")
-        if (courseid === "" || course_name === "" || course_description === "" || course_review === "" || teacher_name === "" || teacher_dept === "" || videos === "" || image === "") {
+        if (courseid === "" || course_name === "" || course_description === "" || course_review === "" || teacher_name === "" || teacher_dept === ""  || image === "") {
             swal("Opps!", "Please fill out all required fields!", "error");
         }
 
         else {
             try {
-                const response = await axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_description, course_review, videos, teacher_name, teacher_dept, image });
-                console.log(response.data);
-                swal("yeah", "Product sucessfully inserted!", "success");
-
+                 await axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_description, course_review, videos, teacher_name, teacher_dept, image })
+             
+                 .then(res => {
+                            console.log(res);
+                            swal("yeah", "Product sucessfully inserted!", "success");
+                        })
+                
             } catch (error) {
-                console.error('Error uploading image:', error);
+                console.error('Error:', error);
                 swal("Opps!", "Not inserted !", "error");
             }
         };
@@ -302,7 +305,7 @@ const Addproduct = () => {
                                             name='file_resource'
                                             id="exampleFormControlInput7"
 
-                                            onChange={handlefile_resurce}
+                                            
                                         />
                                         {/* <div className='text-center mt-2' >
                                             {file_resource ? <video

@@ -16,7 +16,7 @@ const Allblog = () => {
     <>
     <div className='fw-bold'>
         <h3>All Blogs:-</h3></div> 
-        <CTable color="dark">
+        <CTable responsive="sm" color="dark">
         <CTableHead align="middle">
           <CTableRow  >
             <CTableHeaderCell scope="col" className='col-3' >Blog title</CTableHeaderCell>

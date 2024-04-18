@@ -15,7 +15,7 @@ const Orders = () => {
     <div className='fw-bold'>
     <h3>All Orders:-</h3></div>
 
-    <CTable color="dark" className='mt-2'>
+    <CTable color="dark" className='mt-2' responsive="sm">
                 <CTableHead align="middle">
                     <CTableRow  >
                         <CTableHeaderCell scope="col" className='col-2' >order_id</CTableHeaderCell>

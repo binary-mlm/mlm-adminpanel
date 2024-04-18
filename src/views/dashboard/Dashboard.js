@@ -39,7 +39,7 @@ const Dashboard = () => {
           <strong>All Products</strong>
         </CCardHeader>
         <CCardBody>
-          <CTable color="dark">
+          <CTable responsive="sm" color="dark">
             <CTableHead>
               <CTableRow>
                 <CTableHeaderCell scope="col">Course_id</CTableHeaderCell>
