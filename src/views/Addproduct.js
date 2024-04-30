@@ -25,6 +25,7 @@ const Addproduct = () => {
     const [videos, setVideos] = useState('')
     const [teacher_name, setTeacher_name] = useState('')
     const [teacher_dept, setTeacher_dept] = useState('')
+    const [course_price , setCourseprice] = useState('')
     const [image, setImage] = useState(null)
     // const [file_resource, setFile] = useState(null)
 
@@ -68,7 +69,7 @@ const Addproduct = () => {
 
         else {
             try {
-                 await axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_description, course_review, videos, teacher_name, teacher_dept, image })
+                 await axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_description, course_review, videos, teacher_name, teacher_dept,course_price, image })
              
                  .then(res => {
                             console.log(res);
@@ -279,10 +280,10 @@ const Addproduct = () => {
 
                                         <CFormInput
                                             type="text"
-                                            name='teacher_dept'
+                                            name='course_price'
                                             id="exampleFormControlInput6"
                                             placeholder="Enter course price"
-                                            onChange={e => setTeacher_dept(e.target.value)}
+                                            onChange={e => setCourseprice(e.target.value)}
                                         />
                                     </div>
                                     <div className="mb-3">
