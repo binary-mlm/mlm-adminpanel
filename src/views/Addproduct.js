@@ -21,11 +21,12 @@ const Addproduct = () => {
     const [courseid, setCourseid] = useState('')
     const [course_name, setCoursename] = useState('')
     const [course_description, setCourse_description] = useState('')
+    const [wewilllearn, setWewilllearn] = useState('')
     const [course_review, setCoursereview] = useState('')
     const [videos, setVideos] = useState('')
     const [teacher_name, setTeacher_name] = useState('')
     const [teacher_dept, setTeacher_dept] = useState('')
-    const [course_price , setCourseprice] = useState('')
+    const [course_price, setCourseprice] = useState('')
     const [image, setImage] = useState(null)
     // const [file_resource, setFile] = useState(null)
 
@@ -42,13 +43,13 @@ const Addproduct = () => {
         })
         return data;
     }
-   
+
 
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         const image = await convertToBase64(file)
         setImage(image);
-         console.log(image);
+        console.log(image);
     };
 
     // const handlefile_resurce = async (e) => {
@@ -63,19 +64,19 @@ const Addproduct = () => {
         console.log(course_description);
 
         // alert("submit works")
-        if (courseid === "" || course_name === "" || course_description === "" || course_review === "" || teacher_name === "" || teacher_dept === ""  || image === "") {
+        if (courseid === "" || course_name === "" || course_description === "" || course_review === "" || teacher_name === "" || teacher_dept === "" || image === "") {
             swal("Opps!", "Please fill out all required fields!", "error");
         }
 
         else {
             try {
-                 await axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_description, course_review, videos, teacher_name, teacher_dept,course_price, image })
-             
-                 .then(res => {
-                            console.log(res);
-                            swal("yeah", "Product sucessfully inserted!", "success");
-                        })
-                
+                await axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_description, course_review, videos, teacher_name, teacher_dept, course_price, image })
+
+                    .then(res => {
+                        console.log(res);
+                        swal("yeah", "Product sucessfully inserted!", "success");
+                    })
+
             } catch (error) {
                 console.error('Error:', error);
                 swal("Opps!", "Not inserted !", "error");
@@ -140,8 +141,6 @@ const Addproduct = () => {
                                             onChange={e => setCoursename(e.target.value)}
 
                                         />
-
-
                                     </div>
 
                                     <div className="mb-3">
@@ -163,7 +162,7 @@ const Addproduct = () => {
                                             name="course_description" // Set editor content
                                             value={course_description}
                                             onChange={(value) => setCourse_description(value)}
-                                            
+
                                         />
 
 
@@ -188,6 +187,22 @@ const Addproduct = () => {
                                     <div className="mb-3">
                                         <div className='row'>
                                             <div className='col-6'>
+                                                <CFormLabel htmlFor="exampleFormControlInput3">What we will learn<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
+                                            </div>
+                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit </span></div>
+                                        </div>
+                                        <ReactQuill
+                                            theme="snow" // Specify theme 
+                                            name="wewilllearn" // Set editor content
+                                            value={wewilllearn}
+                                            onChange={(value) => setWewilllearn(value)}
+
+                                        />
+                                    </div>
+                                    
+                                    <div className="mb-3">
+                                        <div className='row'>
+                                            <div className='col-6'>
                                                 <CFormLabel htmlFor="exampleFormControlInput6">Total Video<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
                                             </div>
                                             <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit total video</span></div>
@@ -200,9 +215,6 @@ const Addproduct = () => {
                                             onChange={e => setVideos(e.target.value)}
                                         />
                                     </div>
-
-
-
                                     <div className="mb-3">
                                         <CFormLabel htmlFor="exampleFormControlInput5">course image<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
                                         <CFormInput
@@ -210,9 +222,7 @@ const Addproduct = () => {
                                             name='image'
                                             id="exampleFormControlInput5"
                                             accept="image/*"
-
                                             onChange={handleFileChange}
-
                                         />
 
                                     </div>
@@ -220,15 +230,14 @@ const Addproduct = () => {
                                         {image ? <img width={400} height={300} src={image} /> : <img width={150} height={150} src={uploadpic} />}
                                     </div>
 
-
                                 </div>
                                 <div className='col-lg-6'>
                                     <div className="mb-3">
                                         <div className='row'>
                                             <div className='col-6'>
-                                                <CFormLabel htmlFor="exampleFormControlInput6">Course chapters<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
+                                                <CFormLabel htmlFor="exampleFormControlInput6">Sections<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
                                             </div>
-                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><Link to='/addchapter'><span className='ms-2 fw-bold me-3'>Add chapter</span></Link></div>
+                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><Link to='/addsection' className='text-decoration-none'><span className='ms-2 fw-bold me-3'>Add section</span></Link></div>
                                         </div>
                                         <ul className='border me-3 border_ul'>
                                             <li>Introduction</li>
@@ -260,7 +269,6 @@ const Addproduct = () => {
                                             </div>
                                             <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit dept</span></div>
                                         </div>
-
                                         <CFormInput
                                             type="text"
                                             name='teacher_dept'
@@ -273,11 +281,9 @@ const Addproduct = () => {
                                         <div className='row'>
                                             <div className='col-6'>
                                                 <CFormLabel htmlFor="exampleFormControlInput6">Course price<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-
                                             </div>
                                             <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit price</span></div>
                                         </div>
-
                                         <CFormInput
                                             type="text"
                                             name='course_price'
@@ -287,10 +293,7 @@ const Addproduct = () => {
                                         />
                                     </div>
                                     <div className="mb-3">
-
                                         <CFormLabel htmlFor="exampleFormControlInput6">Course category<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-
-
                                         <CFormSelect className=" me-2" aria-label="Default select example">
                                             <option>Select one category</option>
                                             <option value="music">Music</option>
@@ -305,8 +308,6 @@ const Addproduct = () => {
                                             type="file"
                                             name='file_resource'
                                             id="exampleFormControlInput7"
-
-                                            
                                         />
                                         {/* <div className='text-center mt-2' >
                                             {file_resource ? <video
@@ -317,25 +318,17 @@ const Addproduct = () => {
                                             /> : <img width={150} height={150} src={uploadpic} />}
                                         </div> */}
                                     </div>
-
-
                                 </div>
                             </div>
                             <div className='text-center'>
                                 <CButton as="input" className='btn w-25' type="submit" color="primary" value="Submit" onClick={handleSubmit} />
                             </div>
                         </CForm>
-
-
-
                     </CCard>
                 </CCol>
-
             </CRow>
-
             <CCardFooter></CCardFooter>
         </>
     )
 }
-
 export default Addproduct

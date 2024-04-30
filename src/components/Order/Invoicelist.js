@@ -1,33 +1,46 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
+import { useRef } from 'react'
+import {useReactToPrint} from 'react-to-print'
 
 const Invoicelist = () => {
+  const invoicepdf = useRef();
+
+  const generatePDF= useReactToPrint({
+    content: ()=>invoicepdf.current,
+    documentTitle:"Invoice",
+    onAfterPrint:()=>alert("pdf succesfully saved")
+  });
+
+  
   return (
     <>
       <div className='invoice'>
 
 
         <div className="container">
-          <div className="row">
+        <div className='invoice-action text-end'>
+                    <a className='btn btn-primary'onClick={generatePDF} ><i className="fa fa-print"></i></a>
+                  </div>
+          <div className="row mt-2">
             <div className="col-lg-12">
-              <div className="card">
+              <div ref={invoicepdf} style={{width:"100%"}}>
+              <div className="card mb-4">
                 <div className="card-body">
                   <div className='row'>
                   
-                  <div className="col invoice-title text-start">
+                  <div className="invoice-title text-start">
 
                     <div className="mb-4">
                       <h2 className="mb-1 ">Synthosphere Academy</h2>
                     </div>
-                    <div className="text-muted">
+                    <div >
                       <p className="mb-1">3184 Spruce Drive Pittsburgh, PA 15201</p>
                       <p className="mb-1"><i className="uil uil-envelope-alt me-1"></i> xyz@987.com</p>
                       <p><i className="uil uil-phone me-1"></i> 012-345-6789</p>
                     </div>
                   </div>
-                  <div className=' col invoice-action text-end'>
-                    <a className='btn btn-primary' ><i className="fa fa-print"></i></a>
-                  </div>
+                  
                   </div>
                   
 
@@ -35,7 +48,7 @@ const Invoicelist = () => {
 
                   <div className="row">
                     <div className="col-sm-6">
-                      <div className="text-muted">
+                      <div>
                         <h5 className="font-size-16 mb-3">Billed To:</h5>
                         <h5 className="font-size-15 mb-2">Preston Miller</h5>
                         <p className="mb-1">4068 Post Avenue Newfolden, MN 56738</p>
@@ -45,7 +58,7 @@ const Invoicelist = () => {
                     </div>
 
                     <div className="col-sm-6">
-                      <div className="text-muted text-sm-end">
+                      <div className=" text-sm-end">
                         <div>
                           <h5 className="font-size-15 mb-1">Invoice No:</h5>
                           <p>#DZ0112</p>
@@ -70,80 +83,77 @@ const Invoicelist = () => {
                     <div className="table-responsive">
                       <table className="table align-middle table-nowrap table-centered mb-0">
                         <thead>
-                          <tr>
+                          <tr className='text-center'>
                             <th >No.</th>
                             <th>Item</th>
                             <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Payment method</th>
                             <th className="text-end">Total</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th scope="row">01</th>
+                          <tr className='text-center'>
+                            <td scope="row">01</td>
                             <td>
                               <div>
-                                <h5 className="text-truncate font-size-14 mb-1">Black Strap A012</h5>
-                                <p className="text-muted mb-0">Watch, Black</p>
+                                <h6 className="text-truncate mb-1">Basic Guitar Lessons</h6>
+                                {/* <p className="text-muted mb-0">Watch, Black</p> */}
                               </div>
                             </td>
-                            <td>$ 245.50</td>
-                            <td>1</td>
-                            <td className="text-end">$ 245.50</td>
+                            <td>599/-</td>
+                            <td >UPI</td>
+                            <td className="text-end">599</td>
+                          </tr>
+
+                          <tr className='text-center'>
+                            <td scope="row">02</td>
+                            <td>
+                              <div>
+                                <h6 className="text-truncate mb-1">Yoga master class</h6>
+                                {/* <p className="text-muted mb-0">Watch, Gold</p> */}
+                              </div>
+                            </td>
+                            <td>699/-</td>
+                            <td className='ms-2'>UPI</td>
+                            <td className="text-end">699</td>
                           </tr>
 
                           <tr>
-                            <th scope="row">02</th>
-                            <td>
-                              <div>
-                                <h5 className="text-truncate font-size-14 mb-1">Stainless Steel S010</h5>
-                                <p className="text-muted mb-0">Watch, Gold</p>
-                              </div>
-                            </td>
-                            <td>$ 245.50</td>
-                            <td>2</td>
-                            <td className="text-end">$491.00</td>
-                          </tr>
-
-                          <tr>
-                            <th scope="row" colSpan="4" className="text-end">Sub Total</th>
-                            <td className="text-end">$732.50</td>
+                            <th scope="row" colSpan="4" className="text-end">Sub Total :</th>
+                            <td className="text-end">1298</td>
                           </tr>
 
                           <tr>
                             <th scope="row" colSpan="4" className="border-0 text-end">
                               Discount :</th>
-                            <td className="border-0 text-end">- $25.50</td>
+                            <td className="border-0 text-end">- 100</td>
                           </tr>
+
+                          
 
                           <tr>
                             <th scope="row" colSpan="4" className="border-0 text-end">
-                              Shipping Charge :</th>
-                            <td className="border-0 text-end">$20.00</td>
+                              Tax :</th>
+                            <td className="border-0 text-end">100</td>
                           </tr>
 
                           <tr>
-                            <th scope="row" colSpan="4" className="border-0 text-end">
-                              Tax</th>
-                            <td className="border-0 text-end">$12.00</td>
-                          </tr>
-
-                          <tr>
-                            <th scope="row" colSpan="4" className="border-0 text-end">Total</th>
-                            <td className="border-0 text-end"><h4 className="m-0 fw-semibold">$739.00</h4></td>
+                            <th scope="row" colSpan="4" className="border-0 text-end">Total(Rs):</th>
+                            <td className="border-0 text-end"><h6 className="m-0 fw-semibold">1298</h6></td>
                           </tr>
 
                         </tbody>
                       </table>
                     </div>
-                    <div className="d-print-none mt-4">
+                    {/* <div className="d-print-none mt-4">
                       <div className="float-end">
           
-                        <a href="#" className="btn btn-primary btn-lg">Send</a>
+                        <a href="#" className="btn btn-lg btn-primary ">Send</a>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>
