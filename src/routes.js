@@ -11,13 +11,15 @@ const Viewuserlist = React.lazy(() => import('./components/Viewuserlist'))
 const Order = React.lazy(() => import('./components/Order/Orders'))
 const Invoice = React.lazy(() => import('./components/Order/Invoice'))
 const Invoicelist = React.lazy(() => import('./components/Order/Invoicelist'))
+const Adduser = React.lazy(() => import('./components/Adduser'))
+const Offlineuser = React.lazy(() => import('./components/Offlineusers'))
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
 // Base
 // Buttons
-const Buttons = React.lazy(() => import('./views/buttons/buttons/Buttons'))
+
 const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
 const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns'))
 
@@ -55,10 +57,12 @@ const routes = [
   { path: '/addblog', name: 'Addblog', element: Addblog },
   { path: '/allblog', name: 'Allblog', element: Allblog },
   { path: '/userlist', name: 'Userlist', element: Userlist },
-  { path: '/viewuserlist', name: 'Viewuserlist', element: Viewuserlist },
+  { path: '/viewuserlist/:id', name: 'Viewuserlist', element: Viewuserlist },
   { path: '/order', name: 'order', element: Order },
   { path: '/invoice', name: 'invoice', element: Invoice },
   { path: '/invoicelist', name: 'invoicelist', element: Invoicelist },
+  { path: '/adduser', name: 'Adduser', element: Adduser },
+  { path: '/Offlineuser', name: 'Offlineuser', element: Offlineuser },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },

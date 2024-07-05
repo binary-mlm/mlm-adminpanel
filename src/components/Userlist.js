@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
+import React,{ useState, useEffect } from 'react'
 import {
     CTable,
     CTableBody,
@@ -9,12 +9,29 @@ import {
     CTableRow,
 } from '@coreui/react'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Userlist = () => {
+    const [userdata, setuserdata] = useState([])
+    useEffect(() =>{
+        axios.get('http://localhost:3000/api/auth/getuser')
+        .then(userdata => setuserdata(userdata.data.data))
+        .catch(err => console.log(err))
+       
+    }, []);
+    
     return (
         <>
             <div className='fw-bold'>
-                <h3>All Users:-</h3></div>
+                <div className='row'>
+                    <div className='col'>
+                    <h3>All Users</h3>
+                    </div>
+                    {/* <div className='col text-end'>
+                      <Link to="/adduser"><button className=' btn btn-success btn-md' >ADD USER</button></Link>  
+                    </div> */}
+                </div>
+                </div>
             <CTable  responsive="sm" color="dark" className='mt-2'>
                 <CTableHead align="middle">
                     <CTableRow  >
@@ -27,7 +44,32 @@ const Userlist = () => {
                     </CTableRow>
                 </CTableHead>
                 <CTableBody align="middle" >
-                    <CTableRow active align="middle">
+                {
+              userdata.map((user , index) => {
+                return <CTableRow active key={index} >
+                  <CTableDataCell >{user.fullname}</CTableDataCell>
+                    <CTableDataCell>{user._id}</CTableDataCell>
+                    <CTableDataCell>{user.email}</CTableDataCell>
+                    <CTableDataCell>{user.phoneno}</CTableDataCell>
+                    <CTableDataCell className='col-1'>
+                            <div className="form-check form-switch ms-4">
+                                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
+                            </div>
+                        </CTableDataCell>
+                        <CTableDataCell className='col-1'>
+                            <div className='d-flex'>
+                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
+                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
+
+                            </div>
+                            
+                        </CTableDataCell>
+
+                </CTableRow>
+              })
+             }
+
+                    {/* <CTableRow active align="middle">
                         <CTableDataCell className='col-2 '>example</CTableDataCell>
                         <CTableDataCell className='col-3'>7896541230</CTableDataCell>
                         <CTableDataCell className='col-3'>Example@gmail.com</CTableDataCell>
@@ -63,26 +105,10 @@ const Userlist = () => {
 
                             </div>
                         </CTableDataCell>
-                    </CTableRow>
-                    <CTableRow active align="middle">
-                        <CTableDataCell className='col-2 '>example</CTableDataCell>
-                        <CTableDataCell className='col-3'>7896541230</CTableDataCell>
-                        <CTableDataCell className='col-3'>Example@gmail.com</CTableDataCell>
-                        <CTableDataCell  className='col-2'>8584062451</CTableDataCell>
-                        <CTableDataCell className='col-1'>
-                            <div className="form-check form-switch ms-4">
-                                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
-                            </div>
-                        </CTableDataCell>
-                        <CTableDataCell className='col-1'>
-                        <div className='d-flex'>
-                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
-                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
-
-                            </div>
-                        </CTableDataCell>
-                    </CTableRow>
-
+                    </CTableRow> */}
+                    
+                    
+                    
                 </CTableBody>
             </CTable>
 

@@ -24,17 +24,23 @@ const Login = () => {
   const [username , setusername] = useState('');
   const [password , setpassword] = useState('');
   const navigate = useNavigate();
+  const token = 'H-iBBKtdo-9gr80UCAxoWI2oljM9yIuiAfejreeosPA';
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
    
 
     if (username === "" || password === "") {
       swal("Opps!", "Please fill out all required fields!", "error");
     }
     else {
-      event.preventDefault();
+     
+     
         //  alert("submit");
-      axios.post('http://localhost:8000/api/v1/login', { username, password })
+      axios.post('http://localhost:3000/api/auth/admin', { username, password },config)
         .then(res => {
           console.log(res);
 

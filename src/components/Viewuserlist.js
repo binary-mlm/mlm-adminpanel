@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { useState, React } from 'react'
 import {
-    CCardFooter,
+   
     CCard,
     CFormInput,
     CCol,
@@ -15,17 +15,18 @@ import {
 import { Link } from 'react-router-dom';
 import pic1 from '../assets/images/login1.jpg';
 
-
 const Viewuserlist = () => {
-    const [user, setUser] = useState({
-        Name: 'Srijani Banerjee',
-        email: 'srijani@example.com',
-        dateofbirth: "24/06/2024",
-        city: "Howrah",
-        State: "West Bengal",
-        username:"srijani@123"
-        // Add more fields as needed
-    });
+    
+    // const [user, setUser] = useState({
+    //     Name: 'Srijani Banerjee',
+    //     email: 'srijani@example.com',
+    //     dateofbirth: "24/06/2024",
+    //     city: "Howrah",
+    //     State: "West Bengal",
+    //     username:"srijani@123"
+    //     // Add more fields as needed
+    // });
+    
     return (
         <>
             <CRow>
