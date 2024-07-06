@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import img from '../assets/images/login2.png';
 import {
     CTable,
@@ -9,9 +9,16 @@ import {
     CTableHeaderCell,
     CTableRow,
   } from '@coreui/react'
+  import axios from 'axios';
 
 const Allblog = () => {
-    const [blog , setBlog] = useState([])
+    const [blog , setBlog] = useState([]);
+    useEffect(() =>{
+      axios.get('http://localhost:3000/api/v1/get_blog')
+      .then(blog => setBlog(blog.data.data))
+      .catch(err => console.log(err))
+     
+  }, []);
   return (
     <>
     <div className='fw-bold'>
@@ -26,7 +33,7 @@ const Allblog = () => {
           </CTableRow>
         </CTableHead>
         <CTableBody align="middle">
-        <CTableRow active align="middle" >
+        {/* <CTableRow active align="middle" >
         <CTableDataCell className='col-3'>example1</CTableDataCell>
                 <CTableDataCell className='col-5' >exampleghghghgghgfshgshghggfgghg</CTableDataCell>
                 <CTableDataCell className='col-3'><img width={150}  height={150} src={img} /></CTableDataCell>
@@ -49,20 +56,20 @@ const Allblog = () => {
                 <CTableDataCell align=''>
                   <a><i className="fa fa-edit ms-2 editicon"></i></a> 
                   <a><i className="fa fa-trash-o ms-3 deleteicon"></i></a></CTableDataCell>
-                </CTableRow>
-         {/* {
-          productdata.map((blog , index) => {
+                </CTableRow> */}
+         {
+          blog.map((blog , index) => {
             return <CTableRow active key={index} >
-              <CTableDataCell >{blog.course_id}</CTableDataCell>
-                <CTableDataCell>{blog.course_name}</CTableDataCell>
+              <CTableDataCell >{blog.blogtitle}</CTableDataCell>
+                <CTableDataCell>{blog.blogtitle}</CTableDataCell>
                 
                 
-                <CTableDataCell><img width={100}  height={100} src={product.image}/></CTableDataCell>
+                <CTableDataCell><img width={100}  height={100} src={blog.image}/></CTableDataCell>
                 <CTableDataCell><i className="fa fa-edit"></i></CTableDataCell>
 
             </CTableRow>
           })
-         } */}
+         }
         </CTableBody>
       </CTable>
       </>
