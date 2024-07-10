@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react'
+import React , { useState, useEffect }from 'react'
 import {
     CTable,
     CTableBody,
@@ -8,8 +8,16 @@ import {
     CTableHeaderCell,
     CTableRow,
 } from '@coreui/react'
+import axios from 'axios';
 
 const Orders = () => {
+    const [payment,setpayment] = useState([]);
+      useEffect(() =>{
+      axios.get('http://localhost:3000/api/auth/getpayment')
+      .then(payment => setpayment(payment.data.data))
+      .catch(err => console.log(err))
+     
+  }, []);
   return (
     <>
     <div className='fw-bold'>
@@ -18,49 +26,30 @@ const Orders = () => {
     <CTable color="dark" className='mt-2' responsive="sm">
                 <CTableHead align="middle">
                     <CTableRow  >
-                        <CTableHeaderCell scope="col" className='col-2' >order_id</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>User_name</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>Course name</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-2'>category</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-2' >Razorpay_order_id</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-2'>Student_name</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-2'>phoneno</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-2'>Course name</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-1'>amount</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-3'>razorpay_payment_id</CTableHeaderCell>
                     </CTableRow>
                 </CTableHead>
                 <CTableBody align="middle" >
-                    <CTableRow active align="middle">
-                        <CTableDataCell className='col-2 '>789654123</CTableDataCell>
-                        <CTableDataCell className='col-3'>Srijani Banerjee</CTableDataCell>
-                        <CTableDataCell className='col-3'>Introduction to blockchain</CTableDataCell>
-                        <CTableDataCell  className='col-2'>blockchain</CTableDataCell>
+                {
+                    payment.map((order) => {
+                    return <CTableRow active align="middle" key={order._id} >
+                        <CTableDataCell className='col-2 '>{order.razorpay_order_id}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-2'>{order.fullname}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-2'>{order.phoneno}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-2'>{order.course}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-1'>{order.amount}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-3'>{order.razorpay_payment_id}</CTableDataCell>
                      
-                        <CTableDataCell className='col-1'>
-                            5000/-
-                            
-                        </CTableDataCell>
-                    </CTableRow>
-                    <CTableRow active align="middle">
-                        <CTableDataCell className='col-2 '>789654123</CTableDataCell>
-                        <CTableDataCell className='col-3'>Srijani Banerjee</CTableDataCell>
-                        <CTableDataCell className='col-3'>Introduction to blockchain</CTableDataCell>
-                        <CTableDataCell  className='col-2'>blockchain</CTableDataCell>
-                        <CTableDataCell className='col-1'>
-                            5000/-
-                            
-                        </CTableDataCell>
-                    </CTableRow>
-                    <CTableRow active align="middle">
-                        <CTableDataCell className='col-2 '>789654123</CTableDataCell>
-                        <CTableDataCell className='col-3'>Srijani Banerjee</CTableDataCell>
-                        <CTableDataCell className='col-3'>Introduction to blockchain</CTableDataCell>
-                        <CTableDataCell  className='col-2'>blockchain</CTableDataCell>
-                     
-                        <CTableDataCell className='col-1'>
-                            5000/-
-                            
-                        </CTableDataCell>
                     </CTableRow>
                     
+                    })
+                }
                     
-
                 </CTableBody>
             </CTable>
 
