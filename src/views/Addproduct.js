@@ -19,6 +19,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import Addsection from './Addsection'
 const Addproduct = () => {
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
   // const [courseid, setCourseid] = useState('')
   const [course_name, setCoursename] = useState('')
   const [course_description, setCourse_description] = useState('')
@@ -30,6 +31,7 @@ const Addproduct = () => {
   const [course_price, setCourseprice] = useState('')
   const [course_category, setcoursecategory] = useState('')
   const [image, setImage] = useState(null)
+  const [introduction_video , setIntroduction_video] = useState('')
   // const [file_resource, setFile] = useState(null)
   const [sections, setSections] = useState([{ section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] }])
 
@@ -92,6 +94,7 @@ const Addproduct = () => {
       teacher_name === '' ||
       total_video === '' ||
       course_price === '' ||
+      introduction_video == "" ||
       image === ''
     ) {
       swal('Opps!', 'Please fill out all required fields!', 'error')
@@ -99,7 +102,7 @@ const Addproduct = () => {
       
       try {
         await axios
-          .post('http://localhost:3000/api/v1/course', {
+          .post(ROOT_URL+'/api/v1/course', {
             course_name,
             course_description,
             wewilllearn,
@@ -108,6 +111,7 @@ const Addproduct = () => {
             course_category,
             course_price,
             image,
+            introduction_video,
             sections
           })
 
@@ -317,6 +321,29 @@ const Addproduct = () => {
                     />
                   </div>
                   <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput7">
+                          Introduction Video                          
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                      <div className="col-6 text-end">
+                        <i className="fa fa-edit ms-2 mt-2"></i>
+                        <span className="ms-2 fw-bold me-3">Edit introduction video</span>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      name="introduction_video"
+                      id="exampleFormControlInput7"
+                      placeholder="Enter video link"
+                      onChange={(e) => setIntroduction_video(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
                     <CFormLabel htmlFor="exampleFormControlInput6">
                       Course category
                       <sup>
@@ -336,7 +363,7 @@ const Addproduct = () => {
                   </div>
 
                   <div className="mb-3">
-                    <CFormLabel htmlFor="exampleFormControlInput5">
+                    <CFormLabel htmlFor="exampleFormControlInput7">
                       course image
                       <sup>
                         <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
@@ -345,7 +372,7 @@ const Addproduct = () => {
                     <CFormInput
                       type="file"
                       name="image"
-                      id="exampleFormControlInput5"
+                      id="exampleFormControlInput7"
                       accept="image/*"
                       onChange={handleFileChange}
                     />
@@ -377,57 +404,8 @@ const Addproduct = () => {
                       onChaptersChange={handleChaptersChange}
                     />
                   ))}
-
-                  {/* <div className="mb-3">
-                                        <div className='row'>
-                                            <div className='col-6'>
-                                                <CFormLabel htmlFor="exampleFormControlInput6">Sections<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-                                            </div>
-                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><Link to='/addsection' className='text-decoration-none'><span className='ms-2 fw-bold me-3'>Add section</span></Link></div>
-                                        </div>
-                                        <ul className='border me-3 border_ul'>
-                                            <li>Introduction</li>
-                                            <li>Introduction</li>
-                                            <li>Introduction</li>
-                                        </ul>
-                                    </div> */}
-
-                  {/* <div className="mb-3">
-                                        <div className='row'>
-                                            <div className='col-6'>
-                                                <CFormLabel htmlFor="exampleFormControlInput5">Teachers dept<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-
-                                            </div>
-                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit dept</span></div>
-                                        </div>
-                                        <CFormInput
-                                            type="text"
-                                            name='teacher_dept'
-                                            id="exampleFormControlInput5"
-                                            placeholder="Enter Teacher's dept"
-                                            onChange={e => setTeacher_dept(e.target.value)}
-                                        />
-                                    </div> */}
-
-                 
+ 
                   
-                  {/* <div className="mb-3">
-
-                                        <CFormLabel htmlFor="exampleFormControlInput7">Resources & Attachments</CFormLabel>
-                                        <CFormInput
-                                            type="file"
-                                            name='file_resource'
-                                            id="exampleFormControlInput7"
-                                        />
-                                        <div className='text-center mt-2' >
-                                            {file_resource ? <video
-
-                                                src={file_resource}
-                                                width="500"
-                                                height="400"
-                                            /> : <img width={150} height={150} src={uploadpic} />}
-                                        </div>
-                                    </div> */}
                 </div>
               </div>
               <div className="text-center">

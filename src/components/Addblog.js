@@ -20,22 +20,26 @@ import 'react-quill/dist/quill.snow.css'
 const Addblog = () => {
   const [blogtitle, setBlogtitle] = useState('')
   const [blogdescription, setBlogdescription] = useState('')
+  const [shortdescription , setshortdescription] = useState('')
   const [image, setImage] = useState(null)
 
   const handleSubmit = async (event) => {
-    console.log(blogdescription)
+    event.preventDefault()
+    // console.log(blogdescription)
+    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
 
     // alert("submit works")
     if (
-        blogtitle === '' || blogdescription === '' ||  image === '') {
+        blogtitle === '' || blogdescription === '' || shortdescription === "" || image === '') {
       swal('Opps!', 'Please fill out all required fields!', 'error')
     } else {
-      event.preventDefault()
+     
       try {
         await axios
-          .post('http://localhost:3000/api/v1/blog', {
+          .post(ROOT_URL+'/api/v1/blog', {
             blogtitle,
             blogdescription,
+            shortdescription,
             image })
             .then((res) => {
             console.log(res)
@@ -49,7 +53,7 @@ const Addblog = () => {
   }
 
   const convertToBase64 = (file) => {
-    console.log(file)
+    // console.log(file)
     const reader = new FileReader()
     reader.readAsDataURL(file)
     const data = new Promise((resolve, reject) => {
@@ -126,6 +130,28 @@ const Addblog = () => {
                 </div>
               </div>
               <div className="col-lg-6">
+              <div className="mb-3">
+                  <div className="row">
+                    <div className="col-6">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                        Blog Short description
+                        <sup>
+                          <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                        </sup>
+                      </CFormLabel>
+                    </div>
+                    <div className="col-6 text-end">
+                      <i className="fa fa-edit ms-2 mt-2"></i>
+                      <span className="ms-2  me-3 fw-bold">Edit description</span>
+                    </div>
+                  </div>
+                  <ReactQuill
+                    theme="snow" // Specify theme
+                    name="blogshortdescription" // Set editor content
+                    value={shortdescription}
+                    onChange={(value) => setshortdescription(value)}
+                  />
+                </div>
                 <div className="mb-3">
                   <CFormLabel htmlFor="exampleFormControlInput5">
                     Blog image

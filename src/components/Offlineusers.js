@@ -12,9 +12,9 @@ import {
   import axios from 'axios';
   const Offlineusers = () => {
     const [student , setStudent] = useState([]);
-   
+    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     useEffect(() =>{
-        axios.get('http://localhost:3000/api/auth/getofflineuser')
+        axios.get( ROOT_URL+'/api/auth/getofflineuser')
         .then(student => setStudent(student.data.data))
         .catch(err => console.log(err))
        

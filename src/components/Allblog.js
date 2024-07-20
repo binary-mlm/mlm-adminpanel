@@ -12,9 +12,10 @@ import {
   import axios from 'axios';
 
 const Allblog = () => {
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     const [blog , setBlog] = useState([]);
     useEffect(() =>{
-      axios.get('http://localhost:3000/api/v1/get_blog')
+      axios.get(ROOT_URL+'/api/v1/get_blog')
       .then(blog => setBlog(blog.data.data))
       .catch(err => console.log(err))
      
@@ -26,10 +27,11 @@ const Allblog = () => {
         <CTable responsive="sm" color="dark">
         <CTableHead align="middle">
           <CTableRow  >
-            <CTableHeaderCell scope="col" className='col-3' >Blog title</CTableHeaderCell>
-            <CTableHeaderCell scope="col" className='col-5'>Blog Desdription</CTableHeaderCell>
-            <CTableHeaderCell scope="col" className='col-3'>Blog image</CTableHeaderCell>
-            <CTableHeaderCell scope="col" className='col-1'>Blog Action</CTableHeaderCell>
+            <CTableHeaderCell scope="col" className='col-2' >Blog title</CTableHeaderCell>
+            <CTableHeaderCell scope="col" className='col-6'>Blog Short Desdription</CTableHeaderCell>
+            {/* <CTableHeaderCell scope="col" className='col-3'>Blog ShortDesdription</CTableHeaderCell> */}
+            <CTableHeaderCell scope="col" className='col-2'>Blog image</CTableHeaderCell>
+            <CTableHeaderCell scope="col" className='col-2'>Blog Action</CTableHeaderCell>
           </CTableRow>
         </CTableHead>
         <CTableBody align="middle">
@@ -58,15 +60,20 @@ const Allblog = () => {
                   <a><i className="fa fa-trash-o ms-3 deleteicon"></i></a></CTableDataCell>
                 </CTableRow> */}
          {
-          blog.map((blog , index) => {
-            return <CTableRow active key={index} >
+          blog.map((blog) => {
+            return <CTableRow active key={blog._id} >
               <CTableDataCell >{blog.blogtitle}</CTableDataCell>
-                <CTableDataCell>{blog.blogtitle}</CTableDataCell>
+                <CTableDataCell  dangerouslySetInnerHTML={{
+                    __html: blog.shortdescription
+                  }}></CTableDataCell>
                 
                 
                 <CTableDataCell><img width={100}  height={100} src={blog.image}/></CTableDataCell>
-                <CTableDataCell><i className="fa fa-edit"></i></CTableDataCell>
+                <CTableDataCell className='col-2'><div className='d-flex justify-content-center'>
+                <a><i className="fa fa-trash-o  editicon"></i></a>
+             <i className="fa fa-eye editicon ms-4"></i>
 
+              </div></CTableDataCell>
             </CTableRow>
           })
          }

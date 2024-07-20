@@ -12,9 +12,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Userlist = () => {
+    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     const [userdata, setuserdata] = useState([])
     useEffect(() =>{
-        axios.get('http://localhost:3000/api/auth/getuser')
+        axios.get(ROOT_URL+'/api/auth/getuser')
         .then(userdata => setuserdata(userdata.data.data))
         .catch(err => console.log(err))
        

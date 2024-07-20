@@ -11,9 +11,10 @@ import {
 import axios from 'axios';
 
 const Orders = () => {
+    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     const [payment,setpayment] = useState([]);
       useEffect(() =>{
-      axios.get('http://localhost:3000/api/auth/getpayment')
+      axios.get(ROOT_URL+'/api/auth/getpayment')
       .then(payment => setpayment(payment.data.data))
       .catch(err => console.log(err))
      
