@@ -40,17 +40,27 @@ const _nav = [
   },
   {
     component: CNavTitle,
+    name: 'Teacher',
+  },
+  {
+    component: CNavItem,
+    name: 'Add Teacher',
+    to: '/Addteacher',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
     name: 'Blog',
   },
   {
     component: CNavItem,
-    name: 'Add Blog',
+    name: 'Addblog',
     to: '/Addblog',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'All Blogs',
+    name: 'Allblog',
     to: '/Allblog',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
@@ -76,8 +86,14 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Orders',
+    name: ' Offline Orders',
     to: '/order',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: ' Online Orders',
+    to: '/onlineorder',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {

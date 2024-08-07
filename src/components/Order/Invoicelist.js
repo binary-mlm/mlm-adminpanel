@@ -1,10 +1,28 @@
 /* eslint-disable prettier/prettier */
 import React from 'react'
-import { useRef } from 'react'
+import { useRef,useState, useEffect } from 'react'
 import {useReactToPrint} from 'react-to-print'
+import { useParams } from'react-router-dom';
+import axios from 'axios';
+import logo from '../../Image/roundlogo.png'
+
 
 const Invoicelist = () => {
   const invoicepdf = useRef();
+const { id } = useParams();
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+  const [invoice,setInvoice] = useState([]);
+  useEffect(() =>{
+  axios.get(ROOT_URL+`/api/auth/orderdetailsbyid/${id}`)
+  .then(invoicepayment=> 
+    {setInvoice(invoicepayment.data.data);
+      console.log(invoicepayment.data.data);
+  
+  })
+  .catch(err => console.log(err))
+ 
+}, []);
+const formattedDate = new Date(invoice.createdAt).toLocaleDateString();
 
   const generatePDF= useReactToPrint({
     content: ()=>invoicepdf.current,
@@ -24,21 +42,26 @@ const Invoicelist = () => {
                   </div>
           <div className="row mt-2">
             <div className="col-lg-12">
-              <div ref={invoicepdf} style={{width:"100%"}}>
-              <div className="card mb-4">
+              <div ref={invoicepdf} className='mt-4 ms-5' >
+              <div className="card w-100 mb-4 text-end">
                 <div className="card-body">
                   <div className='row'>
                   
-                  <div className="invoice-title text-start">
+                  <div className="col-sm-6 invoice-title text-start">
 
-                    <div className="mb-4">
-                      <h2 className="mb-1 ">Synthosphere Academy</h2>
+                    <div>
+                      <span className="h2">Synthosphere Academy</span><br/>
+                      <span className='isologo'>(ISO 9001:2015 Certified)</span>
                     </div>
-                    <div >
-                      <p className="mb-1">3184 Spruce Drive Pittsburgh, PA 15201</p>
-                      <p className="mb-1"><i className="uil uil-envelope-alt me-1"></i> xyz@987.com</p>
+                    <div className='mt-4' >
+                      <p className="mb-1"> HB Town, Sodepur,Kolkata</p>
+                      <p className="mb-1"><i className="uil uil-envelope-alt me-1"></i>synthosphereacademy@gmail.com</p>
                       <p><i className="uil uil-phone me-1"></i> 012-345-6789</p>
                     </div>
+                  </div>
+                  <div className='col-sm-6'>
+                  <img className='img-fuild' src={logo} width={160}/>
+
                   </div>
                   
                   </div>
@@ -47,32 +70,38 @@ const Invoicelist = () => {
                   <hr className="my-4" />
 
                   <div className="row">
-                    <div className="col-sm-6">
+                    <div className="col-sm-6 text-start">
+                    
+                    {invoice ? (
                       <div>
                         <h5 className="font-size-16 mb-3">Billed To:</h5>
-                        <h5 className="font-size-15 mb-2">Preston Miller</h5>
-                        <p className="mb-1">4068 Post Avenue Newfolden, MN 56738</p>
-                        <p className="mb-1">PrestonMiller@armyspy.com</p>
-                        <p>001-234-5678</p>
+                        <h5 className="font-size-15 mb-2">{invoice.fullname}</h5>
+                        <p className="mb-1"><span>{invoice.city}</span>, <span>{invoice.state}</span></p>
+                        <p className="mb-1">Email: {invoice.email}</p>
+                        <p>Ph no: {invoice.phoneno}</p>
                       </div>
+                    ) : ('none')}
+                   
+                      
                     </div>
-
+                    {invoice ? (
                     <div className="col-sm-6">
                       <div className=" text-sm-end">
                         <div>
                           <h5 className="font-size-15 mb-1">Invoice No:</h5>
-                          <p>#DZ0112</p>
+                          <p>{invoice._id}</p>
                         </div>
                         <div className="mt-4">
                           <h5 className="font-size-15 mb-1">Invoice Date:</h5>
-                          <p>12 Oct, 2020</p>
+                          <p>{formattedDate}</p>
                         </div>
                         <div className="mt-4">
                           <h5 className="font-size-15 mb-1">Order No:</h5>
-                          <p>#1123456</p>
+                          <p>{invoice.razorpay_order_id}</p>
                         </div>
                       </div>
                     </div>
+                    ) : ('none')}
 
                   </div>
 
@@ -81,76 +110,50 @@ const Invoicelist = () => {
                     <h5 className="font-size-15 text-start">Order Summary</h5>
 
                     <div className="table-responsive">
-                      <table className="table align-middle table-nowrap table-centered mb-0">
+                      <table className="table align-middle  table-centered mb-0">
                         <thead>
                           <tr className='text-center'>
-                            <th >No.</th>
-                            <th>Item</th>
-                            <th>Price</th>
-                            <th>Payment method</th>
-                            <th className="text-end">Total</th>
+                           
+                            <th className='text-start'>Course name</th>
+                            <th  colSpan="4">Price</th>
+                           
+                           
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className='text-center'>
-                            <td scope="row">01</td>
+                        { invoice ?  (
+                          <>
+                          <tr className='text-center' key={invoice._id}>
+                            
                             <td>
                               <div>
-                                <h6 className="text-truncate mb-1">Basic Guitar Lessons</h6>
-                                {/* <p className="text-muted mb-0">Watch, Black</p> */}
+                                <h6 className=" text-start text-truncate mb-1">{invoice.courses}</h6>
+                               
                               </div>
                             </td>
-                            <td>599/-</td>
-                            <td >UPI</td>
-                            <td className="text-end">599</td>
+                            <td  colSpan="4">{invoice.amount}/-</td>
+                           
                           </tr>
-
-                          <tr className='text-center'>
-                            <td scope="row">02</td>
-                            <td>
-                              <div>
-                                <h6 className="text-truncate mb-1">Yoga master class</h6>
-                                {/* <p className="text-muted mb-0">Watch, Gold</p> */}
-                              </div>
-                            </td>
-                            <td>699/-</td>
-                            <td className='ms-2'>UPI</td>
-                            <td className="text-end">699</td>
-                          </tr>
-
-                          <tr>
-                            <th scope="row" colSpan="4" className="text-end">Sub Total :</th>
-                            <td className="text-end">1298</td>
-                          </tr>
-
-                          <tr>
-                            <th scope="row" colSpan="4" className="border-0 text-end">
-                              Discount :</th>
-                            <td className="border-0 text-end">- 100</td>
-                          </tr>
-
-                          
-
-                          <tr>
-                            <th scope="row" colSpan="4" className="border-0 text-end">
-                              Tax :</th>
-                            <td className="border-0 text-end">100</td>
-                          </tr>
-
                           <tr>
                             <th scope="row" colSpan="4" className="border-0 text-end">Total(Rs):</th>
-                            <td className="border-0 text-end"><h6 className="m-0 fw-semibold">1298</h6></td>
+                            <td className="border-0 "><h6 className="fw-semibold text-center">{invoice.amount}/-</h6></td>
                           </tr>
+                          </>
+                        
+                        ) : null
+                        }
+
+                          {/* <tr>
+                            <th scope="row" colSpan="4" className="text-end">Total :</th>
+                            <td className="text-end">1298</td>
+                          </tr> */}
+
+                          
 
                         </tbody>
                       </table>
                     </div>
-                    {/* <div className="d-print-none mt-4">
-                      <div className="float-end">
-          
-                        <a href="#" className="btn btn-lg btn-primary ">Send</a>
-                      </div>
-                    </div> */}
+                    
                   </div>
                 </div>
               </div>

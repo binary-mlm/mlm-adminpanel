@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React,{ useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import {
     CTable,
     CTableBody,
@@ -10,14 +11,27 @@ import {
 } from '@coreui/react'
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 const Userlist = () => {
+    const navigate = useNavigate()
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     const [userdata, setuserdata] = useState([])
     useEffect(() =>{
-        axios.get(ROOT_URL+'/api/auth/getuser')
+        const Admintoken = localStorage.getItem('admintoken');
+        axios.get(ROOT_URL+'/api/auth/getuser',{
+            headers: {
+              Authorization: `Bearer ${Admintoken}`,
+            }
+            })
         .then(userdata => setuserdata(userdata.data.data))
-        .catch(err => console.log(err))
+        .catch((err) => {
+            console.log(err);
+            swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
+            localStorage.removeItem('Admintoken');
+        navigate('/');
+        });
+    
        
     }, []);
     

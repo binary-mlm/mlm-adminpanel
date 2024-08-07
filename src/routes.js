@@ -4,15 +4,20 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Addproduct = React.lazy(() => import('./views/Addproduct'))
 const Addsection = React.lazy(() => import('./views/Addsection'))
 const Addchapter = React.lazy(() => import('./views/Addchapter'))
-const Addblog = React.lazy(() => import('./components/Addblog'))
-const Allblog = React.lazy(() => import('./components/Allblog'))
+const Addblog = React.lazy(() => import('./components/Blogs/Addblog'))
+const Allblog = React.lazy(() => import('./components/Blogs/Allblog'))
+const Editblog = React.lazy(() => import('./components/Blogs/Editblog'))
 const Userlist = React.lazy(() => import('./components/Userlist'))
 const Viewuserlist = React.lazy(() => import('./components/Viewuserlist'))
+const Alluserlist = React.lazy(() => import('./components/Teacher/Alluser'))
+const Viewcourse = React.lazy(() => import('./components/Editcourse'))
 const Order = React.lazy(() => import('./components/Order/Orders'))
+const OnlineOrder = React.lazy(() => import('./components/Order/Onlineorder'))
 const Invoice = React.lazy(() => import('./components/Order/Invoice'))
 const Invoicelist = React.lazy(() => import('./components/Order/Invoicelist'))
 const Adduser = React.lazy(() => import('./components/Adduser'))
 const Offlineuser = React.lazy(() => import('./components/Offlineusers'))
+const Addteacher = React.lazy(() => import('./components/Teacher/Addteacher'));
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
@@ -46,47 +51,34 @@ const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
 const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
 const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
 
-const Widgets = React.lazy(() => import('./views/widgets/Widgets'))
+const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
-  { path: '/addproduct', name: 'Addproduct', element: Addproduct },
+  { path: '/addproduct', name: 'Add Course', element: Addproduct },
   { path: '/addsection', name: 'Addsection', element: Addsection },
   { path: '/addchapter', name: 'Addchapter', element: Addchapter },
+  { path: '/addteacher', name: 'Addteacher', element: Addteacher },
+  { path: '/teacher/alluser', name: 'Alluser', element: Alluserlist },
+
   { path: '/addblog', name: 'Addblog', element: Addblog },
   { path: '/allblog', name: 'Allblog', element: Allblog },
+  { path: '/editblog/:id', name: 'Editblog', element: Editblog },
   { path: '/userlist', name: 'Userlist', element: Userlist },
-  { path: '/viewuserlist/:id', name: 'Viewuserlist', element: Viewuserlist },
+  { path: '/editcourse/:id', name: 'Editcourse', element: Viewcourse },
+  { path: '/viewuserlist', name: 'Viewuserlist', element: Viewuserlist },
+  { path: '/onlineorder', name: 'onlineorder', element: OnlineOrder },
   { path: '/order', name: 'order', element: Order },
   { path: '/invoice', name: 'invoice', element: Invoice },
-  { path: '/invoicelist', name: 'invoicelist', element: Invoicelist },
+  { path: '/invoicelist/:id', name: 'invoicelist', element: Invoicelist },
   { path: '/adduser', name: 'Adduser', element: Adduser },
   { path: '/Offlineuser', name: 'Offlineuser', element: Offlineuser },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
 
-  { path: '/buttons/button-groups', name: 'Button Groups', element: ButtonGroups },
-  { path: '/charts', name: 'Charts', element: Charts },
-  { path: '/forms', name: 'Forms', element: FormControl, exact: true },
-  { path: '/forms/form-control', name: 'Form Control', element: FormControl },
-  { path: '/forms/select', name: 'Select', element: Select },
-  { path: '/forms/checks-radios', name: 'Checks & Radios', element: ChecksRadios },
-  { path: '/forms/range', name: 'Range', element: Range },
-  { path: '/forms/input-group', name: 'Input Group', element: InputGroup },
-  { path: '/forms/floating-labels', name: 'Floating Labels', element: FloatingLabels },
-  { path: '/forms/layout', name: 'Layout', element: Layout },
-  { path: '/forms/validation', name: 'Validation', element: Validation },
-  { path: '/icons', exact: true, name: 'Icons', element: CoreUIIcons },
-  { path: '/icons/coreui-icons', name: 'CoreUI Icons', element: CoreUIIcons },
-  { path: '/icons/flags', name: 'Flags', element: Flags },
-  { path: '/icons/brands', name: 'Brands', element: Brands },
-  { path: '/notifications', name: 'Notifications', element: Alerts, exact: true },
-  { path: '/notifications/alerts', name: 'Alerts', element: Alerts },
-  { path: '/notifications/badges', name: 'Badges', element: Badges },
-  { path: '/notifications/modals', name: 'Modals', element: Modals },
-  { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
+  
   { path: '/widgets', name: 'Widgets', element: Widgets },
 ]
 

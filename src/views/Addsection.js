@@ -68,10 +68,7 @@ const Addsection = ({ section, onSectionChange, onChaptersChange, index }) => {
                           </sup>
                         </CFormLabel>
                       </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2  me-3 fw-bold">Edit title</span>
-                      </div>
+                     
                     </div>
 
                     <CFormInput
@@ -110,22 +107,6 @@ const Addsection = ({ section, onSectionChange, onChaptersChange, index }) => {
     />
   );
 })}
-
-                  {/* <div className="mb-3">
-                                        <div className='row'>
-                                            <div className='col-6'>
-                                                <CFormLabel htmlFor="exampleFormControlInput6">Chapters<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-                                            </div>
-                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><Link to='/addchapter' className='text-decoration-none'><span className='ms-2 fw-bold me-3'>Add Chapter</span></Link></div>
-                                        </div>
-                                        <ul className='border me-3 border_ul'>
-                                            <li>Introduction</li>
-                                            <li>Introduction</li>
-                                            <li>Introduction</li>
-                                        </ul>
-                                    </div>
-                               
-                                </div> */}
                 
               </div>
               <div className="text-center mt-4">

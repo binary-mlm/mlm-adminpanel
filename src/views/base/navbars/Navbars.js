@@ -39,7 +39,7 @@ const CNavbars = () => {
             <CNavbarBrand>NavbarBrand</CNavbarBrand>
             <CCollapse show={visible} navbar>
               <CNavbarNav>
-                <CNavLink>Home</CNavLink>
+                {/* <CNavLink>Home</CNavLink> */}
                 <CNavLink>Link</CNavLink>
               </CNavbarNav>
               <CNavbarNav className="ms-auto">

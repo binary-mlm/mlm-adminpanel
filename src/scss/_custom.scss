@@ -33,3 +33,35 @@ a{
 .fa{
     font-size: 20px;
 }
+.teacher:hover{
+    background-color: rgb(47, 47, 117);
+    color: white;
+}
+.teacher:active{
+    background-color: rgb(44, 44, 187);
+}
+.admin:hover{
+    background-color: rgb(47, 47, 117);
+    color: white;
+}
+.admin:active{
+    background-color: rgb(44, 44, 187);
+}
+.widgetheight{
+    height: 164px;
+}
+.isologo{
+    opacity: 0.5;
+}
+// .tab{
+//     width: 30%;}
+ @media (max-width: 600px) {
+        .cardpic{
+          display: none;
+    
+        }
+        .tab{
+            width: 46%; 
+        }
+      }
+      

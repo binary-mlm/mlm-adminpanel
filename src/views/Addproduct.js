@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useState, React } from 'react'
+import { useState, React, useEffect } from 'react'
 import {
   CCardFooter,
   CCard,
@@ -11,45 +11,55 @@ import {
   CFormLabel,
   CButton,
 } from '@coreui/react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert'
 import uploadpic from '../Image/uploadimage.png'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import Addsection from './Addsection'
+// import teacher from '../../../backend/model/teacher'
 const Addproduct = () => {
-  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+  const navigate = useNavigate()
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
   // const [courseid, setCourseid] = useState('')
   const [course_name, setCoursename] = useState('')
   const [course_description, setCourse_description] = useState('')
   const [wewilllearn, setWewilllearn] = useState('')
   // const [course_review, setCoursereview] = useState('')
   const [total_video, setVideos] = useState('')
-  const [teacher_name, setTeacher_name] = useState('')
+  // const [teacher_name, setTeacher_name] = useState('')
   // const [teacher_dept, setTeacher_dept] = useState('')
   const [course_price, setCourseprice] = useState('')
   const [course_category, setcoursecategory] = useState('')
   const [image, setImage] = useState(null)
-  const [introduction_video , setIntroduction_video] = useState('')
+  const [introduction_video, setIntroduction_video] = useState('')
+  const [selectedTeacher, setSelectedTeacher] = useState('')
+  const [teachers, setTeachers] = useState([])
+  const [teacher_dept, setTeacherdept] = useState([])
   // const [file_resource, setFile] = useState(null)
-  const [sections, setSections] = useState([{ section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] }])
+  const [sections, setSections] = useState([
+    { section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] },
+  ])
 
   //section change
   const handleSectionChange = (index, newSectionData) => {
-    const newSections = [...sections];
-    newSections[index] = newSectionData;
-    setSections(newSections);
-    console.log(newSections);
+    const newSections = [...sections]
+    newSections[index] = newSectionData
+    setSections(newSections)
+    console.log(newSections)
   }
   const handleChaptersChange = (sectionIndex, newChapters) => {
-    const newSections = [...sections];
-    newSections[sectionIndex].chapters = newChapters;
-    setSections(newSections);
-    console.log(newSections);
+    const newSections = [...sections]
+    newSections[sectionIndex].chapters = newChapters
+    setSections(newSections)
+    console.log(newSections)
   }
   const addSection = () => {
-    setSections([...sections, { section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] }]);
+    setSections([
+      ...sections,
+      { section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] },
+    ])
   }
   const convertToBase64 = (file) => {
     console.log(file)
@@ -73,15 +83,24 @@ const Addproduct = () => {
   const handlecourse_categorychange = (event) => {
     setcoursecategory(event.target.value)
   }
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const response = await axios.get(ROOT_URL + '/api/auth/allteacher')
+        setTeachers(response.data)
+      } catch (error) {
+        console.error('Error fetching teachers:', error)
+      }
+    }
 
-  // const handlefile_resurce = async (e) => {
-  //     const file = e.target.files[0];
-  //     const resorce_file = await convertToBase64(file)
-  //     setFile(resorce_file);
-  //     console.log(resorce_file)
-  // }
+    fetchTeachers()
+  }, [])
+
+ 
   //handle submit
   const handleSubmit = async (event) => {
+   
+   
     event.preventDefault()
     console.log(course_description)
     console.log(sections)
@@ -91,50 +110,48 @@ const Addproduct = () => {
       course_name === '' ||
       course_description === '' ||
       wewilllearn === '' ||
-      teacher_name === '' ||
       total_video === '' ||
       course_price === '' ||
-      introduction_video == "" ||
+      teacher_dept === '' ||
+      introduction_video == '' ||
       image === ''
     ) {
       swal('Opps!', 'Please fill out all required fields!', 'error')
     } else {
-      
       try {
+        const teacher = teachers.find((t) => t._id === selectedTeacher)
+        if (teacher) {
+          setTeacherdept(teacher.teacher_dept);
+        }
+        console.log(teacher_dept)
+        console.log(teacher.fullname)
+        console.log(teacher.teacher_dept)
         await axios
-          .post(ROOT_URL+'/api/v1/course', {
+          .post(ROOT_URL + '/api/v1/course', {
             course_name,
             course_description,
             wewilllearn,
             total_video,
-            teacher_name,
+            teacherId: selectedTeacher,
+            teacher_name: teacher.fullname,
+            teacher_dept:teacher.teacher_dept,
             course_category,
             course_price,
             image,
             introduction_video,
-            sections
+            sections,
           })
 
           .then((res) => {
             console.log(res)
             swal('yeah', 'Course is  sucessfully inserted!', 'success')
+            navigate('/dashboard')
           })
       } catch (error) {
         console.error('Error:', error)
         swal('Opps!', 'Not inserted !', 'error')
       }
     }
-    // console.log(image);
-    // axios.post('http://localhost:8000/api/v1/product/new', { courseid, course_name, course_review, videos, teacher_name, teacher_dept, imageData })
-    //     .then(res => {
-    //         console.log(res);
-    //         swal("yeah", "Product sucessfully inserted!", "success");
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //         swal("Opps!", "Not inserted !", "error");
-
-    //     })
   }
 
   return (
@@ -175,10 +192,10 @@ const Addproduct = () => {
                           </sup>
                         </CFormLabel>
                       </div>
-                      <div className="col-6 text-end">
+                      {/* <div className="col-6 text-end">
                         <i className="fa fa-edit ms-2 mt-2"></i>
                         <span className="ms-2 fw-bold me-3">Edit title</span>
-                      </div>
+                      </div> */}
                     </div>
                     <CFormInput
                       type="text"
@@ -198,10 +215,6 @@ const Addproduct = () => {
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
                         </CFormLabel>
-                      </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit description</span>
                       </div>
                     </div>
 
@@ -239,10 +252,6 @@ const Addproduct = () => {
                           </sup>
                         </CFormLabel>
                       </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit </span>
-                      </div>
                     </div>
                     <ReactQuill
                       theme="snow" // Specify theme
@@ -251,6 +260,7 @@ const Addproduct = () => {
                       onChange={(value) => setWewilllearn(value)}
                     />
                   </div>
+                 
                   <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
@@ -261,19 +271,88 @@ const Addproduct = () => {
                           </sup>
                         </CFormLabel>
                       </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit teachers Name</span>
+                    </div>
+                    <CFormSelect
+                      id="teacherSelect"
+                      value={selectedTeacher}
+                      onChange={(e) => {
+                        const value = e.target.value
+                        console.log(`Selected Teacher ID: ${value}`)
+                        setSelectedTeacher(value)
+                      }}
+                    >
+                      <option value="" disabled>
+                        Select a teacher
+                      </option>
+                      {teachers.map((teacher) => (
+                        <option key={teacher._id} value={teacher._id}>
+                          {teacher.fullname}
+                        </option>
+                      ))}
+                    </CFormSelect>
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput4">
+                          Teacher's dept
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
                       </div>
+                    </div>
+                 {
+                  setSelectedTeacher && (
+                     <CFormSelect id="disabledSelect">
+                      <option>{teachers.filter(
+                        (teacher) => teacher._id === selectedTeacher
+                      ).map((teacher) => teacher.teacher_dept)}
+                      </option>
+                    </CFormSelect>
+                     
+                   
+                  )
+                 }
+                  
+
+                    {/* <CFormSelect
+                      id="teacherSelect"
+                      value={selectedTeacher}
+                    >
+                      
+                      {teachers.map((teacher) => (
+                        <option key={teacher._id} value={teacher._id}>
+                          {teacher.teacher_dept}
+                        </option>
+                      ))}
+                    </CFormSelect> */}
+                    
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput2">
+                          Course title
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                      {/* <div className="col-6 text-end">
+                        <i className="fa fa-edit ms-2 mt-2"></i>
+                        <span className="ms-2 fw-bold me-3">Edit title</span>
+                      </div> */}
                     </div>
                     <CFormInput
                       type="text"
-                      name="teacher_name"
-                      id="exampleFormControlInput4"
-                      placeholder="Enter Teacher name"
-                      onChange={(e) => setTeacher_name(e.target.value)}
+                      id="exampleFormControlInput2"
+                      name="course_name"
+                      placeholder="Enter course title"
+                      onChange={(e) => setCoursename(e.target.value)}
                     />
                   </div>
+
                   <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
@@ -284,10 +363,6 @@ const Addproduct = () => {
                           </sup>
                         </CFormLabel>
                       </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit price</span>
-                      </div>
                     </div>
                     <CFormInput
                       type="text"
@@ -297,6 +372,7 @@ const Addproduct = () => {
                       onChange={(e) => setCourseprice(e.target.value)}
                     />
                   </div>
+
                   <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
@@ -306,10 +382,6 @@ const Addproduct = () => {
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
                         </CFormLabel>
-                      </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit total video</span>
                       </div>
                     </div>
                     <CFormInput
@@ -324,15 +396,11 @@ const Addproduct = () => {
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput7">
-                          Introduction Video                          
+                          Introduction Video
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
                         </CFormLabel>
-                      </div>
-                      <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit introduction video</span>
                       </div>
                     </div>
                     <CFormInput
@@ -386,7 +454,7 @@ const Addproduct = () => {
                   </div>
                 </div>
 
-                <div className="col-lg-6">
+                <div className="col-lg-6 text-center">
                   <CButton
                     as="input"
                     className="btn w-25"
@@ -404,8 +472,6 @@ const Addproduct = () => {
                       onChaptersChange={handleChaptersChange}
                     />
                   ))}
- 
-                  
                 </div>
               </div>
               <div className="text-center">

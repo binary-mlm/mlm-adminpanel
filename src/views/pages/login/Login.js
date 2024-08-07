@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import {
   CButton,
   CCard,
@@ -12,7 +12,7 @@ import {
   CFormInput,
   CInputGroup,
   CInputGroupText,
-  CRow,
+  CRow,CTabs, CNav, CNavItem, CNavLink
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
@@ -21,30 +21,27 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 const Login = () => {
+  
   const [username , setusername] = useState('');
   const [password , setpassword] = useState('');
   const navigate = useNavigate();
-  const token = 'H-iBBKtdo-9gr80UCAxoWI2oljM9yIuiAfejreeosPA';
-  const config = {
-    headers: { Authorization: `Bearer ${token}` }
-  };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
-   
-
+    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     if (username === "" || password === "") {
       swal("Opps!", "Please fill out all required fields!", "error");
     }
     else {
-     
-     
+ 
         //  alert("submit");
-      axios.post('http://localhost:3000/api/auth/admin', { username, password },config)
+      axios.post(ROOT_URL+'/api/auth/admin', { username, password })
         .then(res => {
           console.log(res);
+          localStorage.setItem('admintoken', res.data.admin_token);
 
-          swal("Sucessfully login!", "login sucessfully!", "success");
+          swal("Welcome!", "You have successfully logged into the admin panel.", "success");
            navigate('/dashboard');
           // navigate('/course');
 
@@ -52,23 +49,37 @@ const Login = () => {
         .catch(err => {
           console.log(err);
           swal("Opps!", "username or password icorrect!", "error");
-
         })
-
-
     }
   }
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
+      <CTabs className='tab'>
+        <CNav variant="tabs" >
+          <CNavItem className='admin'>
+            <CNavLink ><Link to={"/"} style={{"textDecoration":"none" , color:"inherit"}}>
+           Admin
+           </Link>
+            </CNavLink>
+          </CNavItem>
+          <CNavItem className='teacher'>
+            <CNavLink ><Link to={"/teacherlogin"} style={{"textDecoration":"none" , color:"inherit"}}>
+              Teacher
+              </Link>
+            </CNavLink>
+          </CNavItem>
+        </CNav>
+      </CTabs>
         <CRow className="justify-content-center">
           <CCol md={8}>
+          
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
+                    <h1>Admin Login</h1>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -105,8 +116,8 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
+              <CCard className="text-white bg-primary py-5 cardpic" style={{ width: '44%' }}>
+                <CCardBody className="text-center ">
                   <div>
                     <img src={pic} className='img-fluid' alt='noimage'/>
                     {/* <h2>Sign up</h2>

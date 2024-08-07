@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React , { useState, useEffect }from 'react'
 import {
     CTable,
@@ -10,12 +9,13 @@ import {
 } from '@coreui/react'
 import axios from 'axios';
 
-const Orders = () => {
+const Onlineorder = () => {
+  
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-    const [payment,setpayment] = useState([]);
+    const [onlinepayment,setonlinepayment] = useState([]);
       useEffect(() =>{
-      axios.get(ROOT_URL+'/api/auth/getpayment')
-      .then(payment => setpayment(payment.data.data))
+      axios.get(ROOT_URL+'/api/auth/get_onlinepayment')
+      .then(payment_online => setonlinepayment(payment_online.data.data))
       .catch(err => console.log(err))
      
   }, []);
@@ -23,7 +23,6 @@ const Orders = () => {
     <>
     <div className='fw-bold'>
     <h3>All Orders:-</h3></div>
-
     <CTable color="dark" className='mt-2' responsive="sm">
                 <CTableHead align="middle">
                     <CTableRow  >
@@ -35,27 +34,23 @@ const Orders = () => {
                         <CTableHeaderCell scope="col" className='col-2'>razorpay_payment_id</CTableHeaderCell>
                     </CTableRow>
                 </CTableHead>
-                <CTableBody align="middle" >
+                <CTableBody>
                 {
-                    payment.map((order) => {
-                    return <CTableRow active align="middle" key={order._id} className='' >
+                    onlinepayment.map((order) => {
+                    return <CTableRow active align="middle" key={order._id} >
                         <CTableDataCell className='col-2 '>{order.razorpay_order_id}</CTableDataCell>
-                        <CTableDataCell scope="col" className='col-2'>{order.fullname}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-2 text-center'>{order.fullname}</CTableDataCell>
                         <CTableDataCell scope="col" className='col-1'>{order.phoneno}</CTableDataCell>
-                        <CTableDataCell scope="col" className='col-4'>{order.course}</CTableDataCell>
-                        <CTableDataCell scope="col" className='col-1'>{order.amount}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-4 text-center'>{order.courses}</CTableDataCell>
+                        <CTableDataCell scope="col" className='col-1 text-center'>{order.amount}</CTableDataCell>
                         <CTableDataCell scope="col" className='col-2'>{order.razorpay_payment_id}</CTableDataCell>
-                     
                     </CTableRow>
-                    
                     })
                 }
-                    
                 </CTableBody>
-            </CTable>
-
+                </CTable>
     </>
-   
   )
 }
-export default Orders;
+
+export default Onlineorder

@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { useState, React } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import {
   CCard,
   CFormInput,
@@ -7,17 +9,18 @@ import {
   CRow,
   CForm,
   CFormLabel,
-  CFormTextarea,
-  CFormCheck,
+  // CFormTextarea,
+  // CFormCheck,
   CButton,
 } from '@coreui/react'
 import axios from 'axios'
 import swal from 'sweetalert'
-import uploadpic from '../Image/upload.png'
+import uploadpic from '../../Image/upload.png'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
 const Addblog = () => {
+  const navigate = useNavigate();
   const [blogtitle, setBlogtitle] = useState('')
   const [blogdescription, setBlogdescription] = useState('')
   const [shortdescription , setshortdescription] = useState('')
@@ -44,6 +47,8 @@ const Addblog = () => {
             .then((res) => {
             console.log(res)
             swal('yeah', 'Blog is  sucessfully inserted!', 'success')
+            navigate('/allblog');
+            
           })
       } catch (error) {
         console.error('Error:', error)
@@ -92,10 +97,7 @@ const Addblog = () => {
                         </sup>
                       </CFormLabel>
                     </div>
-                    <div className="col-6 text-end">
-                      <i className="fa fa-edit ms-2 mt-2"></i>
-                      <span className="ms-2  me-3 fw-bold">Edit title</span>
-                    </div>
+                    
                   </div>
 
                   <CFormInput
@@ -116,10 +118,7 @@ const Addblog = () => {
                         </sup>
                       </CFormLabel>
                     </div>
-                    <div className="col-6 text-end">
-                      <i className="fa fa-edit ms-2 mt-2"></i>
-                      <span className="ms-2  me-3 fw-bold">Edit description</span>
-                    </div>
+                   
                   </div>
                   <ReactQuill
                     theme="snow" // Specify theme
@@ -140,10 +139,7 @@ const Addblog = () => {
                         </sup>
                       </CFormLabel>
                     </div>
-                    <div className="col-6 text-end">
-                      <i className="fa fa-edit ms-2 mt-2"></i>
-                      <span className="ms-2  me-3 fw-bold">Edit description</span>
-                    </div>
+                    
                   </div>
                   <ReactQuill
                     theme="snow" // Specify theme
