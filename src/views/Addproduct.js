@@ -314,44 +314,9 @@ const Addproduct = () => {
                    
                   )
                  }
-                  
-
-                    {/* <CFormSelect
-                      id="teacherSelect"
-                      value={selectedTeacher}
-                    >
-                      
-                      {teachers.map((teacher) => (
-                        <option key={teacher._id} value={teacher._id}>
-                          {teacher.teacher_dept}
-                        </option>
-                      ))}
-                    </CFormSelect> */}
                     
                   </div>
-                  <div className="mb-3">
-                    <div className="row">
-                      <div className="col-6">
-                        <CFormLabel htmlFor="exampleFormControlInput2">
-                          Course title
-                          <sup>
-                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
-                          </sup>
-                        </CFormLabel>
-                      </div>
-                      {/* <div className="col-6 text-end">
-                        <i className="fa fa-edit ms-2 mt-2"></i>
-                        <span className="ms-2 fw-bold me-3">Edit title</span>
-                      </div> */}
-                    </div>
-                    <CFormInput
-                      type="text"
-                      id="exampleFormControlInput2"
-                      name="course_name"
-                      placeholder="Enter course title"
-                      onChange={(e) => setCoursename(e.target.value)}
-                    />
-                  </div>
+                  
 
                   <div className="mb-3">
                     <div className="row">
