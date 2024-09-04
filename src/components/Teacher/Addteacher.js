@@ -8,8 +8,6 @@ import {
     CRow,
     CForm,
     CFormLabel,
-    // CFormTextarea,
-    // CFormCheck,
     CButton,
   } from '@coreui/react'
   import axios from 'axios'
@@ -18,7 +16,7 @@ const Addteacher = () => {
   const navigate = useNavigate();
   const [fullname, setFullname] = useState('')
   const [email, setEmail] = useState('')
-  const[teacherdept , setteacherdept] = useState('')
+  const[teacher_dept , setteacherdept] = useState('')
   const [password , setPassword] = useState('')
   const [phoneno , setPhno] = useState('')
   const [pancard , setPancard] = useState('')
@@ -52,7 +50,7 @@ function mobileHandler(e) {
 
      alert("submit works")
     if (
-      fullname === '' || email === '' || teacherdept === "" || password === "" || phoneno === '' || pancard === '' || address === '') {
+      fullname === '' || email === '' || teacher_dept === "" || password === "" || phoneno === '' || pancard === '' || address === '') {
       swal('Opps!', 'Please fill out all required fields!', 'error')
     } else {
      
@@ -61,7 +59,7 @@ function mobileHandler(e) {
           .post(ROOT_URL+'/api/auth/addteacher', {
             fullname,
             email,
-            teacherdept,
+            teacher_dept,
             password,
             phoneno,pancard, address})
             .then((res) => {
@@ -74,6 +72,7 @@ function mobileHandler(e) {
       } catch (error) {
         console.error('Error:', error)
         swal('Opps!', 'Not inserted !', 'error')
+        navigate('/addteacher');
       }
     }
   }
@@ -142,9 +141,9 @@ function mobileHandler(e) {
                   <CFormInput
                     type="text"
                     id="exampleFormControlInput1"
-                    name="email"
+                    name="teacherdept"
                   
-                    placeholder="Enter Teacher email"
+                    placeholder="Enter Teacher dept"
                     onChange={(e) => setteacherdept(e.target.value)}
                   />
                   

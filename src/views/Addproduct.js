@@ -26,10 +26,7 @@ const Addproduct = () => {
   const [course_name, setCoursename] = useState('')
   const [course_description, setCourse_description] = useState('')
   const [wewilllearn, setWewilllearn] = useState('')
-  // const [course_review, setCoursereview] = useState('')
   const [total_video, setVideos] = useState('')
-  // const [teacher_name, setTeacher_name] = useState('')
-  // const [teacher_dept, setTeacher_dept] = useState('')
   const [course_price, setCourseprice] = useState('')
   const [course_category, setcoursecategory] = useState('')
   const [image, setImage] = useState(null)
@@ -37,7 +34,8 @@ const Addproduct = () => {
   const [selectedTeacher, setSelectedTeacher] = useState('')
   const [teachers, setTeachers] = useState([])
   const [teacher_dept, setTeacherdept] = useState([])
-  // const [file_resource, setFile] = useState(null)
+
+
   const [sections, setSections] = useState([
     { section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] },
   ])
@@ -83,6 +81,7 @@ const Addproduct = () => {
   const handlecourse_categorychange = (event) => {
     setcoursecategory(event.target.value)
   }
+ 
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
@@ -108,12 +107,12 @@ const Addproduct = () => {
     // alert("submit works")
     if (
       course_name === '' ||
-      course_description === '' ||
-      wewilllearn === '' ||
+      // course_description === '' ||
+      // wewilllearn === '' ||
       total_video === '' ||
       course_price === '' ||
       teacher_dept === '' ||
-      introduction_video == '' ||
+      // introduction_video == '' ||
       image === ''
     ) {
       swal('Opps!', 'Please fill out all required fields!', 'error')
@@ -317,11 +316,10 @@ const Addproduct = () => {
                     
                   </div>
                   
-
                   <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
-                        <CFormLabel htmlFor="exampleFormControlInput6">
+                        <CFormLabel htmlFor="exampleFormControlInput12">
                           Course price
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
@@ -332,7 +330,7 @@ const Addproduct = () => {
                     <CFormInput
                       type="text"
                       name="course_price"
-                      id="exampleFormControlInput6"
+                      id="exampleFormControlInput12"
                       placeholder="Enter course price"
                       onChange={(e) => setCourseprice(e.target.value)}
                     />
@@ -392,6 +390,7 @@ const Addproduct = () => {
                       <option value="music">Music</option>
                       <option value="blockchain">Blockchain</option>
                       <option value="python">Python</option>
+                      <option value="python">Karate</option>
                     </CFormSelect>
                   </div>
 
