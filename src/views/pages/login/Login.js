@@ -30,6 +30,7 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+    console.log(ROOT_URL);
     if (username === "" || password === "") {
       swal("Opps!", "Please fill out all required fields!", "error");
     }

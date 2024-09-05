@@ -22,6 +22,7 @@ import Addsection from './Addsection'
 const Addproduct = () => {
   const navigate = useNavigate()
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
+  console.log(ROOT_URL);
   // const [courseid, setCourseid] = useState('')
   const [course_name, setCoursename] = useState('')
   const [course_description, setCourse_description] = useState('')
