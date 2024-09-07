@@ -24,6 +24,7 @@ const Login = () => {
   
   const [username , setusername] = useState('');
   const [password , setpassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   
 
@@ -60,13 +61,13 @@ const Login = () => {
       <CTabs className='tab'>
         <CNav variant="tabs" >
           <CNavItem className='admin'>
-            <CNavLink ><Link to={"/"} style={{"textDecoration":"none" , color:"inherit"}}>
+            <CNavLink ><Link to={"/"} style={{"textDecoration":"none" , color:"white"}}>
            Admin
            </Link>
             </CNavLink>
           </CNavItem>
           <CNavItem className='teacher'>
-            <CNavLink ><Link to={"/teacherlogin"} style={{"textDecoration":"none" , color:"inherit"}}>
+            <CNavLink ><Link to={"/teacherlogin"} style={{"textDecoration":"none" , color:"white"}}>
               Teacher
               </Link>
             </CNavLink>
@@ -93,12 +94,15 @@ const Login = () => {
                         <CIcon icon={cilLockLocked} />
                       </CInputGroupText>
                       <CFormInput
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         name='password'
                         placeholder="Password"
                         autoComplete="current-password"
                         onChange={e => setpassword(e.target.value)}
                       />
+                      <CInputGroupText onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
+                                              {showPassword ? <i className="fa fa-eye-slash"></i> :  <i className="fa fa-eye"></i>}
+                                            </CInputGroupText>
                     </CInputGroup>
                     <CRow>
                       <CCol xs={6}>

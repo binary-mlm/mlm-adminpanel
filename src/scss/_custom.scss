@@ -35,7 +35,7 @@ a{
 }
 .teacher:hover{
     background-color: rgb(47, 47, 117);
-    color: white;
+    // color: white;
 }
 .teacher:active{
     background-color: rgb(44, 44, 187);
@@ -44,9 +44,9 @@ a{
     background-color: rgb(47, 47, 117);
     color: white;
 }
-.admin:active{
-    background-color: rgb(44, 44, 187);
-}
+// .admin a:active{
+//     background-color: rgb(44, 44, 187);
+// }
 .widgetheight{
     height: 164px;
 }

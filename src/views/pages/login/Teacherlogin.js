@@ -14,15 +14,16 @@ import {
   CRow,CTabs, CNav, CNavItem, CNavLink
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilLockLocked, cilUser } from '@coreui/icons'
+import { cilLockLocked, cilUser} from '@coreui/icons'
+
 import pic from "../../../assets/images/login2.png"
  import axios from 'axios';
 import swal from 'sweetalert';
 
-
 const Teacherlogin = () => {
     const [username , setusername] = useState('');
     const [password , setpassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -42,16 +43,12 @@ const Teacherlogin = () => {
 
           swal("Welcome!", "You have successfully logged into the teacher panel.", "success");
            navigate('/teacher/dashboard');
-          // navigate('/course');
-
         })
         .catch(err => {
           console.log(err);
           swal("Opps!", "username or password icorrect!", "error");
         })
       }
-
-
     }
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
@@ -59,13 +56,13 @@ const Teacherlogin = () => {
     <CTabs className='tab'>
       <CNav variant="tabs">
       <CNavItem className='admin'>
-            <CNavLink><Link to={"/"} style={{"textDecoration":"none" , color:"inherit"}}>
+            <CNavLink><Link  className="linktab" to={"/"} style={{"textDecoration":"none" , color:"white"}}>
            Admin
            </Link>
             </CNavLink>
           </CNavItem>
           <CNavItem className='teacher'>
-            <CNavLink ><Link to={"/teacherlogin"} style={{"textDecoration":"none" , color:"inherit"}}>
+            <CNavLink ><Link  className="linktab" to={"/teacherlogin"} style={{"textDecoration":"none" , color:"white"}}>
               Teacher
               </Link>
             </CNavLink>
@@ -85,31 +82,35 @@ const Teacherlogin = () => {
                     <CInputGroupText>
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
-                    <CFormInput placeholder="Email"  name="username"autoComplete="username" onChange={e => setusername(e.target.value)} />
+                    <CFormInput placeholder="Email"  name="username" autoComplete="username" onChange={e => setusername(e.target.value)} />
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupText>
                       <CIcon icon={cilLockLocked} />
                     </CInputGroupText>
                     <CFormInput
-                      type="password"
+                     type={showPassword ? 'text' : 'password'}
+                      // type="password"
                       name='password'
                       placeholder="Password"
                       autoComplete="current-password"
                       onChange={e => setpassword(e.target.value)}
                     />
+                    
+                    <CInputGroupText onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
+                                              {showPassword ? <i class="fa fa-eye-slash"></i> :  <i class="fa fa-eye"></i>}
+                                            </CInputGroupText>
                   </CInputGroup>
                   <CRow>
                     <CCol xs={6}>
-                    
+                    {/* <CIcon icon={cilEyeSlash} /> */}
                       <CButton color="primary" className="px-4" type='submit'
                        onClick={handleSubmit}
                        >
                         Login
                       </CButton>
                      
-                    </CCol>
-                    
+                    </CCol> 
                   </CRow>
                 </CForm>
               </CCardBody>

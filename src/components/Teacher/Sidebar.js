@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
- import pic1 from "../../Image/userphoto.jpg"
+ import pic1 from "../../Image/user.png"
 
 import {
   CCloseButton,

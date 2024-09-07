@@ -41,10 +41,10 @@ const TeacherLayout = () => {
     <div className="wrapper d-flex flex-column min-vh-100">
       <AppHeader />
       <div className="body flex-grow-1">
-      <CCardHeader>
+      <CCardHeader className='ms-3'>
           <h3>My Courses</h3>
         </CCardHeader>
-        <CCardBody>
+        <CCardBody className='mx-3'>
           <CTable responsive="sm" color="dark">
             <CTableHead>
               <CTableRow align='middle'>
