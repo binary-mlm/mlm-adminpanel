@@ -25,6 +25,7 @@ const Addblog = () => {
   const [blogdescription, setBlogdescription] = useState('')
   const [shortdescription , setshortdescription] = useState('')
   const [image, setImage] = useState(null)
+  const [slug,setSlug] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -33,7 +34,7 @@ const Addblog = () => {
 
     // alert("submit works")
     if (
-        blogtitle === '' || blogdescription === '' || shortdescription === "" || image === '') {
+        blogtitle === '' || blogdescription === '' || shortdescription === "" || slug === ''|| image === '') {
       swal('Opps!', 'Please fill out all required fields!', 'error')
     } else {
      
@@ -43,6 +44,7 @@ const Addblog = () => {
             blogtitle,
             blogdescription,
             shortdescription,
+            slug,
             image })
             .then((res) => {
             console.log(res)
@@ -106,6 +108,27 @@ const Addblog = () => {
                     name="blogtitle"
                     placeholder="Enter Blog title"
                     onChange={(e) => setBlogtitle(e.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <div className="row">
+                    <div className="col-6">
+                      <CFormLabel htmlFor="exampleFormControlInput1">
+                      slug
+                        <sup>
+                          <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                        </sup>
+                      </CFormLabel>
+                    </div>
+                    
+                  </div>
+
+                  <CFormInput
+                    type="text"
+                    id="exampleFormControlInput1"
+                    name="blogslug"
+                    placeholder="Enter Blog slug"
+                    onChange={(e) => setSlug(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
