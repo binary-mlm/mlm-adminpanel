@@ -51,7 +51,7 @@ const formattedDate = new Date(invoice.createdAt).toLocaleDateString();
 
                     <div>
                       <span className="h2">Synthosphere Academy</span><br/>
-                      <span className='isologo'>(ISO 9001:2015 Certified)</span>
+                      <span className='text-muted'>ISO 9001:2015 Certified</span>
                     </div>
                     <div className='mt-4' >
                       <p className="mb-1"> HB Town, Sodepur,Kolkata</p>

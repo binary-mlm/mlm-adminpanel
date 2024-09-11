@@ -1,4 +1,5 @@
 import {React,useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 import { CCard, CFormInput, CCol, CRow, CForm, CImage, CFormLabel, CButton, CCardImage } from '@coreui/react'
 import { Link ,useParams } from 'react-router-dom'
 import axios from 'axios';
@@ -6,6 +7,7 @@ import swal from 'sweetalert'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 const Editblog = () => {
+  const navigate = useNavigate();
     const { id } = useParams();
     console.log(id);
     const [image , setimage] = useState('');
@@ -92,10 +94,11 @@ const convertToBase64 = (file) => {
         const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
         const updatedBlog = { ...blog, blogdescription: big_description,shortdescription: short_description}; 
         const response = await axios.put(ROOT_URL +`/api/v1/editblog/${id}`, updatedBlog,image);
-      
-        console.log(response)
+        console.log(response);
         
-     swal("wow!","Blog details updated successfully!","success")
+     swal("wow!","Blog details updated successfully!","success");
+     navigate('/allblog');
+
      
     
    } catch (error) {

@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css'
 import axios from 'axios';
 import swal from 'sweetalert'
 const Editcourse = () => {
+  
     const { id } = useParams();
     console.log(id);
     const [image , setimage] = useState('');
@@ -110,7 +111,7 @@ const handleChange = (e, sectionIndex, chapterIndex) => {
             console.log(response)
             
          swal("wow!","Course details updated successfully!","success")
-         
+        
         
        } catch (error) {
           swal("Opps!", "not updated!", "error");
