@@ -24,7 +24,6 @@ const Viewreview = () => {
          await axios.delete(`http://localhost:3000/api/v1/deletereview/${id}/${reviewownerid}`);
           swal("Deleted!", "Course has been deleted.", "success");
           window.location.reload();
-        
         } catch (error) {
           swal("Error!", error.message, "error");
           console.error('Error deleting course', error);
