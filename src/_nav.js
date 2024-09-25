@@ -1,13 +1,10 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
+ 
   cilNotes,
   cilPencil,
   cilSpeedometer,
-  cilStar,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -50,6 +47,26 @@ const _nav = [
   },
   {
     component: CNavTitle,
+    name: 'User review',
+  },
+  {
+    component: CNavItem,
+    name: 'User reviews',
+    to: '/allreview',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'Contact Form',
+  },
+  {
+    component: CNavItem,
+    name: 'All User',
+    to: '/contactus',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
     name: 'Blog',
   },
   {
@@ -80,6 +97,13 @@ const _nav = [
     to: '/Offlineuser',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+
+  {
+    component: CNavItem,
+    name: ' Online Orders',
+    to: '/onlineorder',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
   {
     component: CNavTitle,
     name: 'Order',
@@ -102,6 +126,7 @@ const _nav = [
     to: '/invoice',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+
   //     {
   //       component: CNavItem,
   //       name: 'Breadcrumb',

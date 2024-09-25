@@ -18,40 +18,13 @@ const Invoicelist = React.lazy(() => import('./components/Order/Invoicelist'))
 const Adduser = React.lazy(() => import('./components/Adduser'))
 const Offlineuser = React.lazy(() => import('./components/Offlineusers'))
 const Addteacher = React.lazy(() => import('./components/Teacher/Addteacher'));
-
+const Viewreview = React.lazy(() => import('./components/Reviews/Viewreview'));
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
-
-// Base
-// Buttons
-
-const ButtonGroups = React.lazy(() => import('./views/buttons/button-groups/ButtonGroups'))
-const Dropdowns = React.lazy(() => import('./views/buttons/dropdowns/Dropdowns'))
-
-//Forms
-const ChecksRadios = React.lazy(() => import('./views/forms/checks-radios/ChecksRadios'))
-const FloatingLabels = React.lazy(() => import('./views/forms/floating-labels/FloatingLabels'))
-const FormControl = React.lazy(() => import('./views/forms/form-control/FormControl'))
-const InputGroup = React.lazy(() => import('./views/forms/input-group/InputGroup'))
-const Layout = React.lazy(() => import('./views/forms/layout/Layout'))
-const Range = React.lazy(() => import('./views/forms/range/Range'))
-const Select = React.lazy(() => import('./views/forms/select/Select'))
-const Validation = React.lazy(() => import('./views/forms/validation/Validation'))
-
-const Charts = React.lazy(() => import('./views/charts/Charts'))
-
-// Icons
-const CoreUIIcons = React.lazy(() => import('./views/icons/coreui-icons/CoreUIIcons'))
-const Flags = React.lazy(() => import('./views/icons/flags/Flags'))
-const Brands = React.lazy(() => import('./views/icons/brands/Brands'))
-
-// Notifications
-const Alerts = React.lazy(() => import('./views/notifications/alerts/Alerts'))
-const Badges = React.lazy(() => import('./views/notifications/badges/Badges'))
-const Modals = React.lazy(() => import('./views/notifications/modals/Modals'))
-const Toasts = React.lazy(() => import('./views/notifications/toasts/Toasts'))
+const Contactus = React.lazy(() => import('./views/Contactus'))
 
 const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
+const Allreview = React.lazy(() => import('./components/Reviews/Allreview'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -61,7 +34,8 @@ const routes = [
   { path: '/addchapter', name: 'Addchapter', element: Addchapter },
   { path: '/addteacher', name: 'Addteacher', element: Addteacher },
   { path: '/teacher/alluser', name: 'Alluser', element: Alluserlist },
-
+  { path: '/allreview', name: 'Allreview', element: Allreview},
+  { path: '/viewreview/:id', name: 'Viewreview', element: Viewreview},
   { path: '/addblog', name: 'Addblog', element: Addblog },
   { path: '/allblog', name: 'Allblog', element: Allblog },
   { path: '/editblog/:id', name: 'Editblog', element: Editblog },
@@ -75,11 +49,11 @@ const routes = [
   { path: '/adduser', name: 'Adduser', element: Adduser },
   { path: '/Offlineuser', name: 'Offlineuser', element: Offlineuser },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
+  { path: '/contactus', name: 'Theme', element: Contactus},
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
-
+  { path: '/theme/typography', name: 'Typography', element: Typography },
   
   { path: '/widgets', name: 'Widgets', element: Widgets },
 ]
-
 export default routes
