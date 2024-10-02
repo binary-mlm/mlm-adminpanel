@@ -50,8 +50,8 @@ const Userlist = () => {
                         <CTableHeaderCell scope="col" className='col-2' >Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>User_id</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>Email_id</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-2'>Phone number</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-1'>Block</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-3'>Phone number</CTableHeaderCell>
+                       
                         <CTableHeaderCell scope="col" className='col-1'>Action</CTableHeaderCell>
                     </CTableRow>
                 </CTableHead>
@@ -63,11 +63,6 @@ const Userlist = () => {
                     <CTableDataCell>{user._id}</CTableDataCell>
                     <CTableDataCell>{user.email}</CTableDataCell>
                     <CTableDataCell>{user.phoneno}</CTableDataCell>
-                    <CTableDataCell className='col-1'>
-                            <div className="form-check form-switch ms-4">
-                                <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
-                            </div>
-                        </CTableDataCell>
                         <CTableDataCell className='col-1'>
                             <div className='d-flex'>
                             <a><i className="fa fa-trash-o ms-2 editicon"></i></a>

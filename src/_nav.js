@@ -98,12 +98,7 @@ const _nav = [
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
 
-  {
-    component: CNavItem,
-    name: ' Online Orders',
-    to: '/onlineorder',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  
   {
     component: CNavTitle,
     name: 'Order',
