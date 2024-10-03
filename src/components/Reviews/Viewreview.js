@@ -14,6 +14,7 @@ import swal from 'sweetalert'
 
 const Viewreview = () => {
     const { id } = useParams();
+    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
  
     const [reviewdata, setReviewdata] = useState([]);
     const handleDelete = async (id,reviewownerid) => {
@@ -21,7 +22,7 @@ const Viewreview = () => {
             console.log(reviewownerid);
           // const id = document.getElementById('courseid').innerHTML;
           // console.log(id);
-         await axios.delete(`http://localhost:3000/api/v1/deletereview/${id}/${reviewownerid}`);
+         await axios.delete(ROOT_URL+`/api/v1/deletereview/${id}/${reviewownerid}`);
           swal("Deleted!", "Course has been deleted.", "success");
           window.location.reload();
         } catch (error) {
@@ -49,7 +50,7 @@ const Viewreview = () => {
     useEffect(() =>{
         if (!reviewdata.length) {
         // axios.get(ROOT_URL+'/api/v2/getallcontact')
-        axios.get(`http://localhost:3000/api/v1/showreviews/${id}`)
+        axios.get(ROOT_URL+`/api/v1/showreviews/${id}`)
         .then(reviewdata => { setReviewdata(reviewdata.data.reviews)
             
      })

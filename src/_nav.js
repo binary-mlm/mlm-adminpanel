@@ -91,24 +91,24 @@ const _nav = [
     to: '/userlist',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
-  {
-    component: CNavItem,
-    name: 'Offlineuser',
-    to: '/Offlineuser',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Offlineuser',
+  //   to: '/Offlineuser',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
 
   
   {
     component: CNavTitle,
     name: 'Order',
   },
-  {
-    component: CNavItem,
-    name: ' Offline Orders',
-    to: '/order',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: ' Offline Orders',
+  //   to: '/order',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: ' Online Orders',
