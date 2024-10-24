@@ -19,6 +19,7 @@ const Contactus = React.lazy(() => import('./views/Contactus'))
 const Addfanchise = React.lazy(() => import("./components/Franchise/Addfanchise"))
 const Viewfanchise  =  React.lazy(() => import("./components/Franchise/Viewfanchise"))
 const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
+const Allreview = React.lazy(() => import('./components/Reviews/Allreview'))
 
 const Addproductfanchise = React.lazy(() => import('./components/Franchise/Addproductfanchise'))
 const Inventorfranchise = React.lazy(() => import('./components/Franchise/Inventorfranchise'))

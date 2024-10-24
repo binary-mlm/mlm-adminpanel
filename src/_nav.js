@@ -42,7 +42,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Pending User KYC ',
-    to: '/getUserkycdetails',
+    to: '/addfanchise',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   

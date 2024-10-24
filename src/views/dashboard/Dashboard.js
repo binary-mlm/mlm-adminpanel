@@ -6,7 +6,6 @@ import swal from 'sweetalert'
 
 import {
   CCardFooter,
-  CCard,
   CCardBody,
   CCardHeader,
   CRow,
