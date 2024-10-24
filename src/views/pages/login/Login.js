@@ -22,7 +22,7 @@ import swal from 'sweetalert';
 
 const Login = () => {
   
-  const [username , setusername] = useState('');
+  const [email , setusername] = useState('');
   const [password , setpassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -32,16 +32,16 @@ const Login = () => {
     event.preventDefault();
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     console.log(ROOT_URL);
-    if (username === "" || password === "") {
+    if (email === "" || password === "") {
       swal("Opps!", "Please fill out all required fields!", "error");
     }
     else {
  
         //  alert("submit");
-      axios.post(ROOT_URL+'/api/auth/admin', { username, password })
+      axios.post(ROOT_URL+'/api/admin/login', { email, password })
         .then(res => {
           console.log(res);
-          localStorage.setItem('admintoken', res.data.admin_token);
+          sessionStorage.setItem('admintoken', res.data.token);
 
           swal("Welcome!", "You have successfully logged into the admin panel.", "success");
            navigate('/dashboard');
@@ -58,7 +58,7 @@ const Login = () => {
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
-      <CTabs className='tab'>
+      {/* <CTabs className='tab'>
         <CNav variant="tabs" >
           <CNavItem className='admin'>
             <CNavLink ><Link to={"/"} style={{"textDecoration":"none" , color:"white"}}>
@@ -73,7 +73,7 @@ const Login = () => {
             </CNavLink>
           </CNavItem>
         </CNav>
-      </CTabs>
+      </CTabs> */}
         <CRow className="justify-content-center">
           <CCol md={8}>
           
@@ -87,7 +87,7 @@ const Login = () => {
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
-                      <CFormInput placeholder="Username"  name="username"autoComplete="username" onChange={e => setusername(e.target.value)} />
+                      <CFormInput placeholder="Email"  name="username"autoComplete="username" onChange={e => setusername(e.target.value)} />
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupText>

@@ -1,13 +1,10 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
-  cilBell,
-  cilCalculator,
-  cilChartPie,
+ 
   cilNotes,
   cilPencil,
   cilSpeedometer,
-  cilStar,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 
@@ -24,84 +21,153 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'Course',
+    name: 'Product',
   },
   {
     component: CNavItem,
-    name: 'Add Course',
+    name: 'Add Product',
     to: '/Addproduct',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'All Courses',
+    name: 'All Products',
     to: '/dashboard',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
     component: CNavTitle,
-    name: 'Teacher',
+    name: 'KYC',
   },
   {
     component: CNavItem,
-    name: 'Add Teacher',
-    to: '/Addteacher',
+    name: 'Pending User KYC ',
+    to: '/getUserkycdetails',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  
+  
+  {
+    component: CNavTitle,
+    name: 'Fanchise',
+  },
+  {
+    component: CNavItem,
+    name: 'Add fanchise',
+    to: '/addfanchise',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
-    component: CNavTitle,
-    name: 'Blog',
+    component: CNavItem,
+    name: 'View fanchise',
+    to: '/viewfanchise',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Addblog',
-    to: '/Addblog',
+    name: 'Add product',
+    to: '/addproductfanchise',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'Allblog',
-    to: '/Allblog',
+    name: 'Franchise inventory',
+    to: '/inventoryfranchise',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
-  {
-    component: CNavTitle,
-    name: 'User',
-  },
-  {
-    component: CNavItem,
-    name: 'Userlist',
-    to: '/userlist',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Offlineuser',
-    to: '/Offlineuser',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavTitle,
-    name: 'Order',
-  },
-  {
-    component: CNavItem,
-    name: ' Offline Orders',
-    to: '/order',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: ' Online Orders',
-    to: '/onlineorder',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Invoice',
-    to: '/invoice',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+ 
+  // {
+  //   component: CNavTitle,
+  //   name: 'Teacher',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Add Teacher',
+  //   to: '/Addteacher',
+  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'User review',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'User reviews',
+  //   to: '/allreview',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Contact Form',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All User',
+  //   to: '/contactus',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Blog',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Addblog',
+  //   to: '/Addblog',
+  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Allblog',
+  //   to: '/Allblog',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'User',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Userlist',
+  //   to: '/userlist',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Offlineuser',
+  //   to: '/Offlineuser',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+
+  // {
+  //   component: CNavItem,
+  //   name: ' Online Orders',
+  //   to: '/onlineorder',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Order',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: ' Offline Orders',
+  //   to: '/order',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: ' Online Orders',
+  //   to: '/onlineorder',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Invoice',
+  //   to: '/invoice',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+
   //     {
   //       component: CNavItem,
   //       name: 'Breadcrumb',

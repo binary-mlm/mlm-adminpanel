@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { useState, React, useEffect } from 'react'
+import { useState, React} from 'react'
 import {
   CCardFooter,
   CCard,
@@ -17,134 +17,83 @@ import swal from 'sweetalert'
 import uploadpic from '../Image/uploadimage.png'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import Addsection from './Addsection'
-// import teacher from '../../../backend/model/teacher'
 const Addproduct = () => {
   const navigate = useNavigate()
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
   console.log(ROOT_URL);
   // const [courseid, setCourseid] = useState('')
-  const [course_name, setCoursename] = useState('')
-  const [course_description, setCourse_description] = useState('')
-  const [wewilllearn, setWewilllearn] = useState('')
-  const [total_video, setVideos] = useState('')
-  const [course_price, setCourseprice] = useState('')
-  const [course_category, setcoursecategory] = useState('')
-  const [image, setImage] = useState(null)
-  const [introduction_video, setIntroduction_video] = useState('')
-  const [selectedTeacher, setSelectedTeacher] = useState('')
-  const [teachers, setTeachers] = useState([])
-  const [teacher_dept, setTeacherdept] = useState([])
-
-
-  const [sections, setSections] = useState([
-    { section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] },
-  ])
-
-  //section change
-  const handleSectionChange = (index, newSectionData) => {
-    const newSections = [...sections]
-    newSections[index] = newSectionData
-    setSections(newSections)
-    console.log(newSections)
-  }
-  const handleChaptersChange = (sectionIndex, newChapters) => {
-    const newSections = [...sections]
-    newSections[sectionIndex].chapters = newChapters
-    setSections(newSections)
-    console.log(newSections)
-  }
-  const addSection = () => {
-    setSections([
-      ...sections,
-      { section_name: '', chapters: [{ chapter_name: '', Video_link: '' }] },
-    ])
-  }
-  const convertToBase64 = (file) => {
-    console.log(file)
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    const data = new Promise((resolve, reject) => {
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = (err) => {
-        reject(err)
-      }
-    })
-    return data
-  }
-
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0]
-    const image = await convertToBase64(file)
-    setImage(image)
-    // console.log(image)
-  }
-  const handlecourse_categorychange = (event) => {
-    setcoursecategory(event.target.value)
-  }
+  const [name, setname] = useState('')
+  const [category, setcategory] = useState('')
+  const [price, setprice] = useState('')
+  const [bvPoints, setbvPoints] = useState('')
+  const [description, setdescription] = useState('')
+  const [picture, setImage] = useState(null)
+  const [stock, setstock] = useState('')
+  const token = sessionStorage.getItem("admintoken");
  
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const response = await axios.get(ROOT_URL + '/api/auth/allteacher')
-        setTeachers(response.data)
-      } catch (error) {
-        console.error('Error fetching teachers:', error)
-      }
-    }
+  // const convertToBase64 = (file) => {
+  //   console.log(file)
+  //   const reader = new FileReader()
+  //   reader.readAsDataURL(file)
+  //   const data = new Promise((resolve, reject) => {
+  //     reader.onload = () => resolve(reader.result)
+  //     reader.onerror = (err) => {
+  //       reject(err)
+  //     }
+  //   })
+  //   return data
+  // }
 
-    fetchTeachers()
-  }, [])
+  // const handleFileChange = async (e) => {
+  //   const file = e.target.files[0]
+  //   const image = await convertToBase64(file)
+  //   setImage(image)
+  //   // console.log(image)
+  // }
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);  // Store the File object in state
+  };
+ 
+ 
 
  
   //handle submit
   const handleSubmit = async (event) => {
-   
-   
     event.preventDefault()
-    console.log(course_description)
-    console.log(sections)
-
     // alert("submit works")
     if (
-      course_name === '' ||
+      name === '' ||
       // course_description === '' ||
       // wewilllearn === '' ||
-      total_video === '' ||
-      course_price === '' ||
-      teacher_dept === '' ||
+      category === '' ||
+      price === '' ||
+      bvPoints === '' ||
       // introduction_video == '' ||
-      image === ''
+      picture === ''
     ) {
       swal('Opps!', 'Please fill out all required fields!', 'error')
     } else {
       try {
-        const teacher = teachers.find((t) => t._id === selectedTeacher)
-        if (teacher) {
-          setTeacherdept(teacher.teacher_dept);
-        }
-        console.log(teacher_dept)
-        console.log(teacher.fullname)
-        console.log(teacher.teacher_dept)
         await axios
-          .post(ROOT_URL + '/api/v1/course', {
-            course_name,
-            course_description,
-            wewilllearn,
-            total_video,
-            teacherId: selectedTeacher,
-            teacher_name: teacher.fullname,
-            teacher_dept:teacher.teacher_dept,
-            course_category,
-            course_price,
-            image,
-            introduction_video,
-            sections,
-          })
+          .post(ROOT_URL + '/api/admin/addProduct', {
+            name,
+            category,
+            price,
+            bvPoints,
+            picture,
+            description,
+            stock
+          } ,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data',
+            },
+        })
 
           .then((res) => {
             console.log(res)
-            swal('yeah', 'Course is  sucessfully inserted!', 'success')
+            swal('yeah', 'Product is  sucessfully inserted!', 'success')
             navigate('/dashboard')
           })
       } catch (error) {
@@ -159,7 +108,7 @@ const Addproduct = () => {
       <CRow>
         <CCol xs={12}>
           <div className=" fw-bold mt-2 mb-3" style={{ fontSize: '25px' }}>
-            Add new course{' '}
+            Add new Product{' '}
           </div>
           <CCard className="mb-4 cardform">
             <CForm className="mt-4 ms-4 mb-3" method="post" encType="multipart/form-data">
@@ -186,7 +135,7 @@ const Addproduct = () => {
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput2">
-                          Course title
+                          Product name
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
@@ -200,53 +149,19 @@ const Addproduct = () => {
                     <CFormInput
                       type="text"
                       id="exampleFormControlInput2"
-                      name="course_name"
-                      placeholder="Enter course title"
-                      onChange={(e) => setCoursename(e.target.value)}
+                      name="name"
+                      placeholder="Enter product name"
+                      onChange={(e) => setname(e.target.value)}
                     />
                   </div>
 
-                  <div className="mb-3">
-                    <div className="row">
-                      <div className="col-6">
-                        <CFormLabel htmlFor="exampleFormControlInput2">
-                          Course description
-                          <sup>
-                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
-                          </sup>
-                        </CFormLabel>
-                      </div>
-                    </div>
+                 
 
-                    <ReactQuill
-                      theme="snow" // Specify theme
-                      name="course_description" // Set editor content
-                      value={course_description}
-                      onChange={(value) => setCourse_description(value)}
-                    />
-                  </div>
-
-                  {/* <div className="mb-3">
-                                        <div className='row'>
-                                            <div className='col-6'>
-                                                <CFormLabel htmlFor="exampleFormControlInput3">Course review<sup><i className="fa fa-asterisk" style={{ fontSize: "9px" }}></i></sup></CFormLabel>
-                                            </div>
-                                            <div className='col-6 text-end'><i className="fa fa-edit ms-2 mt-2"></i><span className='ms-2 fw-bold me-3'>Edit review</span></div>
-                                        </div>
-
-                                        <CFormInput
-                                            type="text"
-                                            name='course_review'
-                                            id="exampleFormControlInput3"
-                                            placeholder="Enter course review out of 5"
-                                            onChange={e => setCoursereview(e.target.value)}
-                                        />
-                                    </div> */}
                   <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput3">
-                          What we will learn
+                          description
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
@@ -255,73 +170,19 @@ const Addproduct = () => {
                     </div>
                     <ReactQuill
                       theme="snow" // Specify theme
-                      name="wewilllearn" // Set editor content
-                      value={wewilllearn}
-                      onChange={(value) => setWewilllearn(value)}
+                      name="description" // Set editor content
+                      value={description}
+                      onChange={(value) => setdescription(value)}
                     />
                   </div>
                  
-                  <div className="mb-3">
-                    <div className="row">
-                      <div className="col-6">
-                        <CFormLabel htmlFor="exampleFormControlInput4">
-                          Teachers name
-                          <sup>
-                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
-                          </sup>
-                        </CFormLabel>
-                      </div>
-                    </div>
-                    <CFormSelect
-                      id="teacherSelect"
-                      value={selectedTeacher}
-                      onChange={(e) => {
-                        const value = e.target.value
-                        console.log(`Selected Teacher ID: ${value}`)
-                        setSelectedTeacher(value)
-                      }}
-                    >
-                      <option value="" disabled>
-                        Select a teacher
-                      </option>
-                      {teachers.map((teacher) => (
-                        <option key={teacher._id} value={teacher._id}>
-                          {teacher.fullname}
-                        </option>
-                      ))}
-                    </CFormSelect>
-                  </div>
-                  <div className="mb-3">
-                    <div className="row">
-                      <div className="col-6">
-                        <CFormLabel htmlFor="exampleFormControlInput4">
-                          Teacher's dept
-                          <sup>
-                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
-                          </sup>
-                        </CFormLabel>
-                      </div>
-                    </div>
-                 {
-                  setSelectedTeacher && (
-                     <CFormSelect id="disabledSelect">
-                      <option>{teachers.filter(
-                        (teacher) => teacher._id === selectedTeacher
-                      ).map((teacher) => teacher.teacher_dept)}
-                      </option>
-                    </CFormSelect>
-                     
-                   
-                  )
-                 }
-                    
-                  </div>
+                  
                   
                   <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput12">
-                          Course price
+                           price
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
@@ -332,16 +193,63 @@ const Addproduct = () => {
                       type="text"
                       name="course_price"
                       id="exampleFormControlInput12"
-                      placeholder="Enter course price"
-                      onChange={(e) => setCourseprice(e.target.value)}
+                      placeholder="Enter price"
+                      onChange={(e) => setprice(e.target.value)}
                     />
                   </div>
 
+                 
+                  
+                 
+
                   <div className="mb-3">
+                    <CFormLabel htmlFor="picture">
+                      Product image
+                      <sup>
+                        <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                      </sup>
+                    </CFormLabel>
+                    <CFormInput
+                      type="file"
+                      id="picture" name="picture" accept="image/*"
+                      // onChange={handleFileChange}
+                      onChange={handleFileChange}
+                    />
+                  </div>
+                  {/* <div className="text-center">
+                    {imageUrl ? (
+                      <img width={400} height={300} src={imageUrl} />
+                    ) : (
+                      <img width={150} height={150} src={uploadpic} />
+                    )}
+                  </div> */}
+                </div>
+
+                <div className="col-lg-6">
+                <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput2">
+                          product category
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      id="exampleFormControlInput2"
+                      name="name"
+                      placeholder="Enter product category"
+                      onChange={(e) => setcategory(e.target.value)}
+                    />
+                  </div>
+                <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput6">
-                          Total Video
+                          Bv points
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
@@ -353,14 +261,14 @@ const Addproduct = () => {
                       name="total_video"
                       id="exampleFormControlInput6"
                       placeholder="Enter total video"
-                      onChange={(e) => setVideos(e.target.value)}
+                      onChange={(e) => setbvPoints(e.target.value)}
                     />
                   </div>
-                  <div className="mb-3">
+                <div className="mb-3">
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput7">
-                          Introduction Video
+                        stock
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
@@ -371,84 +279,24 @@ const Addproduct = () => {
                       type="text"
                       name="introduction_video"
                       id="exampleFormControlInput7"
-                      placeholder="Enter video link"
-                      onChange={(e) => setIntroduction_video(e.target.value)}
+                      placeholder="Enter stock"
+                      onChange={(e) => setstock(e.target.value)}
                     />
                   </div>
-                  <div className="mb-3">
-                    <CFormLabel htmlFor="exampleFormControlInput6">
-                      Course category
-                      <sup>
-                        <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
-                      </sup>
-                    </CFormLabel>
-                    <CFormSelect
-                      className=" me-2"
-                      onChange={handlecourse_categorychange}
-                      aria-label="Default select example"
-                    >
-                      <option>Select one category</option>
-                      <option value="music">Music</option>
-                      <option value="blockchain">Blockchain</option>
-                      <option value="python">Python</option>
-                      <option value="python">Karate</option>
-                    </CFormSelect>
-                  </div>
-
-                  <div className="mb-3">
-                    <CFormLabel htmlFor="exampleFormControlInput7">
-                      course image
-                      <sup>
-                        <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
-                      </sup>
-                    </CFormLabel>
-                    <CFormInput
-                      type="file"
-                      name="image"
-                      id="exampleFormControlInput7"
-                      accept="image/*"
-                      onChange={handleFileChange}
-                    />
-                  </div>
-                  <div className="text-center">
-                    {image ? (
-                      <img width={400} height={300} src={image} />
-                    ) : (
-                      <img width={150} height={150} src={uploadpic} />
-                    )}
-                  </div>
+                  
+                
                 </div>
-
-                <div className="col-lg-6 text-center">
-                  <CButton
-                    as="input"
-                    className="btn w-25"
-                    type="button"
-                    color="primary"
-                    value="Add Section"
-                    onClick={addSection}
-                  />
-                  {sections.map((section, sectionIndex) => (
-                    <Addsection
-                      key={sectionIndex}
-                      section={section}
-                      index={sectionIndex}
-                      onSectionChange={handleSectionChange}
-                      onChaptersChange={handleChaptersChange}
-                    />
-                  ))}
-                </div>
+                
               </div>
-              <div className="text-center">
-                <CButton
+              <CButton
                   as="input"
-                  className="btn w-25"
+                  className="btn w-25 mt-5"
                   type="submit"
                   color="primary"
                   value="Submit"
                   onClick={handleSubmit}
                 />
-              </div>
+              
             </CForm>
           </CCard>
         </CCol>
