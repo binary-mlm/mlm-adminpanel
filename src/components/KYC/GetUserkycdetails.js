@@ -2,7 +2,10 @@ import React from 'react'
 
 const GetUserkycdetails = () => {
   return (
-    <div>GetUserkycdetails</div>
+    <>
+      <h3>User KYC</h3>
+      
+    </>
   )
 }
 

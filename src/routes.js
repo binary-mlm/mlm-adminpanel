@@ -2,15 +2,12 @@ import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Addproduct = React.lazy(() => import('./views/Addproduct'))
-
-
-const Userlist = React.lazy(() => import('./components/Userlist'))
+// const Userlist = React.lazy(() => import('./components/Userlist'))
 
 const Order = React.lazy(() => import('./components/Order/Orders'))
 const OnlineOrder = React.lazy(() => import('./components/Order/Onlineorder'))
 const Invoice = React.lazy(() => import('./components/Order/Invoice'))
 const Invoicelist = React.lazy(() => import('./components/Order/Invoicelist'))
-const Adduser = React.lazy(() => import('./components/Adduser'))
 const Offlineuser = React.lazy(() => import('./components/Offlineusers'))
 
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
@@ -19,7 +16,7 @@ const Contactus = React.lazy(() => import('./views/Contactus'))
 const Addfanchise = React.lazy(() => import("./components/Franchise/Addfanchise"))
 const Viewfanchise  =  React.lazy(() => import("./components/Franchise/Viewfanchise"))
 const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
-const Allreview = React.lazy(() => import('./components/Reviews/Allreview'))
+
 
 const Addproductfanchise = React.lazy(() => import('./components/Franchise/Addproductfanchise'))
 const Inventorfranchise = React.lazy(() => import('./components/Franchise/Inventorfranchise'))
@@ -35,16 +32,12 @@ const routes = [
   { path: '/addproductfanchise', name: 'Add Course', element: Addproductfanchise },
   { path: '/inventoryfranchise', name: 'Add Course', element: Inventorfranchise },
   { path: '/getUserkycdetails', name: 'GetUserkycdetails', element: GetUserkycdetails },
-  
 
-  { path: '/userlist', name: 'Userlist', element: Userlist },
-
- 
   { path: '/onlineorder', name: 'onlineorder', element: OnlineOrder },
   { path: '/order', name: 'order', element: Order },
   { path: '/invoice', name: 'invoice', element: Invoice },
   { path: '/invoicelist/:id', name: 'invoicelist', element: Invoicelist },
-  { path: '/adduser', name: 'Adduser', element: Adduser },
+ 
   { path: '/Offlineuser', name: 'Offlineuser', element: Offlineuser },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/contactus', name: 'Theme', element: Contactus},
