@@ -56,7 +56,7 @@ const Addfanchise = () => {
         <CRow>
         <CCol xs={12}>
           <div className=" fw-bold mt-2 mb-3" style={{ fontSize: '25px' }}>
-            Add new Product{' '}
+            Add new Fanchise{' '}
           </div>
           <CCard className="mb-4 cardform">
             <CForm className="mt-4 ms-4 mb-3" method="post" encType="multipart/form-data">
