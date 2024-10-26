@@ -41,12 +41,14 @@ const Addfanchise = () => {
           )
           .then((res) => {
             console.log(res)
-            swal('yeah', 'Fanchise is  sucessfully inserted!', 'success')
+            swal('yeah', 'Fanchise is  sucessfully inserted!', 'success').then(() => {
+              window.location.reload(); // Reload the page after success alert
+            });
             
           })
       } catch (error) {
         console.error('Error:', error)
-        swal('Opps!', 'Not inserted !', 'error')
+        swal('Opps!', error.message, 'error')
       }
     }
   }

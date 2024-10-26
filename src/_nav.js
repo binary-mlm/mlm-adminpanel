@@ -45,6 +45,18 @@ const _nav = [
     to: '/getUserkycdetails',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
+  {
+    component: CNavItem,
+    name: 'Approved User KYC ',
+    to: '/getaproveduser',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Rejected User KYC ',
+    to: '/getrejectuser',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
   
   
   {

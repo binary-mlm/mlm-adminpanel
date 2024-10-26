@@ -13,7 +13,7 @@ import {
   CListGroup,
   CListGroupItem,
 } from '@coreui/react';
-import { useNavigate } from 'react-router-dom';
+
 
 const AddProductFranchise = () => {
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
@@ -26,7 +26,6 @@ const AddProductFranchise = () => {
   const [products, setProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [showDropdown, setShowDropdown] = useState(false);
-  const navigate = useNavigate()
   // Fetch franchises
   useEffect(() => {
     const fetchFranchises = async () => {
@@ -90,8 +89,10 @@ const AddProductFranchise = () => {
       );
 
       setTotalPrice(response.data.totalPrice);
-      swal('Success', 'Products are successfully assigned!', 'success');
-      navigate('/inventoryfranchise');
+      swal('Success', 'Products are successfully assigned!', 'success').then(() => {
+        window.location.reload(); // Reload the page after success alert
+      });
+      
 
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {

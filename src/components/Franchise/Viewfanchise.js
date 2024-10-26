@@ -36,6 +36,7 @@ const Viewfanchise = () => {
                         <CTableHeaderCell scope="col" className='col-2' >Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>Fanchise_id</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>Email</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-3'>Password</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-2'>Phone number</CTableHeaderCell>
                         
                        
@@ -48,6 +49,7 @@ const Viewfanchise = () => {
                   <CTableDataCell >{user.franchiseName}</CTableDataCell>
                     <CTableDataCell>{user.franchiseId}</CTableDataCell>
                     <CTableDataCell>{user.email}</CTableDataCell>
+                    <CTableDataCell>{user.password}</CTableDataCell>
                     <CTableDataCell>{user.contactInfo}</CTableDataCell>
                   
                        

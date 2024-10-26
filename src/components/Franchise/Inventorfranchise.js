@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert'
+import { useNavigate } from 'react-router-dom';
 import {
     CTable,
     CTableBody,
@@ -16,6 +17,7 @@ const Inventorfranchise = () => {
   const [selectedFranchise, setSelectedFranchise] = useState('');
   const [inventory, setInventory] = useState([]);
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
+  const navigate = useNavigate()
   // Fetch franchises on component mount
   useEffect(() => {
     const fetchFranchises = async () => {
@@ -52,7 +54,9 @@ const Inventorfranchise = () => {
       setInventory([]);
     }
   };
-
+const handleinvoice =()=>{
+  navigate('/franchiseinvoice')
+}
   return (
     <div>
       <h1>Franchise Inventory</h1>
@@ -82,21 +86,23 @@ const Inventorfranchise = () => {
         <CTable>
           <CTableHead>
             <CTableRow>
-              <CTableHeaderCell>Product ID</CTableHeaderCell>
-              <CTableHeaderCell>Product Name</CTableHeaderCell>
-              <CTableHeaderCell>Quantity</CTableHeaderCell>
-              <CTableHeaderCell>Price</CTableHeaderCell>
-              <CTableHeaderCell>BV Points</CTableHeaderCell>
+              {/* <CTableHeaderCell>Product ID</CTableHeaderCell> */}
+              <CTableHeaderCell className='text-center'>Product Name</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Quantity</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Price</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Invoice</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
             {inventory.map((item) => (
               <CTableRow key={item._id}>
-                <CTableDataCell>{item.productId}</CTableDataCell>
-                <CTableDataCell>{item.productName}</CTableDataCell>
-                <CTableDataCell>{item.stock}</CTableDataCell>
-                <CTableDataCell>{item.price}</CTableDataCell>
-                <CTableDataCell>{item.bvPoints}</CTableDataCell>
+               
+                <CTableDataCell className='text-center'>{item.productName}</CTableDataCell>
+                <CTableDataCell className='text-center'>{item.stock}</CTableDataCell>
+                <CTableDataCell className='text-center'>{item.price}</CTableDataCell>
+                <CTableDataCell className='text-center'>{item.bvPoints}</CTableDataCell>
+                <CTableDataCell className='text-center'><span><i className="fa fa-eye" onClick={handleinvoice} style={{ fontSize: "20px", color:"white" }} ></i> </span></CTableDataCell>
               </CTableRow>
             ))}
           </CTableBody>
