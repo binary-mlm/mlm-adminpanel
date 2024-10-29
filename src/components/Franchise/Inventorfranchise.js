@@ -40,11 +40,12 @@ const Inventorfranchise = () => {
     
     if (franchiseId) {
       try {
-        const response = await axios.get(ROOT_URL+`/api/admin/franchise/${franchiseId}/assigned-products`); // Adjust this endpoint to match your API
+        const response = await axios.post(ROOT_URL+`/api/admin/getFranchiseOrders`,{franchiseId}); // Adjust this endpoint to match your API
         if (response.data.length === 0) {
             swal('Opps!', 'No inventory found for this franchise!', 'error')
         } else {
-          setInventory(response.data);
+          setInventory(response.data.orders);
+          console.log(response.data.orders)
          
         }
       } catch (error) {
@@ -54,9 +55,11 @@ const Inventorfranchise = () => {
       setInventory([]);
     }
   };
-const handleinvoice =()=>{
-  navigate('/franchiseinvoice')
-}
+ 
+  const handleInvoice = (order) => {
+    navigate('/franchiseinvoice', { state: { franchiseId: selectedFranchise, order } });
+  };
+
   return (
     <div>
       <h1>Franchise Inventory</h1>
@@ -87,22 +90,21 @@ const handleinvoice =()=>{
           <CTableHead>
             <CTableRow>
               {/* <CTableHeaderCell>Product ID</CTableHeaderCell> */}
-              <CTableHeaderCell className='text-center'>Product Name</CTableHeaderCell>
-              <CTableHeaderCell className='text-center'>Quantity</CTableHeaderCell>
-              <CTableHeaderCell className='text-center'>Price</CTableHeaderCell>
-              <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Order Number</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Total Amount</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Order date </CTableHeaderCell>
+              {/* <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell> */}
               <CTableHeaderCell className='text-center'>Invoice</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            {inventory.map((item) => (
-              <CTableRow key={item._id}>
+            {inventory.map((order) => (
+              <CTableRow key={order._id}>
                
-                <CTableDataCell className='text-center'>{item.productName}</CTableDataCell>
-                <CTableDataCell className='text-center'>{item.stock}</CTableDataCell>
-                <CTableDataCell className='text-center'>{item.price}</CTableDataCell>
-                <CTableDataCell className='text-center'>{item.bvPoints}</CTableDataCell>
-                <CTableDataCell className='text-center'><span><i className="fa fa-eye" onClick={handleinvoice} style={{ fontSize: "20px", color:"white" }} ></i> </span></CTableDataCell>
+                <CTableDataCell className='text-center'>{order.orderDetails.orderNumber}</CTableDataCell>
+                <CTableDataCell className='text-center'>{order.orderDetails.totalAmount}</CTableDataCell>
+                <CTableDataCell className='text-center'>{new Date(order.orderDetails.orderDate).toLocaleDateString()}</CTableDataCell>
+                <CTableDataCell className='text-center'><span><i className="fa fa-eye"  onClick={() => handleInvoice(order)}  style={{ fontSize: "20px", color:"white" }} ></i> </span></CTableDataCell>
               </CTableRow>
             ))}
           </CTableBody>

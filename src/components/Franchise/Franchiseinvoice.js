@@ -1,10 +1,17 @@
 import React, { useRef } from "react";
+import { useLocation } from 'react-router-dom';
+import logo from '../../Image/udbhab_icon.png'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import   {CButton,
   } from '@coreui/react'
 const Franchiseinvoice = () => {
+  const location = useLocation();
+  const { franchiseId, order } = location.state;
     const invoicepdf = useRef();
+  
+   
+
 
   const downloadPDF = () => {
     const input = invoicepdf.current;
@@ -41,7 +48,7 @@ const Franchiseinvoice = () => {
         <div className="container">
           <div className="invoice-action text-end mt-2">
             <CButton className="btn p-3 mt-5" onClick={downloadPDF}>
-              <i className="fa fa-download"> </i>
+              <i className="fa fa-download"> Download</i>
             </CButton>
           </div>
           <div className="row mt-2">
@@ -49,20 +56,17 @@ const Franchiseinvoice = () => {
               <div ref={invoicepdf}>
                 <div
                   className="card w-100 mb-4 text-center"
-                
+                style={{backgroundColor:"white", color:"black"}}
                 >
                   <div
                     className="card-body"
                    
                   >
                     <div className="row">
-                      <div className="col-12 text-center">
-                        {/* <img className="img-fluid" src={logo} width={160} alt="Udbhab Logo" /> */}
-                        <h4>Udbhab Marketing Private Limited</h4>
-                      </div>
-                    </div>
+                      
+                    
 
-                    <div className="col-sm-7 invoice-title text-start mt-3">
+                    <div className="col-sm-6 invoice-title text-start mt-3">
                       <div>
                         <span className="h4">
                           Udbhab Marketing Private Limited
@@ -77,6 +81,11 @@ const Franchiseinvoice = () => {
                           <i className="uil uil-phone me-1"></i>+(91)7980964516
                         </p>
                       </div>
+                    </div>
+                    <div className='col-sm-6 text-end mt-2'>
+                  <img className='img-fuild' src={logo} width={140}/>
+
+                  </div>
                     </div>
                     <hr />
                     <div className="row">
@@ -93,10 +102,10 @@ const Franchiseinvoice = () => {
                       <div className="col-sm-6 d-flex justify-content-end">
                         <div>
                           <h5 className="font-size-16 mb-1 ms-1">To:</h5>
-                          <h5 className="font-size-15 mb-2">Subham Sarkar</h5>
-                          <p className="mb-1">Solmarg, Kashmir</p>
-                          <p className="mb-1">Email: Subham@gmail.com</p>
-                          <p>Ph no: 7878522452</p>
+                          <h5 className="font-size-15 mb-2">{franchiseId}</h5>
+                          <p className="mb-1">Sonmarg, Kashmir</p>
+                          {/* <p className="mb-1">Email: Subham@gmail.com</p>
+                          <p>Ph no: 7878522452</p> */}
                         </div>
                       </div>
                     </div>
@@ -105,34 +114,27 @@ const Franchiseinvoice = () => {
                       <h5 className="font-size-15 text-start">Order Summary</h5>
 
                       <div className="table-responsive">
-                        <table className="table align-middle table-striped table-centered mb-0 table-group-divider">
+                        <table className="table align-middle  table-centered mb-0 table-group-divider">
                           <thead>
-                            <tr className="text-center">
+                            <tr >
                               <th className="text-start">Product Name</th>
-                              <th className="text-start">SKU code</th>
-                              <th className="text-start">MRP</th>
-                              <th className="text-start">GST</th>
-                              <th className="text-start">Quantity</th>
-                              <th className="text-center">Total BV</th>
-                              <th className="text-center">Total MRP</th>
+                              <th >Quantity</th>
+                              <th>Price</th>
+                              <th>Total Amount</th>
+                              
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td className="text-start">Udbhab Face Wash</td>
-                              <td className="text-start">UD123456</td>
-                              <td className="text-start">200</td>
-                              <td className="text-start">20</td>
-                              <td className="text-start">10</td>
-                              <td className="text-center">10</td>
-                              <td className="text-center">300</td>
-                            </tr>
-                            <tr>
-                              <th scope="row" colSpan="6" className="text-uppercase text-end">
-                                Grand Total:-
-                              </th>
-                              <td>495.1/-</td>
-                            </tr>
+                          {order.products.map((product) => (
+              <tr key={product._id} >
+               
+                <td className="text-start">{product.name}</td>
+                <td className="text-center">{product.quantity}</td>
+                <td>{product.price}</td>
+                <td>{product.totalAmount}</td>
+              </tr>
+            ))}
+                           
                           </tbody>
                         </table>
                       </div>
