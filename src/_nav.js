@@ -14,10 +14,10 @@ const _nav = [
     name: 'Dashboard',
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW',
+    // },
   },
   {
     component: CNavTitle,
@@ -33,6 +33,22 @@ const _nav = [
     component: CNavItem,
     name: 'All Products',
     to: '/dashboard',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavTitle,
+    name: 'User',
+  },
+  {
+    component: CNavItem,
+    name: 'Add Product',
+    to: '/user/addproduct',
+    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'User Inventory',
+    to: '/user/userInventory',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
@@ -87,6 +103,8 @@ const _nav = [
     to: '/inventoryfranchise',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  
+
  
   // {
   //   component: CNavTitle,

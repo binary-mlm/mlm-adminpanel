@@ -24,7 +24,7 @@ const DocsCallout = (props) => {
       <CLink href={_href} target="_blank">
         documentation of CoreUI Components Library for React.js
       </CLink>
-      .
+      
     </CCallout>
   )
 }

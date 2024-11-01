@@ -15,7 +15,9 @@ const GetUserkycdetails = React.lazy(() => import('./components/KYC/GetUserkycde
 const Getaproveduser = React.lazy(() => import('./components/KYC/Getaproveduser'))
 const Getrejectuser = React.lazy(() => import('./components/KYC/Getrejectuser'))
 const Franchiseinvoice = React.lazy(() => import('./components/Franchise/Franchiseinvoice'))
-
+//user
+const Useraddproduct = React.lazy(() => import('./components/User/Useraddproduct'))
+const UserInventory = React.lazy(() => import('./components/User/UserInventory'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -32,5 +34,8 @@ const routes = [
   { path: '/theme/typography', name: 'Typography', element: Typography },
   
   { path: '/widgets', name: 'Widgets', element: Widgets },
+  { path: '/user/addproduct', name: 'Useraddproduct', element: Useraddproduct },
+  { path: '/user/userInventory', name: 'UserInventory', element: UserInventory }
+ 
 ]
 export default routes
