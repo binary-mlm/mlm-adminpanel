@@ -95,7 +95,6 @@ const Useraddproduct = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="User sponsor ID..."
             />
-           
           </div>
         </div>
 
