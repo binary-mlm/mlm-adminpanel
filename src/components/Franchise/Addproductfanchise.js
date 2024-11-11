@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import swal from 'sweetalert';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import swal from 'sweetalert'
 import {
   CCardFooter,
   CCard,
@@ -12,34 +12,33 @@ import {
   CButton,
   CListGroup,
   CListGroupItem,
-} from '@coreui/react';
-
+} from '@coreui/react'
 
 const AddProductFranchise = () => {
-  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-  const token = sessionStorage.getItem('admintoken');
-  const [franchises, setFranchises] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredFranchises, setFilteredFranchises] = useState([]);
-  const [selectedFranchise, setSelectedFranchise] = useState('');
-  const [productsList, setProductsList] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [showDropdown, setShowDropdown] = useState(false);
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
+  const token = sessionStorage.getItem('admintoken')
+  const [franchises, setFranchises] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredFranchises, setFilteredFranchises] = useState([])
+  const [selectedFranchise, setSelectedFranchise] = useState('')
+  const [productsList, setProductsList] = useState([])
+  const [products, setProducts] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [showDropdown, setShowDropdown] = useState(false)
   // Fetch franchises
   useEffect(() => {
     const fetchFranchises = async () => {
       try {
-        const response = await axios.get(ROOT_URL + '/api/admin/getAllFranchies');
-        setFranchises(response.data);
-        setFilteredFranchises(response.data);
+        const response = await axios.get(ROOT_URL + '/api/admin/getAllFranchies')
+        setFranchises(response.data)
+        setFilteredFranchises(response.data)
       } catch (error) {
-        console.error('Error fetching franchises:', error);
+        console.error('Error fetching franchises:', error)
       }
-    };
+    }
 
-    fetchFranchises();
-  }, []);
+    fetchFranchises()
+  }, [])
 
   // Fetch products
   useEffect(() => {
@@ -49,91 +48,93 @@ const AddProductFranchise = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        });
-        setProductsList(response.data.products);
+        })
+        setProductsList(response.data.products)
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching products:', error)
       }
-    };
+    }
 
-    fetchProducts();
-  }, [token]);
+    fetchProducts()
+  }, [token])
 
   // Update filtered franchises based on searchTerm
   useEffect(() => {
     if (searchTerm === '') {
-      setFilteredFranchises([]);
-      setShowDropdown(false);
+      setFilteredFranchises([])
+      setShowDropdown(false)
     } else {
-      const results = franchises.filter(franchise =>
-        franchise.franchiseName.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredFranchises(results);
-      setShowDropdown(results.length > 0);
+      const results = franchises.filter((franchise) =>
+        franchise.franchiseName.toLowerCase().includes(searchTerm.toLowerCase()),
+      )
+      setFilteredFranchises(results)
+      setShowDropdown(results.length > 0)
     }
-  }, [searchTerm, franchises]);
+  }, [searchTerm, franchises])
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!selectedFranchise || products.length === 0) {
-      swal('Error', 'Please select a franchise and add at least one product.', 'error');
-      return;
+      swal('Error', 'Please select a franchise and add at least one product.', 'error')
+      return
     }
 
     try {
       const response = await axios.post(
         ROOT_URL + `/api/admin/franchise/${selectedFranchise}/assign-products`,
-        { products }
-      );
+        { products },
+      )
 
-      setTotalPrice(response.data.totalPrice);
+      setTotalPrice(response.data.totalPrice)
       swal('Success', 'Products are successfully assigned!', 'success').then(() => {
-        window.location.reload(); // Reload the page after success alert
-      });
-      
-
+        window.location.reload() // Reload the page after success alert
+      })
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
-        swal('Error', error.response.data.message, 'error');
+        swal('Error', error.response.data.message, 'error')
       } else {
-        swal('Error', 'An error occurred while assigning products.', 'error');
+        swal('Error', 'An error occurred while assigning products.', 'error')
       }
     }
-  };
+  }
 
   // Handle product quantity change
   const handleProductChange = (productId, value) => {
-    const quantityValue = parseInt(value, 10); 
-    const updatedProducts = [...products];
-    const productIndex = updatedProducts.findIndex(product => product.productId === productId);
-  
+    const quantityValue = parseInt(value, 10)
+    const updatedProducts = [...products]
+    const productIndex = updatedProducts.findIndex((product) => product.productId === productId)
+
     if (productIndex >= 0) {
-      if (!isNaN(quantityValue) && quantityValue >= 0 && quantityValue <= productsList.find(p => p._id === productId)?.stock) {
-        updatedProducts[productIndex].quantity = quantityValue; 
+      if (
+        !isNaN(quantityValue) &&
+        quantityValue >= 0 &&
+        quantityValue <= productsList.find((p) => p._id === productId)?.stock
+      ) {
+        updatedProducts[productIndex].quantity = quantityValue
       } else {
-        updatedProducts[productIndex].quantity = 0; 
+        updatedProducts[productIndex].quantity = 0
       }
     } else {
       updatedProducts.push({
         productId,
         quantity: quantityValue >= 0 ? quantityValue : 0,
-        price: productsList.find(p => p._id === productId).price,
-        bvPoints: productsList.find(p => p._id === productId).bvPoints,
-      });
+        price: productsList.find((p) => p._id === productId).price,
+        bvPoints: productsList.find((p) => p._id === productId).bvPoints,
+      })
     }
-  
-    setProducts(updatedProducts);
-  };
+
+    setProducts(updatedProducts)
+  }
 
   // Handle franchise selection and hide dropdown
   const handleSelectFranchise = (franchiseId, franchiseName) => {
     // Set selected franchise and search term, then hide dropdown
-    setSelectedFranchise(franchiseId);
-    setSearchTerm(franchiseName);
-    setShowDropdown(false); // Ensure dropdown is hidden immediately after selection
-  };
+    setSelectedFranchise(franchiseId)
+    setSearchTerm(franchiseName)
+    setShowDropdown(false) // Ensure dropdown is hidden immediately after selection
+  }
 
   // Render each product card
   const renderProductCard = (product, index) => {
@@ -170,7 +171,7 @@ const AddProductFranchise = () => {
                   type="number"
                   min="0"
                   max={product.stock}
-                  value={products.find(p => p.productId === product._id)?.quantity || ''}
+                  value={products.find((p) => p.productId === product._id)?.quantity || ''}
                   onChange={(e) => handleProductChange(product._id, e.target.value)}
                 />
               </div>
@@ -178,8 +179,8 @@ const AddProductFranchise = () => {
           </div>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -203,7 +204,9 @@ const AddProductFranchise = () => {
                 {filteredFranchises.map((franchise) => (
                   <CListGroupItem
                     key={franchise._id}
-                    onClick={() => handleSelectFranchise(franchise.franchiseId, franchise.franchiseName)} // Select franchise on click
+                    onClick={() =>
+                      handleSelectFranchise(franchise.franchiseId, franchise.franchiseName)
+                    } // Select franchise on click
                     style={{ cursor: 'pointer' }}
                   >
                     {franchise.franchiseName}
@@ -232,14 +235,14 @@ const AddProductFranchise = () => {
       </CForm>
 
       {/* Display Total Price */}
-     
+
       {totalPrice > 0 && (
         <div className="text-center mt-4">
           <h5>Total Price: ₹{totalPrice}</h5>
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default AddProductFranchise;
+export default AddProductFranchise

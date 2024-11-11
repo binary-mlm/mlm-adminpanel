@@ -65,6 +65,7 @@ const Getrejectuser = () => {
                     Account Number: {user.bankDetaills.accountNumber}<br/>
                     Branch Name: {user.bankDetaills.branchName}<br/>
                     IFSC Code: {user.bankDetaills.ifscCode}
+                    
                   </CTableDataCell>
                   <CTableDataCell><img className='img_hover' width={100} height={100} src={user.documents.panCardFront} alt="PAN Card" /></CTableDataCell>
                   <CTableDataCell><img className="img_hover" width={100} height={100} src={user.documents.aadharCardFront} alt="Aadhar Card Front" /></CTableDataCell>

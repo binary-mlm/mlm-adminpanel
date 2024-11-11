@@ -110,6 +110,7 @@ const handlesubmit_rejected = async (sponsorId) => {
                   <CTableDataCell><img className="img_hover" width={100} height={100} src={user.documents.aadharCardBack} alt="Aadhar Card Back" /></CTableDataCell>
                   <CTableDataCell><img  className="img_hover" width={100} height={100} src={user.documents.bankCard} alt="Bank Card" /></CTableDataCell>
                   <CTableDataCell>
+                  <div className="d-flex gap-2">
                     <CButton
                       as="input"
                       className="btn btn-success text-white"
@@ -119,11 +120,12 @@ const handlesubmit_rejected = async (sponsorId) => {
                     />
                     <CButton
                       as="input"
-                      className="btn btn-danger text-white ms-3"
+                      className="btn btn-danger text-white"
                       type="submit"
                       value="Reject"
                       onClick={() => handlesubmit_rejected(user.userDetails.mySponsorId)}
                     />
+                    </div>
                   </CTableDataCell>
                 </CTableRow>
               ))}
