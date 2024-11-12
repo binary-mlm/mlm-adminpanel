@@ -80,13 +80,11 @@ const AddProductFranchise = () => {
       swal('Error', 'Please select a franchise and add at least one product.', 'error')
       return
     }
-
     try {
       const response = await axios.post(
         ROOT_URL + `/api/admin/franchise/${selectedFranchise}/assign-products`,
         { products },
       )
-
       setTotalPrice(response.data.totalPrice)
       swal('Success', 'Products are successfully assigned!', 'success').then(() => {
         window.location.reload() // Reload the page after success alert
@@ -124,9 +122,9 @@ const AddProductFranchise = () => {
         bvPoints: productsList.find((p) => p._id === productId).bvPoints,
       })
     }
-
     setProducts(updatedProducts)
   }
+  
 
   // Handle franchise selection and hide dropdown
   const handleSelectFranchise = (franchiseId, franchiseName) => {

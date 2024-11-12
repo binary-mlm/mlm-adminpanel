@@ -17,7 +17,9 @@ import {
 const Useraddproduct = () => {
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     const token = sessionStorage.getItem('admintoken');
+    const [usersponsorId, setUsersponsorId] = useState('');
     const [productsList, setProductsList] = useState([]);
+    const [products, setProducts] = useState([]);
     useEffect(() => {
         const fetchProducts = async () => {
           try {
@@ -34,6 +36,34 @@ const Useraddproduct = () => {
     
         fetchProducts();
       }, [token]);
+
+      const handleProductChange = (productId, value) => {
+        const quantityValue = parseInt(value, 10)
+        const updatedProducts = [...products]
+        const productIndex = updatedProducts.findIndex((product) => product.productId === productId)
+    
+        if (productIndex >= 0) {
+          if (
+            !isNaN(quantityValue) &&
+            quantityValue >= 0 &&
+            quantityValue <= productsList.find((p) => p._id === productId)?.stock
+          ) {
+            updatedProducts[productIndex].quantity = quantityValue
+          } else {
+            updatedProducts[productIndex].quantity = 0
+          }
+        } else {
+          updatedProducts.push({
+            productId,
+            quantity: quantityValue >= 0 ? quantityValue : 0,
+            price: productsList.find((p) => p._id === productId).price,
+            bvPoints: productsList.find((p) => p._id === productId).bvPoints,
+          })
+        }
+        setProducts(updatedProducts)
+      }
+
+
       const renderProductCard = (product) => {
         return (
           <div className="col" key={product._id}>
@@ -64,13 +94,13 @@ const Useraddproduct = () => {
                 <div className="row mt-2">
                   <div className="col-6">Assign Quantity:</div>
                   <div className="col-6">
-                    <input
-                      type="number"
-                      min="0"
-                      max={product.stock}
-                    //   value={products.find(p => p.productId === product._id)?.quantity || ''}
-                      onChange={(e) => handleProductChange(product._id, e.target.value)}
-                    />
+                  <input
+                  type="number"
+                  min="0"
+                  max={product.stock}
+                  value={products.find((p) => p.productId === product._id)?.quantity || ''}
+                  onChange={(e) => handleProductChange(product._id, e.target.value)}
+                />
                   </div>
                 </div>
               </div>
@@ -78,10 +108,35 @@ const Useraddproduct = () => {
           </div>
         );
       };
+
+      const handleSubmit = async (e) => {
+        e.preventDefault()
+    
+        if (!usersponsorId || products.length === 0) {
+          swal('Error', 'Please select a user sponsor id and add at least one product.', 'error')
+          return
+        }
+        try {
+          const response = await axios.post(
+            ROOT_URL + `/api/admin/user/${usersponsorId}/assign-products`,
+            { products },
+          )
+          // setTotalPrice(response.data.totalPrice)
+          swal('Success', 'Products are successfully assigned!', 'success').then(() => {
+            window.location.reload() // Reload the page after success alert
+          })
+        } catch (error) {
+          if (error.response && error.response.data && error.response.data.message) {
+            swal('Error', error.response.data.message, 'error')
+          } else {
+            swal('Error', 'An error occurred while assigning products.', 'error')
+          }
+        }
+      }
   return (
     <>
         <h3 className="text-center mb-4">Assign Products to User</h3>
-      <CForm method="post">
+      <CForm method="post" onSubmit={handleSubmit}>
        
         <div className="d-flex justify-content-center text-center">
           <CFormLabel className="mt-1" htmlFor="searchFranchise">
@@ -92,7 +147,7 @@ const Useraddproduct = () => {
               className="ms-3"
               id="searchFranchise"
            
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => setUsersponsorId(e.target.value)}
               placeholder="User sponsor ID..."
             />
           </div>
