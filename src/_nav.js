@@ -103,6 +103,23 @@ const _nav = [
     to: '/inventoryfranchise',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  {
+    component: CNavTitle,
+    name: 'Payout',
+  },
+  {
+
+    component: CNavItem,
+    name: 'Weekly Payout',
+    to: '/payout',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Monthly Payout',
+    to: '/monthlypayout',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
   
 
  

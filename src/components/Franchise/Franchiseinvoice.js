@@ -9,6 +9,10 @@ const Franchiseinvoice = () => {
   const location = useLocation();
   const { franchiseId, order } = location.state;
     const invoicepdf = useRef();
+    const total_Amount = order.products.reduce(
+      (total, product) => total + product.totalAmount,
+      0
+    );
   
    
 
@@ -92,10 +96,10 @@ const Franchiseinvoice = () => {
                       <div className="col-sm-6 text-start">
                         <div>
                           <h5 className="font-size-16 mb-1">From:</h5>
-                          <h5 className="font-size-15 mb-2">Srijani Banerjee</h5>
-                          <p className="mb-1">Howrah, West Bengal</p>
-                          <p className="mb-1">Email: srijani.banerjee2000@gmail.com</p>
-                          <p>Ph no: 8584062451</p>
+                          <h5 className="font-size-15 mb-2">Admin</h5>
+                          <p className="mb-1"> Udbhab Marketing Private Limited</p>
+                          <p className="mb-1">Email: support@myudbhab.in</p>
+                          <p>+(91)7980964516</p>
                         </div>
                       </div>
 
@@ -134,7 +138,10 @@ const Franchiseinvoice = () => {
                 <td>{product.totalAmount}</td>
               </tr>
             ))}
-                           
+            <tr>
+                            <td  colSpan="3" className="text-end"><h5><strong>Total: </strong></h5></td>
+                            <td className="text-left text-success "><h5><strong><i className="fa fa-inr"></i>{total_Amount}/-</strong></h5></td>
+                        </tr>  
                           </tbody>
                         </table>
                       </div>

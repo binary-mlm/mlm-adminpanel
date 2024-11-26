@@ -18,6 +18,9 @@ const Franchiseinvoice = React.lazy(() => import('./components/Franchise/Franchi
 //user
 const Useraddproduct = React.lazy(() => import('./components/User/Useraddproduct'))
 const UserInventory = React.lazy(() => import('./components/User/UserInventory'))
+const Payout = React.lazy(() => import('./components/Payout/Payout'))
+const Monthlypayout = React.lazy(() => import ('./components/Payout/Monthlypayout'))
+
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -28,6 +31,8 @@ const routes = [
   { path: '/franchiseinvoice', name: 'Franchiseinvoice', element: Franchiseinvoice },
   { path: '/inventoryfranchise', name: 'Inventorfranchise', element: Inventorfranchise },
   { path: '/getUserkycdetails', name: 'GetUserkycdetails', element: GetUserkycdetails },
+  { path: '/payout', name: 'Payout', element: Payout },
+  { path: '/monthlypayout', name: 'Monthlypayout', element: Monthlypayout },
   { path: '/getaproveduser', name: 'Getaproveduser', element: Getaproveduser },
   { path: '/getrejectuser', name: 'Getrejectuser', element: Getrejectuser },
   { path: '/theme/typography', name: 'Typography', element: Typography },

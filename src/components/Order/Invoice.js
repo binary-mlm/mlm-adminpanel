@@ -19,7 +19,6 @@ const Transactions = () => {
     axios.get(ROOT_URL+'/api/auth/get_onlinepayment')
     .then(invoicepayment=> setInvoice(invoicepayment.data.data))
     .catch(err => console.log(err))
-   
 }, []);
 // const formattedDate = new Date(invoice.createdAt).toLocaleDateString();
 
@@ -45,9 +44,8 @@ const Transactions = () => {
             <CTableDataCell className='col-2'>{invoice.createdAt}</CTableDataCell>
             <CTableDataCell className='col-1'>{invoice.amount}</CTableDataCell>
             <CTableDataCell className='col-4'>{invoice.courses}</CTableDataCell>
-            <CTableDataCell className='col-1'><div className='d-flex justify-content-center'>
-                
-                <Link to={`/invoicelist/${invoice._id}`}><i className="fa fa-eye editicon ms-4"></i></Link>
+            <CTableDataCell className='col-1'><div className='d-flex justify-content-center'>  
+            <Link to={`/invoicelist/${invoice._id}`}><i className="fa fa-eye editicon ms-4"></i></Link>
 
               </div></CTableDataCell>
           </CTableRow>
