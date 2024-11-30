@@ -54,8 +54,9 @@ const UserInventory = () => {
               {/* <CTableHeaderCell>Product ID</CTableHeaderCell> */}
               <CTableHeaderCell className='text-center'>Order Number</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Total Amount</CTableHeaderCell>
-              <CTableHeaderCell className='text-center'>Order date </CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Order date(MM/DD/YYYY) </CTableHeaderCell>
               <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Delivery Mode</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Invoice</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -67,6 +68,7 @@ const UserInventory = () => {
                 <CTableDataCell className='text-center'>{order.orderDetails.totalAmount}</CTableDataCell>
                 <CTableDataCell className='text-center'>{new Date(order.orderDetails.orderDate).toLocaleDateString()}</CTableDataCell>
                 <CTableDataCell className='text-center'>{order.orderDetails.totalBVPoints}</CTableDataCell>
+                <CTableDataCell className='text-center'>{order.deliveryMode}</CTableDataCell>
                 <CTableDataCell className='text-center'><span><i className="fa fa-eye"  onClick={() => handleInvoice(order)}  style={{ fontSize: "20px", color:"white" }} ></i> </span></CTableDataCell>
               </CTableRow>
             ))}
