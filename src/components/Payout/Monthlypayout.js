@@ -38,6 +38,7 @@ function Monthlypayout() {
 
   return (
    <>
+   <h3 className="text-center mb-3">Monthly Payout</h3>
      {errorMessage ? (
       <span className="h4 text-center">{errorMessage}</span>
         
@@ -46,21 +47,21 @@ function Monthlypayout() {
           <CTableHead>
             <CTableRow>
               <CTableHeaderCell className="text-center">User Name</CTableHeaderCell>
-              <CTableHeaderCell className="text-center">Week</CTableHeaderCell>
-              <CTableHeaderCell className="text-center">Matched BV</CTableHeaderCell>
+              <CTableHeaderCell className="text-center">Month</CTableHeaderCell>
+              
               <CTableHeaderCell className="text-center">Payout Amount</CTableHeaderCell>
-              <CTableHeaderCell className="text-center">Payment Status</CTableHeaderCell>
+             
             </CTableRow>
           </CTableHead>
           <CTableBody>
             {monthlypayout.map((order) =>
-              order.weeklyEarnings.map((earning) => (
+              order.monthlyEarnings.map((earning) => (
                 <CTableRow key={earning._id}>
                   <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
-                  <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
-                  <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
+                  <CTableDataCell className="text-center">{earning.month}</CTableDataCell>
+                 
                   <CTableDataCell className="text-center">{earning.payoutAmount}</CTableDataCell>
-                  <CTableDataCell className="text-center">{earning.paymentStatus}</CTableDataCell>
+                 
                 </CTableRow>
               ))
             )}
