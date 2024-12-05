@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import swal from 'sweetalert'
 const Editproduct = () => {
   const { id } = useParams(); // Get product ID from the route parameter
   const navigate = useNavigate();
@@ -17,6 +18,10 @@ const Editproduct = () => {
     bvpoints: '',
     description:'',
     stock: '',
+    ingredients:'',
+    product_benefits:'',
+    how_to_use :'',
+    disclaimer:''
   });
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +38,12 @@ const Editproduct = () => {
           price: fetchedProduct.price || '',
           bvpoints: fetchedProduct.bvPoints || '',
           description: fetchedProduct.description || '',
-          stock: fetchedProduct.stock || '', // Ensure casing matches the API response
+          stock: fetchedProduct.stock || '',
+          ingredients: fetchedProduct.ingredients || '',
+          product_benefits: fetchedProduct.product_benefits || '',
+          how_to_use: fetchedProduct.how_to_use || '',
+          disclaimer: fetchedProduct.disclaimer || ''
+           
         });
       } catch (error) {
         console.error('Error fetching product details:', error);
@@ -75,12 +85,13 @@ const Editproduct = () => {
       );
 
       if (response.status === 200) {
-        alert('Product updated successfully!');
+        swal("Yeah!","Product details updated successfully!","success")
         navigate('/dashboard'); // Redirect to the products list
       }
     } catch (error) {
       console.error('Error updating product:', error);
       const errorMessage = error.response?.data?.message || 'An error occurred.';
+     
       alert(`Failed to update product: ${errorMessage}`);
     } finally {
       setLoading(false);
@@ -139,7 +150,56 @@ const Editproduct = () => {
               
               />
             </CCol>
+           
           </CRow>
+          <CRow className="mb-3">
+            <CCol md="6">
+              <CFormLabel>Ingredients</CFormLabel>
+              <CFormInput
+                type="text"
+                name="ingredients"
+                value={product.ingredients}
+                onChange={handleChange}
+                placeholder="Enter ingredients"
+              
+              />
+            </CCol>
+            <CCol md="6">
+              <CFormLabel>product benefits</CFormLabel>
+              <CFormInput
+                type="text"
+                name="product_benefits"
+                value={product.product_benefits}
+                onChange={handleChange}
+                placeholder="Enter Benefits"
+              
+              />
+            </CCol>
+            </CRow>
+            <CRow className="mb-3">
+            <CCol md="6">
+              <CFormLabel>how_to_use</CFormLabel>
+              <CFormInput
+                type="text"
+                name="how_to_use"
+                value={product.how_to_use}
+                onChange={handleChange}
+                placeholder="Enter how to use"
+              
+              />
+            </CCol>
+            <CCol md="6">
+              <CFormLabel>Disclaimer</CFormLabel>
+              <CFormInput
+                type="text"
+                name="disclaimer"
+                value={product.disclaimer}
+                onChange={handleChange}
+                placeholder="Enter disclaimer"
+              
+              />
+            </CCol>
+            </CRow>
           <CRow className="mb-3">
           <CCol md="6">
               <CFormLabel>Description</CFormLabel>

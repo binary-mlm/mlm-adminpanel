@@ -29,6 +29,10 @@ const Addproduct = () => {
   const [description, setdescription] = useState('')
   const [picture, setImage] = useState(null)
   const [stock, setstock] = useState('')
+  const [ingredients, setingredients] = useState('')
+  const [product_benefits, setProductbenefit] = useState('')
+  const [how_to_use, sethowtouse] = useState('')
+  const [disclaimer, setdisclaimer] = useState('')
   const token = sessionStorage.getItem("admintoken");
  
   // const convertToBase64 = (file) => {
@@ -83,7 +87,11 @@ const Addproduct = () => {
             bvPoints,
             picture,
             description,
-            stock
+            stock,
+            ingredients,
+            product_benefits,
+            how_to_use,
+            disclaimer
           } ,{
             headers: {
               Authorization: `Bearer ${token}`,
@@ -191,10 +199,48 @@ const Addproduct = () => {
                     </div>
                     <CFormInput
                       type="text"
-                      name="course_price"
+                      name="product_price"
                       id="exampleFormControlInput12"
                       placeholder="Enter price"
                       onChange={(e) => setprice(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput12">
+                           Ingredients
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      name="ingredients"
+                      id="exampleFormControlInput12"
+                      placeholder="Enter ingredients"
+                      onChange={(e) => setingredients(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput12">
+                           How to use
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      name="productbenefit"
+                      id="exampleFormControlInput12"
+                      placeholder="How to use"
+                      onChange={(e) => sethowtouse(e.target.value)}
                     />
                   </div>
 
@@ -283,10 +329,49 @@ const Addproduct = () => {
                       onChange={(e) => setstock(e.target.value)}
                     />
                   </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput12">
+                           Product benefit
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      name="productbenefit"
+                      id="exampleFormControlInput12"
+                      placeholder="Enter ingredients"
+                      onChange={(e) => setProductbenefit(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput12">
+                           Disclaimer
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      name="productbenefit"
+                      id="exampleFormControlInput12"
+                      placeholder="Disclaimer"
+                      onChange={(e) => setdisclaimer(e.target.value)}
+                    />
+                  </div>
+
+
                   
                 
                 </div>
-                
               </div>
               <CButton
                   as="input"
