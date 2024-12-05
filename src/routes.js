@@ -20,6 +20,7 @@ const Useraddproduct = React.lazy(() => import('./components/User/Useraddproduct
 const UserInventory = React.lazy(() => import('./components/User/UserInventory'))
 const Payout = React.lazy(() => import('./components/Payout/Payout'))
 const Monthlypayout = React.lazy(() => import ('./components/Payout/Monthlypayout'))
+const Editproduct = React.lazy(() => import('./components/Editproduct'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/addproduct', name: 'Addproduct', element: Addproduct },
   { path: '/addfanchise', name: 'Addfanchise', element: Addfanchise },
   { path: '/viewfanchise', name: 'Viewfanchise', element: Viewfanchise },
+  { path: '/editproduct/:id', name: 'Editproduct', element: Editproduct },
   { path: '/addproductfanchise', name: 'Addproductfanchise', element: Addproductfanchise },
   { path: '/franchiseinvoice', name: 'Franchiseinvoice', element: Franchiseinvoice },
   { path: '/inventoryfranchise', name: 'Inventorfranchise', element: Inventorfranchise },

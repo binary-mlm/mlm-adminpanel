@@ -127,7 +127,7 @@ const confirmDelete = (productid) => {
                     <CTableDataCell><img width={100} height={100} src={product.imageURL}/></CTableDataCell>
                     <CTableDataCell className='col-1'>
                             <div className='d-flex'>
-                            <Link to={`/editcourse/${product._id}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1 editicon"></i></Link>
+                            <Link to={`/editproduct/${product._id}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1 editicon"></i></Link>
                             <button className="btn" onClick={()=>confirmDelete(product._id)}><i className="fa fa-trash-o editicon"></i></button>
                            {/* <button><i className="fa fa-trash-o ms-4 editicon"></i></button> */}
                             </div>
