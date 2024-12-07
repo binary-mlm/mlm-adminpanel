@@ -147,7 +147,6 @@ const Editproduct = () => {
                 value={product.bvpoints}
                 onChange={handleChange}
                 placeholder="Enter BV points"
-              
               />
             </CCol>
            
@@ -172,7 +171,7 @@ const Editproduct = () => {
                 value={product.product_benefits}
                 onChange={handleChange}
                 placeholder="Enter Benefits"
-              
+          
               />
             </CCol>
             </CRow>

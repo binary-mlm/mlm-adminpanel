@@ -51,9 +51,6 @@ const Viewfanchise = () => {
                     <CTableDataCell>{user.email}</CTableDataCell>
                     <CTableDataCell>{user.password}</CTableDataCell>
                     <CTableDataCell>{user.contactInfo}</CTableDataCell>
-                  
-                       
-
                 </CTableRow>
               })
              }       

@@ -304,9 +304,9 @@ const Addproduct = () => {
                     </div>
                     <CFormInput
                       type="text"
-                      name="total_video"
+                      name="bv_points"
                       id="exampleFormControlInput6"
-                      placeholder="Enter total video"
+                      placeholder="Enter Bv points"
                       onChange={(e) => setbvPoints(e.target.value)}
                     />
                   </div>
@@ -323,7 +323,7 @@ const Addproduct = () => {
                     </div>
                     <CFormInput
                       type="text"
-                      name="introduction_video"
+                      name="Enter Stock"
                       id="exampleFormControlInput7"
                       placeholder="Enter stock"
                       onChange={(e) => setstock(e.target.value)}
