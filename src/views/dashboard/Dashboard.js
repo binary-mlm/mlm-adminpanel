@@ -18,7 +18,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 
-// import WidgetsDropdown from '../widgets/WidgetsDropdown'
+import WidgetsDropdown from '../widgets/WidgetsDropdown'
 // import MainChart from './MainChart'
 
 const Dashboard = () => {
@@ -88,23 +88,23 @@ const confirmDelete = (productid) => {
 
   return (
     <>
-      {/* <WidgetsDropdown className="mb-4" /> */}
+      <WidgetsDropdown className="mb-4" />
       
         <CCardHeader>
-          <h5 className='text-center mb-2'>All Products</h5>
+          <h4 className='text-center mb-3 h4'>All Products:-</h4>
         </CCardHeader>
         <CCardBody>
-          <CTable responsive="sm" color="dark">
+          <CTable responsive="sm" color="dark" >
             <CTableHead>
               <CTableRow>
-                <CTableHeaderCell scope="col">Product_id</CTableHeaderCell>
-                <CTableHeaderCell scope="col">Product name</CTableHeaderCell>
+                {/* <CTableHeaderCell scope="col">Product_id</CTableHeaderCell> */}
+                <CTableHeaderCell scope="col" colSpan="3">Product name</CTableHeaderCell>
                 {/* <CTableHeaderCell scope="col">Review</CTableHeaderCell> */}
                 <CTableHeaderCell scope="col">Price</CTableHeaderCell>
                 <CTableHeaderCell scope="col">bvPoints</CTableHeaderCell>
                 {/* <CTableHeaderCell scope="col">Teacher dept</CTableHeaderCell> */}
                 <CTableHeaderCell scope="col">Stock</CTableHeaderCell>
-                <CTableHeaderCell scope="col">Product description</CTableHeaderCell>
+                <CTableHeaderCell scope="col" className='text-center'>Product description</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Product image </CTableHeaderCell>
                 <CTableHeaderCell scope="col" className='text-center'>Action</CTableHeaderCell>
               </CTableRow>
@@ -113,15 +113,15 @@ const confirmDelete = (productid) => {
              {
               productdata.map((product) => {
                 return <CTableRow active key={product._id} >
-                  <CTableDataCell id='courseid'>{product._id}</CTableDataCell>
-                    <CTableDataCell>{product.name}</CTableDataCell>
+                  {/* <CTableDataCell id='courseid'>{product._id}</CTableDataCell> */}
+                    <CTableDataCell colSpan="3">{product.name}</CTableDataCell>
                     {/* <CTableDataCell>{product.course_review}</CTableDataCell> */}
                     <CTableDataCell>{product.price}</CTableDataCell>
                     <CTableDataCell>{product.bvPoints}</CTableDataCell>
                     
                     {/* <CTableDataCell>{product.teacher_dept}</CTableDataCell> */}
                     <CTableDataCell>{product.stock}</CTableDataCell>
-                    <CTableDataCell  dangerouslySetInnerHTML={{
+                    <CTableDataCell className='text-center'  dangerouslySetInnerHTML={{
                     __html: product.description
                   }}></CTableDataCell>
                     <CTableDataCell><img width={100} height={100} src={product.imageURL}/></CTableDataCell>

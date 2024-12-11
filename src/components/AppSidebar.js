@@ -35,11 +35,12 @@ const AppSidebar = () => {
         dispatch({ type: 'set', sidebarShow: visible })
       }}
     >
-      <CSidebarHeader className="border-bottom">
+      <CSidebarHeader className="">
+      <h3>Admin-panel</h3>
         <CSidebarBrand to="/">
-          <h3>Admin-panel</h3>
+          
           {/* <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} /> */}
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
+          {/* <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} /> */}
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
@@ -56,5 +57,4 @@ const AppSidebar = () => {
     </CSidebar>
   )
 }
-
 export default React.memo(AppSidebar)

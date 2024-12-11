@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Addproduct = React.lazy(() => import('./views/Addproduct'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
+const Userinvoice = React.lazy(() => import('./components/User/Userinvoice'))
 // const Contactus = React.lazy(() => import('./views/Contactus'))
 //fanchise
 const Addfanchise = React.lazy(() => import("./components/Franchise/Addfanchise"))
@@ -39,10 +40,9 @@ const routes = [
   { path: '/getrejectuser', name: 'Getrejectuser', element: Getrejectuser },
   { path: '/theme/typography', name: 'Typography', element: Typography },
   { path: '/theme/typography', name: 'Typography', element: Typography },
-  
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/user/addproduct', name: 'Useraddproduct', element: Useraddproduct },
-  { path: '/user/userInventory', name: 'UserInventory', element: UserInventory }
- 
+  { path: '/user/userInventory', name: 'UserInventory', element: UserInventory },
+  { path: '/user/userinvoice', name: 'Userinvoice', element: Userinvoice }
 ]
 export default routes
