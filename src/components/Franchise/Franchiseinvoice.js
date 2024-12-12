@@ -11,7 +11,7 @@ const Franchiseinvoice = () => {
   const total_Amount = order.products.reduce((total, product) => total + product.totalAmount, 0)
 
   const downloadPDF = () => {
-    const input = invoicepdf.current
+    const input = invoicepdf.current;
 
     html2canvas(input, {
       useCORS: true, // Enables cross-origin images

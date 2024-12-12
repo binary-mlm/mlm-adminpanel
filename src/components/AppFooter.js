@@ -13,7 +13,7 @@ const AppFooter = () => {
       </div> */}
       <div className="ms-auto">
         <span className="me-1">Powered by</span>
-        <a href="https://synthospheretech.com/" target="_blank" rel="noopener noreferrer">
+        <a  style={{color:"#095444"}} href="https://synthospheretech.com/" target="_blank" rel="noopener noreferrer">
          Synthosphere team
         </a>
       </div>

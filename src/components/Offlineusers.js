@@ -49,12 +49,12 @@ import {
                 <CTableDataCell className='col-2'>{user.course}</CTableDataCell>
                 <CTableHeaderCell scope="col" className='col-3'>{user.email}</CTableHeaderCell>
                 <CTableDataCell className='col-1'>{user.phoneno}</CTableDataCell>
-                        <CTableDataCell className='col-1'>{user.amount}</CTableDataCell>
-                        <CTableHeaderCell scope="col" className='col-2'>{user.cities}</CTableHeaderCell>
-                        <CTableDataCell>
-                          <a><i className="fa fa-edit ms-2 editicon"></i></a> 
-                         </CTableDataCell>
-                        </CTableRow>
+                <CTableDataCell className='col-1'>{user.amount}</CTableDataCell>
+                <CTableHeaderCell scope="col" className='col-2'>{user.cities}</CTableHeaderCell>
+                <CTableDataCell>
+                <a><i className="fa fa-edit ms-2 editicon"></i></a> 
+                </CTableDataCell>
+                </CTableRow>
               })
             }
         </CTableBody>
