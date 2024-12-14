@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { CCard, CFormInput, CCol, CRow, CForm, CButton, CFormLabel } from '@coreui/react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import swal from 'sweetalert';
-
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import swal from 'sweetalert'
 const Editproduct = () => {
   const { id } = useParams(); // Get product ID from the route parameter
   const navigate = useNavigate();
@@ -17,16 +16,13 @@ const Editproduct = () => {
     category: '',
     price: '',
     bvpoints: '',
-    description: '',
+    description:'',
     stock: '',
-    ingredients: '',
-    product_benefits: '',
-    how_to_use: '',
-    disclaimer: ''
+    ingredients:'',
+    product_benefits:'',
+    how_to_use :'',
+    disclaimer:''
   });
-
-  const [picture, setPicture] = useState(null); // Updated state for the uploaded picture
-  const [preview, setPreview] = useState(null); // State for the picture preview
   const [loading, setLoading] = useState(false);
 
   // Fetch product details
@@ -34,6 +30,7 @@ const Editproduct = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`${ROOT_URL}/api/user/getProductById/${id}`);
+
         const fetchedProduct = response.data.product;
         setProduct({
           name: fetchedProduct.name || '',
@@ -46,8 +43,8 @@ const Editproduct = () => {
           product_benefits: fetchedProduct.product_benefits || '',
           how_to_use: fetchedProduct.how_to_use || '',
           disclaimer: fetchedProduct.disclaimer || ''
+           
         });
-        setPreview(fetchedProduct.imageURL || null); // Assuming the API provides the picture URL
       } catch (error) {
         console.error('Error fetching product details:', error);
         alert('Failed to fetch product details.');
@@ -65,61 +62,36 @@ const Editproduct = () => {
       [name]: value,
     }));
   };
-
   const handleDescriptionChange = (value) => {
     setProduct((prevProduct) => ({
       ...prevProduct,
       description: value,
     }));
   };
-
-  const handlePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setPicture(file);
-      setPreview(URL.createObjectURL(file)); // Show a preview of the uploaded picture
-    }
-  };
-
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append('name', product.name);
-      formData.append('category', product.category);
-      formData.append('price', product.price);
-      formData.append('bvpoints', product.bvpoints);
-      formData.append('description', product.description);
-      formData.append('stock', product.stock);
-      formData.append('ingredients', product.ingredients);
-      formData.append('product_benefits', product.product_benefits);
-      formData.append('how_to_use', product.how_to_use);
-      formData.append('disclaimer', product.disclaimer);
-
-      if (picture) {
-        formData.append('picture', picture); // Attach the picture file
-      }
-
       const response = await axios.post(
         `${ROOT_URL}/api/admin/editProduct/${id}`,
-        formData,
+        product,
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json',
           },
         }
       );
 
       if (response.status === 200) {
-        swal("Yeah!", "Product details updated successfully!", "success");
+        swal("Yeah!","Product details updated successfully!","success")
         navigate('/dashboard'); // Redirect to the products list
       }
     } catch (error) {
       console.error('Error updating product:', error);
       const errorMessage = error.response?.data?.message || 'An error occurred.';
+     
       alert(`Failed to update product: ${errorMessage}`);
     } finally {
       setLoading(false);
@@ -131,7 +103,7 @@ const Editproduct = () => {
       <h2 className="mb-4">Edit Product</h2>
       <CCard className="p-4">
         <CForm onSubmit={handleSubmit}>
-        <CRow className="mb-3">
+          <CRow className="mb-3">
             <CCol md="6">
               <CFormLabel>Name</CFormLabel>
               <CFormInput
@@ -248,19 +220,6 @@ const Editproduct = () => {
               />
             </CCol>
             </CRow>
-
-          {/* Other fields */}
-          <CRow className="mb-3">
-            <CCol md="6">
-              <CFormLabel>Product Picture</CFormLabel>
-              <CFormInput type="file" accept="image/*" onChange={handlePictureChange} />
-              {preview && (
-                <div className="mt-2">
-                  <img src={preview} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />
-                </div>
-              )}
-            </CCol>
-          </CRow>
           <CButton type="submit" color="primary" disabled={loading}>
             {loading ? 'Updating...' : 'Update Product'}
           </CButton>

@@ -25,6 +25,7 @@ const Addproduct = () => {
   const [name, setname] = useState('')
   const [category, setcategory] = useState('')
   const [price, setprice] = useState('')
+  const [mrp_price, setmrpprice] = useState('')
   const [bvPoints, setbvPoints] = useState('')
   const [description, setdescription] = useState('')
   const [picture, setImage] = useState(null)
@@ -71,7 +72,9 @@ const Addproduct = () => {
       // course_description === '' ||
       // wewilllearn === '' ||
       category === '' ||
+      
       price === '' ||
+     
       bvPoints === '' ||
       // introduction_video == '' ||
       picture === ''
@@ -84,6 +87,7 @@ const Addproduct = () => {
             name,
             category,
             price,
+            mrp_price,
             bvPoints,
             picture,
             description,
@@ -190,7 +194,7 @@ const Addproduct = () => {
                     <div className="row">
                       <div className="col-6">
                         <CFormLabel htmlFor="exampleFormControlInput12">
-                           price
+                           Dp price
                           <sup>
                             <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
                           </sup>
@@ -203,6 +207,25 @@ const Addproduct = () => {
                       id="exampleFormControlInput12"
                       placeholder="Enter price"
                       onChange={(e) => setprice(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput12">
+                            MRP price
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      name="product_dp_price"
+                      id="exampleFormControlInput12"
+                      placeholder="Enter price"
+                      onChange={(e) => setmrpprice(e.target.value)}
                     />
                   </div>
                   <div className="mb-3">
