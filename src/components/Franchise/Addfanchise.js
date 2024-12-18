@@ -18,13 +18,21 @@ const Addfanchise = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const [contactInfo, setcontactInfo] = useState('')
+  const [address, setaddress] = useState('')
+  const [state, setstate] = useState('')
+  const [district, setdistrict] = useState('')
+  const [pincode, setpincode] = useState('')
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (
         franchiseName === '' ||
       email === '' ||
       password === '' ||
-      contactInfo === ''
+      contactInfo === '' ||
+      address === '' ||
+      state === '' ||
+      district === '' ||
+      pincode === ''
       
     ) {
       swal('Opps!', 'Please fill out all required fields!', 'error')
@@ -35,7 +43,11 @@ const Addfanchise = () => {
             franchiseName,
             email,
             password,
-            contactInfo
+            contactInfo,
+            address,
+            state,
+            district,
+            pincode
             
           }
           )
@@ -102,6 +114,44 @@ const Addfanchise = () => {
                       onChange={(e) => setpassword(e.target.value)}
                     />
                   </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput2">
+                        Address
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      id="exampleFormControlInput2"
+                      name="address"
+                      placeholder="Enter address"
+                      onChange={(e) => setaddress(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput2">
+                        District
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      id="exampleFormControlInput2"
+                      name="address"
+                      placeholder="Enter district"
+                      onChange={(e) => setdistrict(e.target.value)}
+                    />
+                  </div>
                 </div>
                 <div className="col-lg-6">
                 <div className="mb-3">
@@ -140,6 +190,45 @@ const Addfanchise = () => {
                       name="name"
                       placeholder="Enter contact info "
                       onChange={(e) => setcontactInfo(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput2">
+                        State
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      id="exampleFormControlInput2"
+                      name="state"
+                      placeholder="Enter state "
+                      onChange={(e) => setstate(e.target.value)}
+                    />
+                  </div>
+                 
+                  <div className="mb-3">
+                    <div className="row">
+                      <div className="col-6">
+                        <CFormLabel htmlFor="exampleFormControlInput2">
+                        Pincode
+                          <sup>
+                            <i className="fa fa-asterisk" style={{ fontSize: '9px' }}></i>
+                          </sup>
+                        </CFormLabel>
+                      </div>
+                    </div>
+                    <CFormInput
+                      type="text"
+                      id="exampleFormControlInput2"
+                      name="pincode"
+                      placeholder="Enter pincode "
+                      onChange={(e) => setpincode(e.target.value)}
                     />
                   </div>
                 </div>
