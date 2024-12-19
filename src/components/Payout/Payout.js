@@ -22,6 +22,7 @@ function Payout() {
       try {
         const response = await axios.get(ROOT_URL+'/api/payouts/all-weekly-earnings'); // Adjust this endpoint to match your API
         setWeeklypayout(response.data.data);
+        console.log(response.data.data); // For debugging purposes, you can log the received data to see its structure
       } catch (error) {
         console.error( error);
       }
@@ -53,9 +54,12 @@ function Payout() {
           <CTableHead>
             <CTableRow>
               {/* <CTableHeaderCell>Product ID</CTableHeaderCell> */}
+              <CTableHeaderCell className='text-center'>User ID</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>User Name</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Week</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>MatchedBV</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Direct sales bonus</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Matching bonus</CTableHeaderCell>
               {/* <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell> */}
               <CTableHeaderCell className='text-center'>Payout Amount</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Payment Status</CTableHeaderCell>
@@ -66,9 +70,12 @@ function Payout() {
           {weeklypayout.map((order) =>
           order.weeklyEarnings.map((earning) => (
             <CTableRow key={earning._id}>
+              <CTableDataCell className="text-center">{order.userId}</CTableDataCell>
               <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
+              <CTableDataCell className="text-center">0</CTableDataCell>
+              <CTableDataCell className="text-center">0</CTableDataCell>
               <CTableDataCell className="text-center">{earning.payoutAmount}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.paymentStatus}</CTableDataCell>
               <CTableDataCell className="text-center"><CButton className='btn btn-primary' onClick={() => Handlesubmit(order.userId, earning._id)} disabled={earning.paymentStatus === "Paid"}>Paid</CButton></CTableDataCell>
