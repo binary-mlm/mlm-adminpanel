@@ -49,7 +49,7 @@ function Payout() {
   
   return (
     <>
-      
+        <div className='table-responsive'>
         <CTable>
           <CTableHead>
             <CTableRow>
@@ -84,6 +84,7 @@ function Payout() {
         )}
           </CTableBody>
         </CTable>
+        </div>
       
   
     </>
