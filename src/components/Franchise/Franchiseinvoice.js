@@ -18,7 +18,7 @@ const Franchiseinvoice = () => {
       scale: 2, // Higher scale for better quality
     }).then((canvas) => {
       const imgData = canvas.toDataURL('image/png')
-      const pdf = new jsPDF('p', 'mm', 'a4')
+      const pdf = new jsPDF('p', 'mm', 'A4')
 
       // Calculate width and height based on the A4 page size
       const pdfWidth = pdf.internal.pageSize.getWidth()

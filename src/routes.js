@@ -22,6 +22,8 @@ const UserInventory = React.lazy(() => import('./components/User/UserInventory')
 const Payout = React.lazy(() => import('./components/Payout/Payout'))
 const Monthlypayout = React.lazy(() => import ('./components/Payout/Monthlypayout'))
 const Editproduct = React.lazy(() => import('./components/Editproduct'))
+const Allusers = React.lazy(() => import('./components/User/Allusers'));
+const Edituser = React.lazy(() => import('./components/User/Edituser'));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -43,6 +45,8 @@ const routes = [
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/user/addproduct', name: 'Useraddproduct', element: Useraddproduct },
   { path: '/user/userInventory', name: 'UserInventory', element: UserInventory },
-  { path: '/user/userinvoice', name: 'Userinvoice', element: Userinvoice }
+  { path: '/user/userinvoice', name: 'Userinvoice', element: Userinvoice },
+  { path: '/user/allusers', name: 'Allusers', element: Allusers },
+  { path: '/user/edituser/:id', name: 'Edituser', element: Edituser }
 ]
 export default routes

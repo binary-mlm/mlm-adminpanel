@@ -57,7 +57,7 @@ const UserInventory = () => {
           />
           <CButton className='btn btn-success text-white' onClick={e => handleSearch(e)}>Enter</CButton>
         </div> */}
-        {inventory.length > 0 && (
+        {inventory.length > 0 ? (
         <CTable className='mt-5'>
           <CTableHead>
             <CTableRow>
@@ -85,6 +85,10 @@ const UserInventory = () => {
             ))}
           </CTableBody>
         </CTable>
+      ) : (
+        <div className="mt-5 text-center">
+          <h5>No orders found</h5>
+        </div>
       )}
    </>
   )
