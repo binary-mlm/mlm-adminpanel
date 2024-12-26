@@ -62,7 +62,7 @@ const Userinvoice = () => {
                         </div>
                         <div className="mt-2">
                           <p className="mb-1">
-                            Indrira Nagar Sodepur, North 24 Parganas, Kolkata-700110
+                            Indira Nagar Sodepur, North 24 Parganas, Kolkata-700110
                           </p>
                           <p className="mb-1">
                             <i className="uil uil-envelope-alt me-1"></i>Email: support@myudbhab.in
@@ -81,7 +81,6 @@ const Userinvoice = () => {
                       <div className="col-sm-6 text-start">
                         <div>
                           <h5 className="font-size-16 mb-1">From:</h5>
-                          <h5 className="font-size-15 mb-2">Admin</h5>
                           <p className="mb-1"> Udbhab Marketing Private Limited</p>
                           <p className="mb-1">Email: support@myudbhab.in</p>
                           <p>+(91)7980964516</p>

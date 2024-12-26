@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { CCard, CFormInput, CCol, CRow, CForm, CButton, CFormLabel } from '@coreui/react'
+import {
+  CCard,
+  CFormInput,
+  CCol,
+  CRow,
+  CForm,
+  CButton,
+  CFormLabel,
+  CFormSelect,
+} from '@coreui/react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert'
@@ -33,7 +42,7 @@ const Edituser = () => {
         setUsers({
           name: fetcheduser.name || '',
           gender: fetcheduser.gender || '', // Assuming category is an array
-          dob: fetcheduser.dob || '',
+          dob: fetcheduser.dob ? new Date(fetcheduser.dob).toISOString().split('T')[0] : '',
           sponsorId: fetcheduser.mySponsorId || '',
           mobileNumber: fetcheduser.mobileNumber || '',
           whatsappNumber: fetcheduser.whatsappNumber || '',
@@ -67,7 +76,7 @@ const Edituser = () => {
     setLoading(true)
     try {
       const formData = new FormData()
-      
+
       formData.append('gender', user.gender)
       formData.append('name', user.name)
       formData.append('dob', user.dob)
@@ -80,16 +89,14 @@ const Edituser = () => {
       formData.append('address', user.address)
       formData.append('gstNumber', user.gstNumber)
       formData.append('password', user.password)
-      console.log('FormData:', Object.fromEntries(formData.entries()));
+      console.log('FormData:', Object.fromEntries(formData.entries()))
 
-      const response = await axios.put(`${ROOT_URL}/api/auth/handleEditUserDetails`, formData,
-        {
-          headers: {
-            sponsorId: user.sponsorId,
-            'Content-Type': 'application/json', 
-          },
-        }
-      )
+      const response = await axios.put(`${ROOT_URL}/api/auth/handleEditUserDetails`, formData, {
+        headers: {
+          sponsorId: user.sponsorId,
+          'Content-Type': 'application/json',
+        },
+      })
 
       if (response.status === 200) {
         swal('Yeah!', 'User details updated successfully!', 'success')
@@ -121,7 +128,7 @@ const Edituser = () => {
                   placeholder="Enter user name"
                 />
               </CCol>
-              <CCol md="4">
+              {/* <CCol md="4">
                 <CFormLabel>Gender</CFormLabel>
                 <CFormInput
                   type="text"
@@ -130,15 +137,18 @@ const Edituser = () => {
                   onChange={handleChange}
                   placeholder="Enter Gender"
                 />
+              </CCol> */}
+              <CCol md="4">
+                <CFormLabel>Gender</CFormLabel>
+                <CFormSelect name="gender" value={user.gender} onChange={handleChange}>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </CFormSelect>
               </CCol>
               <CCol md="4">
                 <CFormLabel>User ID</CFormLabel>
-                <CFormInput
-                  type="text"
-                  name="sponsorId"
-                  value={user.sponsorId}
-                  readOnly={true}
-                />
+                <CFormInput type="text" name="sponsorId" value={user.sponsorId} readOnly={true} />
               </CCol>
             </CRow>
 
@@ -153,7 +163,7 @@ const Edituser = () => {
                   placeholder="Enter mobile number"
                 />
               </CCol>
-              <CCol md="6">
+              {/* <CCol md="6">
                 <CFormLabel>Date of birth</CFormLabel>
                 <CFormInput
                   type="text"
@@ -161,6 +171,16 @@ const Edituser = () => {
                   value={user.dob}
                   onChange={handleChange}
                   placeholder="Enter date of birth"
+                />
+              </CCol> */}
+              <CCol md="6">
+                <CFormLabel>Date of Birth</CFormLabel>
+                <CFormInput
+                  type="date"
+                  name="dob"
+                  value={user.dob}
+                  onChange={handleChange}
+                  placeholder="Select date of birth"
                 />
               </CCol>
             </CRow>
@@ -238,7 +258,7 @@ const Edituser = () => {
                   name="password"
                   value={user.password}
                   onChange={handleChange}
-                  placeholder="Enter state"
+                  placeholder="Enter Password"
                 />
               </CCol>
               <CCol md="6">

@@ -64,6 +64,7 @@ const UserTable = ({ users }) => (
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>User ID</th>
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>Email</th>
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>phone number</th>
+          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Date of birth</th>
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>Address</th>
           <th className="text-center" style={{ border: "1px solid #ddd", padding: "8px" }}>Action</th>
         </tr>
@@ -76,6 +77,7 @@ const UserTable = ({ users }) => (
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.mySponsorId}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.email}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.mobileNumber}</td>
+            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.dob ? new Date(user.dob).toISOString().split('T')[0] : ''}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.address}</td>
             <td className="text-center" style={{ border: "1px solid #ddd", padding: "8px" }}>
             <Link to={`/user/edituser/${user.mySponsorId}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1"></i></Link></td>
