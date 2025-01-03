@@ -86,6 +86,7 @@ const handlesubmit_rejected = async (sponsorId) => {
                 <CTableHeaderCell scope="col">Aadhar Card (Front)</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Aadhar Card (Back)</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Bank Card</CTableHeaderCell>
+                <CTableHeaderCell scope="col">User Photo</CTableHeaderCell>
                 <CTableHeaderCell scope="col" className='text-center'>Action</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
@@ -109,6 +110,7 @@ const handlesubmit_rejected = async (sponsorId) => {
                   <CTableDataCell><img className="img_hover" width={100} height={100} src={user.documents.aadharCardFront} alt="Aadhar Card Front" /></CTableDataCell>
                   <CTableDataCell><img className="img_hover" width={100} height={100} src={user.documents.aadharCardBack} alt="Aadhar Card Back" /></CTableDataCell>
                   <CTableDataCell><img  className="img_hover" width={100} height={100} src={user.documents.bankCard} alt="Bank Card" /></CTableDataCell>
+                  <CTableDataCell><img  className="img_hover" width={100} height={100} src={user.documents.profilephoto} alt="userphoto" /></CTableDataCell>
                   <CTableDataCell>
                   <div className="d-flex gap-2">
                     <CButton
