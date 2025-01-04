@@ -114,7 +114,7 @@ const Edituser = () => {
   return (
     <>
       <div className="container">
-        <h2 className="mb-4">Edit Product</h2>
+        <h2 className="mb-4">Edit user details</h2>
         <CCard className="p-4">
           <CForm onSubmit={handleSubmit}>
             <CRow className="mb-3">
@@ -273,7 +273,7 @@ const Edituser = () => {
               </CCol>
             </CRow>
             <CButton type="submit" color="primary" disabled={loading}>
-              {loading ? 'Updating...' : 'Update Product'}
+              {loading ? 'Updating...' : 'Update user'}
             </CButton>
           </CForm>
         </CCard>

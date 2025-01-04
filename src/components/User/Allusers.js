@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {Link } from 'react-router-dom';
+import {
+  CFormInput,
+  CFormLabel,
+  
+} from '@coreui/react'
 const Allusers = () => {
     const [users, setUsers] = useState([]); // Store user data
   const [loading, setLoading] = useState(false); // Loading state
   const [currentPage, setCurrentPage] = useState(1); // Current page
+  const [query, setQuery] = useState('');
+  const [searchuserdata, setsearchuserdata] = useState([]);
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+
   const usersPerPage = 15
   useEffect(() => {
     const fetchUsers = async () => {
@@ -22,22 +30,81 @@ const Allusers = () => {
 
     fetchUsers();
   }, []);
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+  const handleInputfieldChange = (e) => {
+    setQuery(e.target.value);
+};
+useEffect(() => {
+  const fetchuser = async () => {
+
+    if (query.trim().length > 0) {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `${ROOT_URL}/api/auth/searchuser?q=${query}`
+        );
+        setsearchuserdata(response.data.users);
+      } catch (error) {
+        console.error("Error fetching search results:", error);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      setsearchuserdata([]);
+    }
+  };
+      const debounceFetch = setTimeout(fetchuser, 300);
+          return () => clearTimeout(debounceFetch);
+          }, [query]);
+
+  // const indexOfLastUser = currentPage * usersPerPage;
+  // const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  // const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const currentUsers = query
+  ? searchuserdata.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage)
+  : users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage);
+
+const totalUsers = query ? searchuserdata.length : users.length;
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h4 className="text-center">All users</h4>
-      {loading ? (
+    <div className="row mx-1">
+    <div className="col-md-6 col-sm-12 h3">All users</div>
+    <div className="col-md-6 col-sm-12"> 
+    <div className="d-flex justify-content-end">
+              <CFormLabel className="mt-1" htmlFor="searchFranchise">
+                Search user:
+              </CFormLabel>
+              <div >
+                <CFormInput
+                  className="ms-3"
+                  id="searchFranchise"
+                  value={query}
+                    onChange={handleInputfieldChange}
+                  
+                  placeholder="Search user..."
+                />
+                
+              </div>
+              </div>
+             
+                
+            
+            </div>
+    </div>
+    {loading ? (
         <p>Loading...</p>
+      ) : query && searchuserdata.length === 0 ? (
+        <p>No user found</p>
       ) : (
+     
         <>
+        
           <UserTable users={currentUsers} />
           <Pagination
-            totalPages={Math.ceil(users.length / usersPerPage)}
+             totalPages={Math.ceil(totalUsers / usersPerPage)}
             currentPage={currentPage}
             paginate={paginate}
           />
