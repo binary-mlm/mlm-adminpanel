@@ -51,7 +51,7 @@ const Edituser = () => {
           district: fetcheduser.district || '',
           pincode: fetcheduser.pincode || '',
           address: fetcheduser.address || '',
-          password: fetcheduser.password || '',
+          
           gstNumber: fetcheduser.gstNumber || '',
         })
       } catch (error) {
