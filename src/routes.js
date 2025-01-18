@@ -24,6 +24,9 @@ const Monthlypayout = React.lazy(() => import ('./components/Payout/Monthlypayou
 const Editproduct = React.lazy(() => import('./components/Editproduct'))
 const Allusers = React.lazy(() => import('./components/User/Allusers'));
 const Edituser = React.lazy(() => import('./components/User/Edituser'));
+//rank achived
+const RankAchievers = React.lazy(() => import("./components/RankAchived/Rankachived"));
+const Userachieved = React.lazy(() => import("./components/RankAchived/Userachieved"));
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -47,6 +50,9 @@ const routes = [
   { path: '/user/userInventory', name: 'UserInventory', element: UserInventory },
   { path: '/user/userinvoice', name: 'Userinvoice', element: Userinvoice },
   { path: '/user/allusers', name: 'Allusers', element: Allusers },
-  { path: '/user/edituser/:id', name: 'Edituser', element: Edituser }
+  { path: '/user/edituser/:id', name: 'Edituser', element: Edituser },
+  { path: '/rankachievers', name: 'RankAchievers', element: RankAchievers },
+  { path: '/userachieved', name: 'Userachieved', element: Userachieved },
+
 ]
 export default routes

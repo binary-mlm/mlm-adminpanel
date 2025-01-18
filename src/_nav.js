@@ -126,6 +126,16 @@ const _nav = [
     to: '/monthlypayout',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  {
+    component: CNavTitle,
+    name: 'Rank Achiver',
+  },
+  {
+    component: CNavItem,
+    name: 'RankAchievers',
+    to: '/rankachievers',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
   
 
  
