@@ -20,7 +20,7 @@ const Getrejectuser = () => {
     const [userkycdata, setuserkycdata] = useState([])
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     useEffect(() => {
-      axios.get(ROOT_URL+'/api/admin/kycVerification/approved')   
+      axios.get(ROOT_URL+'/api/admin/kycVerification/rejected')   
       .then((userdata) =>{
         setuserkycdata(userdata.data);
        
