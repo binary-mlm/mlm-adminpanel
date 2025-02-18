@@ -27,10 +27,15 @@ const Edituser = React.lazy(() => import('./components/User/Edituser'));
 //rank achived
 const RankAchievers = React.lazy(() => import("./components/RankAchived/Rankachived"));
 const Userachieved = React.lazy(() => import("./components/RankAchived/Userachieved"));
+//All products
+const Allproduct = React.lazy(() => import("./components/Allproduct/Allproduct"));
+
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
+  { path: '/allproduct', name: 'Allproduct', element: Allproduct },
+ 
   { path: '/addproduct', name: 'Addproduct', element: Addproduct },
   { path: '/addfanchise', name: 'Addfanchise', element: Addfanchise },
   { path: '/viewfanchise', name: 'Viewfanchise', element: Viewfanchise },

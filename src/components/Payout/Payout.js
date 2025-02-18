@@ -60,7 +60,7 @@ function Payout() {
               <CTableHeaderCell className='text-center'>MatchedBV</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Direct sales bonus</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>TDS</CTableHeaderCell>
-              <CTableHeaderCell className='text-center'>Matching bonus</CTableHeaderCell>
+              {/* <CTableHeaderCell className='text-center'>Matching bonus</CTableHeaderCell> */}
               {/* <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell> */}
               <CTableHeaderCell className='text-center'>Payout Amount</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Payment Status</CTableHeaderCell>
@@ -76,8 +76,8 @@ function Payout() {
               <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.directSalesBonus}</CTableDataCell>
-              <CTableDataCell className="text-center">0</CTableDataCell>
-              <CTableDataCell className="text-center">0</CTableDataCell>
+              <CTableDataCell className="text-center">{earning.tds}</CTableDataCell>
+              {/* <CTableDataCell className="text-center">0</CTableDataCell> */}
               <CTableDataCell className="text-center">{earning.payoutAmount}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.paymentStatus}</CTableDataCell>
               <CTableDataCell className="text-center"><CButton className='btn btn-primary' onClick={() => Handlesubmit(order.userobjectid, earning._id)} disabled={earning.paymentStatus === "Paid"}>Paid</CButton></CTableDataCell>
