@@ -8,7 +8,13 @@ import {
   CTableRow,
   CFormSelect,
   CFormLabel,
-  CButton
+  CButton,
+  CDropdown,
+
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  
 } from '@coreui/react'
 import axios from 'axios'
 import swal from 'sweetalert';
@@ -49,7 +55,16 @@ function Payout() {
   
   return (
     <>
-        <div className='table-responsive'>
+    
+  
+<CDropdown>
+                <CDropdownToggle color="secondary">Actions</CDropdownToggle>
+                <CDropdownMenu>
+                  <CDropdownItem href="#">Paid</CDropdownItem>
+                  <CDropdownItem href="#">Unpaid</CDropdownItem> 
+                </CDropdownMenu>
+              </CDropdown>
+        <div className='table-responsive mt-3'>
         <CTable>
           <CTableHead>
             <CTableRow>
@@ -71,7 +86,7 @@ function Payout() {
           {weeklypayout.map((order) =>
           order.weeklyEarnings.map((earning) => (
             <CTableRow key={earning._id}>
-              <CTableDataCell className="text-center">{order.userId}</CTableDataCell>
+              <CTableDataCell className="text-center"> <input className="form-check-input" type="checkbox" value=""></input> {order.userId}</CTableDataCell>
               <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
               <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>

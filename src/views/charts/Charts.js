@@ -53,7 +53,7 @@ const Charts = () => {
           <div className='row'>
             <div className='col-lg-6'>Bar Chart</div>
             <div className='col-lg-6 text-end'>
-              <CButton>Week</CButton>
+              <CButton >Week</CButton>
               <CButton>Month</CButton>
               <CButton>Year</CButton>
             </div>
@@ -61,12 +61,12 @@ const Charts = () => {
           <CCardBody>
             <CChartBar
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'sept'],
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
                 datasets: [
                   {
                     label: 'GitHub Commits',
                     backgroundColor: '#f87979',
-                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40,90,50],
+                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40,90,50,25],
                   },
                 ],
               }}
@@ -85,7 +85,6 @@ const Charts = () => {
                          <CTableHeaderCell scope="col">Price</CTableHeaderCell>
                          <CTableHeaderCell scope="col">bvPoints</CTableHeaderCell>
                          <CTableHeaderCell scope="col">Stock</CTableHeaderCell>
-                        
                        </CTableRow>
                      </CTableHead>
                      <CTableBody>
@@ -93,9 +92,8 @@ const Charts = () => {
                                       {
                                        productdata.map((product) => {
                                          return <CTableRow active key={product._id} >
-                                           
+                                        
                                              <CTableDataCell colSpan="3">{product.name}</CTableDataCell>
-                                            
                                              <CTableDataCell>{product.price}</CTableDataCell>
                                              <CTableDataCell>{product.bvPoints}</CTableDataCell>
                                              <CTableDataCell>{product.stock}</CTableDataCell>
@@ -108,8 +106,6 @@ const Charts = () => {
      </CCard>
      </CCol>
                    
-                 
-     
     </CRow>
   )
 }
