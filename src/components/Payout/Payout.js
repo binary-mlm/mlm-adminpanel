@@ -27,7 +27,6 @@ function Payout() {
   const [selectedRows, setSelectedRows] = useState(new Set());
 
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-  const specificWeek = "2025-02-21";
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -164,7 +163,7 @@ function Payout() {
               {filteredPayouts.length > 0 ? (
                 filteredPayouts.map((order) =>
                   order.weeklyEarnings.map((earning) => (
-                    earning.week === specificWeek && (
+                    earning.week === "2025-02-21" && (
                       <CTableRow key={earning._id}>
                      <CTableDataCell className="text-center"><input
                       className="form-check-input"
