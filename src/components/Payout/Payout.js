@@ -27,6 +27,7 @@ function Payout() {
   const [selectedRows, setSelectedRows] = useState(new Set());
 
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+  const specificWeek = "2025-02-21";
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -152,7 +153,7 @@ function Payout() {
                 <CTableHeaderCell className="text-center">User Name</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Week</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Matched BV</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Direct Sales Bonus</CTableHeaderCell>
+                <CTableHeaderCell className="text-center">Team Sales Bonus</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">TDS</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Payout Amount</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Payment Status</CTableHeaderCell>
@@ -163,7 +164,8 @@ function Payout() {
               {filteredPayouts.length > 0 ? (
                 filteredPayouts.map((order) =>
                   order.weeklyEarnings.map((earning) => (
-                    <CTableRow key={earning._id}>
+                    earning.week === specificWeek && (
+                      <CTableRow key={earning._id}>
                      <CTableDataCell className="text-center"><input
                       className="form-check-input"
                       type="checkbox"
@@ -187,6 +189,7 @@ function Payout() {
                         </CButton>
                       </CTableDataCell>
                     </CTableRow>
+                    )
                   ))
                 )
               ) : (
