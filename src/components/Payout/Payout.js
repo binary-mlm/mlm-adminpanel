@@ -153,6 +153,7 @@ function Payout() {
                 <CTableHeaderCell className="text-center">Week</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Matched BV</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Team Sales Bonus</CTableHeaderCell>
+                <CTableHeaderCell className="text-center">Direct Sales Bonus</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">TDS</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Payout Amount</CTableHeaderCell>
                 <CTableHeaderCell className="text-center">Payment Status</CTableHeaderCell>
@@ -175,6 +176,7 @@ function Payout() {
                       <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.directSalesBonus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.teamSalesBonus}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.tds}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.payoutAmount}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.paymentStatus}</CTableDataCell>
