@@ -162,43 +162,42 @@ function Payout() {
             </CTableHead>
             <CTableBody>
               {filteredPayouts.length > 0 ? (
-                filteredPayouts.map((order) =>
-                  order.weeklyEarnings.map((earning) => (
-                    earning.week === "2025-02-21" && (
-                      <CTableRow key={earning._id}>
-                     <CTableDataCell className="text-center"><input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={selectedRows.has(earning._id)}
-                      onChange={() => handleCheckboxChange(earning._id)}
-                    /> {order.userId}</CTableDataCell>
+                filteredPayouts.map((order) => {
+                  const latestEarning = order.weeklyEarnings.reduce((latest, current) => {
+                    return new Date(current.week) > new Date(latest.week) ? current : latest;
+                  }, order.weeklyEarnings[0]);
+
+                  return (
+                    <CTableRow key={latestEarning._id}>
+                      <CTableDataCell className="text-center">{order.userId}</CTableDataCell>
                       <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.directSalesBonus}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.teamSalesBonus}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.tds}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.payoutAmount}</CTableDataCell>
-                      <CTableDataCell className="text-center">{earning.paymentStatus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.week}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.matchedBV}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.directSalesBonus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.teamSalesBonus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.tds}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.payoutAmount}</CTableDataCell>
+                      <CTableDataCell className="text-center">{latestEarning.paymentStatus}</CTableDataCell>
                       <CTableDataCell className="text-center">
                         <CButton
                           className="btn btn-primary"
-                          onClick={() => handleSubmit(order.userobjectid, earning._id)}
-                          disabled={earning.paymentStatus === 'Paid'}
+                          onClick={() => handleSubmit(order.userobjectid, latestEarning._id)}
+                          disabled={latestEarning.paymentStatus === 'Paid'}
                         >
                           Paid
                         </CButton>
                       </CTableDataCell>
                     </CTableRow>
-                    )
-                  ))
-                )
+                  );
+                })
               ) : (
                 <CTableRow>
                   <CTableDataCell colSpan="9" className="text-center">
                     No payouts found
                   </CTableDataCell>
                 </CTableRow>
+              )}
+            </CTableBody>
               )}
             </CTableBody>
           </CTable>
