@@ -11,6 +11,7 @@ import {
   CButton,
   CDropdown,
   CFormInput,
+
   CDropdownItem,
   CDropdownMenu,
   CDropdownToggle,
@@ -36,7 +37,6 @@ function Payout() {
     const fetchPayouts = async () => {
       try {
         const response = await axios.get(`${ROOT_URL}/api/payouts/all-weekly-earnings`);
-        console.log(response.data.data);
         setWeeklypayout(response.data.data);
         setFilteredPayouts(response.data.data); // Initially show all payouts
       } catch (error) {
@@ -58,14 +58,14 @@ function Payout() {
       setLoading(true);
       try {
         const response = await axios.get(`${ROOT_URL}/api/auth/searchuser?q=${query}`);
-
+        
         if (response.data.users.length > 0) {
           // Extract all matching user IDs
           const matchingUserIds = response.data.users.map(user => user.mySponsorId);
 
           // Filter payouts where userId is in matchingUserIds
           const userPayouts = weeklypayout.filter(payout => matchingUserIds.includes(payout.userId));
-
+          
           setFilteredPayouts(userPayouts);
         } else {
           setFilteredPayouts([]); // No users found
@@ -93,7 +93,7 @@ function Payout() {
       return updatedSet;
     });
   };
-
+  //
   const handleSubmit = async (userId, paymentId) => {
     try {
       await axios.get(`${ROOT_URL}/api/payouts/updateWeeklyPayoutStatus/${userId}/${paymentId}`);
@@ -105,39 +105,41 @@ function Payout() {
 
   return (
     <>
-      <div className="row">
-        <div className="col-md-6 col-sm-12">
-          <div className='d-flex'>
-            <CDropdown>
-              <CDropdownToggle color="secondary">Actions</CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem>Paid</CDropdownItem>
-                <CDropdownItem>Unpaid</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
-            <CButton className='ms-3' color="primary">Submit</CButton>
-          </div>
-          <div className="mt-3">
-            <strong>Selected rows: {selectedRows.size}</strong>
-          </div>
-        </div>
-        <div className="col-md-6 col-sm-12">
-          <div className="d-flex justify-content-end">
-            <CFormLabel className="mt-1" htmlFor="searchFranchise">
-              Search user:
-            </CFormLabel>
-            <div>
-              <CFormInput
-                className="ms-3"
-                id="searchFranchise"
-                value={query}
-                onChange={handleInputChange}
-                placeholder="Search user..."
-              />
-            </div>
-          </div>
-        </div>
+       <div className="row">
+         <div className="col-md-6 col-sm-12">
+         <div className='d-flex'>
+         <CDropdown>
+                     <CDropdownToggle color="secondary">Actions</CDropdownToggle>
+                     <CDropdownMenu>
+                       <CDropdownItem>Paid</CDropdownItem>
+                       <CDropdownItem>Unpaid</CDropdownItem> 
+                     </CDropdownMenu>
+                   </CDropdown>
+                   <CButton className='ms-3' color="primary">Submit</CButton>
+                   </div>
+                   <div className="mt-3">
+        <strong>Selected rows: {selectedRows.size}</strong>
       </div>
+         </div>
+         <div className="col-md-6 col-sm-12">
+           <div className="d-flex justify-content-end">
+                       <CFormLabel className="mt-1" htmlFor="searchFranchise">
+                         Search user:
+                       </CFormLabel>
+                       <div >
+                         <CFormInput
+                           className="ms-3"
+                           id="searchFranchise"
+                           value={query}
+                             onChange={handleInputChange}
+                           
+                           placeholder="Search user..."
+                         />
+                         
+                       </div>
+                       </div> 
+         </div>
+         </div>
 
       <div className="table-responsive mt-3">
         {loading ? (
@@ -160,37 +162,40 @@ function Payout() {
             </CTableHead>
             <CTableBody>
               {filteredPayouts.length > 0 ? (
-                filteredPayouts.map((order) => {
-                  const latestEarning = order.weeklyEarnings.reduce((latest, current) => {
-                    return new Date(current.week) > new Date(latest.week) ? current : latest;
-                  }, order.weeklyEarnings[0]);
-
-                  return (
-                    <CTableRow key={latestEarning._id}>
-                      <CTableDataCell className="text-center">{order.userId}</CTableDataCell>
+                filteredPayouts.map((order) =>
+                  order.weeklyEarnings.map((earning) => (
+                    earning.week === "2025-02-21" && (
+                      <CTableRow key={earning._id}>
+                     <CTableDataCell className="text-center"><input
+                      className="form-check-input"
+                      type="checkbox"
+                      checked={selectedRows.has(earning._id)}
+                      onChange={() => handleCheckboxChange(earning._id)}
+                    /> {order.userId}</CTableDataCell>
                       <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.week}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.matchedBV}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.directSalesBonus}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.teamSalesBonus}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.tds}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.payoutAmount}</CTableDataCell>
-                      <CTableDataCell className="text-center">{latestEarning.paymentStatus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.directSalesBonus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.teamSalesBonus}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.tds}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.payoutAmount}</CTableDataCell>
+                      <CTableDataCell className="text-center">{earning.paymentStatus}</CTableDataCell>
                       <CTableDataCell className="text-center">
                         <CButton
                           className="btn btn-primary"
-                          onClick={() => handleSubmit(order.userobjectid, latestEarning._id)}
-                          disabled={latestEarning.paymentStatus === 'Paid'}
+                          onClick={() => handleSubmit(order.userobjectid, earning._id)}
+                          disabled={earning.paymentStatus === 'Paid'}
                         >
                           Paid
                         </CButton>
                       </CTableDataCell>
                     </CTableRow>
-                  );
-                })
+                    )
+                  ))
+                )
               ) : (
                 <CTableRow>
-                  <CTableDataCell colSpan="10" className="text-center">
+                  <CTableDataCell colSpan="9" className="text-center">
                     No payouts found
                   </CTableDataCell>
                 </CTableRow>
