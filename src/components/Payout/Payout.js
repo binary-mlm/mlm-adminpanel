@@ -37,6 +37,7 @@ function Payout() {
     const fetchPayouts = async () => {
       try {
         const response = await axios.get(`${ROOT_URL}/api/payouts/all-weekly-earnings`);
+         console.log(response.data.data);
         setWeeklypayout(response.data.data);
         setFilteredPayouts(response.data.data); // Initially show all payouts
       } catch (error) {
@@ -58,14 +59,14 @@ function Payout() {
       setLoading(true);
       try {
         const response = await axios.get(`${ROOT_URL}/api/auth/searchuser?q=${query}`);
-        
+
         if (response.data.users.length > 0) {
           // Extract all matching user IDs
           const matchingUserIds = response.data.users.map(user => user.mySponsorId);
 
           // Filter payouts where userId is in matchingUserIds
           const userPayouts = weeklypayout.filter(payout => matchingUserIds.includes(payout.userId));
-          
+
           setFilteredPayouts(userPayouts);
         } else {
           setFilteredPayouts([]); // No users found
@@ -112,7 +113,7 @@ function Payout() {
                      <CDropdownToggle color="secondary">Actions</CDropdownToggle>
                      <CDropdownMenu>
                        <CDropdownItem>Paid</CDropdownItem>
-                       <CDropdownItem>Unpaid</CDropdownItem> 
+                       <CDropdownItem>Unpaid</CDropdownItem>
                      </CDropdownMenu>
                    </CDropdown>
                    <CButton className='ms-3' color="primary">Submit</CButton>
@@ -132,12 +133,12 @@ function Payout() {
                            id="searchFranchise"
                            value={query}
                              onChange={handleInputChange}
-                           
+
                            placeholder="Search user..."
                          />
-                         
+
                        </div>
-                       </div> 
+                       </div>
          </div>
          </div>
 
@@ -196,8 +197,6 @@ function Payout() {
                     No payouts found
                   </CTableDataCell>
                 </CTableRow>
-              )}
-            </CTableBody>
               )}
             </CTableBody>
           </CTable>
