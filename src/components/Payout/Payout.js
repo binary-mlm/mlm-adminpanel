@@ -25,6 +25,7 @@ function Payout() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [selectedRows, setSelectedRows] = useState(new Set());
+  const [totalSelectedPayout, setTotalSelectedPayout] = useState(0);
 
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
 
@@ -82,14 +83,18 @@ function Payout() {
   }, [query, weeklypayout]); // Ensure filtering updates when payouts change
 
   //checkbox
-  const handleCheckboxChange = (rowId) => {
+  const handleCheckboxChange = (rowId , payoutAmount) => {
     setSelectedRows((prevSelected) => {
       const updatedSet = new Set(prevSelected);
+      let newTotal = totalSelectedPayout;
       if (updatedSet.has(rowId)) {
-        updatedSet.delete(rowId); // Unselect row
+        updatedSet.delete(rowId); 
+        newTotal -= payoutAmount;
       } else {
         updatedSet.add(rowId); // Select row
+        newTotal += payoutAmount;
       }
+      setTotalSelectedPayout(newTotal);
       return updatedSet;
     });
   };
@@ -117,8 +122,9 @@ function Payout() {
                    </CDropdown>
                    <CButton className='ms-3' color="primary">Submit</CButton>
                    </div>
-                   <div className="mt-3">
+                   <div className="mt-3 d-flex">
         <strong>Selected rows: {selectedRows.size}</strong>
+        <strong className='ms-5'>Total Payout Amount: {totalSelectedPayout}</strong>
       </div>
          </div>
          <div className="col-md-6 col-sm-12">
@@ -166,12 +172,16 @@ function Payout() {
                   order.weeklyEarnings.map((earning) => (
                     earning.week === "2025-02-21" && (
                       <CTableRow key={earning._id}>
-                     <CTableDataCell className="text-center"><input
-                      className="form-check-input"
+                     <CTableDataCell className="text-start">
+                     <div className='d-flex'>
+                     <input
+                      className="form-check-input me-2"
                       type="checkbox"
                       checked={selectedRows.has(earning._id)}
-                      onChange={() => handleCheckboxChange(earning._id)}
-                    /> {order.userId}</CTableDataCell>
+                      onChange={() => handleCheckboxChange(earning._id,earning.payoutAmount)}
+                    /> {order.userId}
+                      </div>
+                    </CTableDataCell>
                       <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
                       <CTableDataCell className="text-center">{earning.matchedBV}</CTableDataCell>
