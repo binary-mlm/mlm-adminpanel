@@ -33,9 +33,10 @@ const Viewfanchise = () => {
                 <CTable  responsive="sm" color="dark" className='mt-2'>
                 <CTableHead align="middle">
                     <CTableRow  >
+                    <CTableHeaderCell scope="col" className='col-2' >S/N</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-2' >Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>Fanchise_id</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>Email</CTableHeaderCell>
+                        {/* <CTableHeaderCell scope="col" className='col-3'>Email</CTableHeaderCell> */}
                         <CTableHeaderCell scope="col" className='col-3'>Password</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-2'>Phone number</CTableHeaderCell>
                         
@@ -46,9 +47,10 @@ const Viewfanchise = () => {
                 {
                     fanchisedata.map((user , index) => {
                 return <CTableRow active key={index} >
+                <CTableDataCell >{index+1}</CTableDataCell>
                   <CTableDataCell >{user.franchiseName}</CTableDataCell>
                     <CTableDataCell>{user.franchiseId}</CTableDataCell>
-                    <CTableDataCell>{user.email}</CTableDataCell>
+                    {/* <CTableDataCell>{user.email}</CTableDataCell> */}
                     <CTableDataCell>{user.password}</CTableDataCell>
                     <CTableDataCell>{user.contactInfo}</CTableDataCell>
                 </CTableRow>

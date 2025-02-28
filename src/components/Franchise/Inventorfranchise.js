@@ -90,6 +90,7 @@ const Inventorfranchise = () => {
           <CTableHead>
             <CTableRow>
               {/* <CTableHeaderCell>Product ID</CTableHeaderCell> */}
+              <CTableDataCell>S/N</CTableDataCell>
               <CTableHeaderCell className='text-center'>Order Number</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Total Amount</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Order date </CTableHeaderCell>
@@ -98,9 +99,9 @@ const Inventorfranchise = () => {
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            {inventory.map((order) => (
+            {inventory.map((order,index) => (
               <CTableRow key={order._id}>
-               
+               <CTableDataCell>{index+1}.</CTableDataCell>
                 <CTableDataCell className='text-center'>{order.orderDetails.orderNumber}</CTableDataCell>
                 <CTableDataCell className='text-center'>{order.orderDetails.totalAmount}</CTableDataCell>
                 <CTableDataCell className='text-center'>{new Date(order.orderDetails.orderDate).toLocaleDateString()}</CTableDataCell>

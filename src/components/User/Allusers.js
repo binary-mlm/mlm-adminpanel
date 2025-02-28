@@ -14,7 +14,7 @@ const Allusers = () => {
   const [searchuserdata, setsearchuserdata] = useState([]);
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
 
-  const usersPerPage = 15
+  const usersPerPage = 50
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
@@ -139,7 +139,7 @@ const UserTable = ({ users }) => (
       <tbody>
         {users.map((user, index) => (
           <tr key={user._id}>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{index+1}</td>
+            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{index+1}.</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.name}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.mySponsorId}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.email}</td>

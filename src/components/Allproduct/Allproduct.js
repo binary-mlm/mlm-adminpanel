@@ -85,7 +85,7 @@ const Allproduct = () => {
               <CTable responsive="sm" color="dark" >
                 <CTableHead>
                   <CTableRow>
-                    {/* <CTableHeaderCell scope="col">Product_id</CTableHeaderCell> */}
+                    <CTableHeaderCell scope="col">S/N</CTableHeaderCell>
                     <CTableHeaderCell scope="col" colSpan="3">Product name</CTableHeaderCell>
                     {/* <CTableHeaderCell scope="col">Review</CTableHeaderCell> */}
                     <CTableHeaderCell scope="col">Price</CTableHeaderCell>
@@ -99,9 +99,9 @@ const Allproduct = () => {
                 </CTableHead>
                 <CTableBody>
                  {
-                  productdata.map((product) => {
+                  productdata.map((product , index) => {
                     return <CTableRow active key={product._id} >
-                      {/* <CTableDataCell id='courseid'>{product._id}</CTableDataCell> */}
+                      <CTableDataCell id='courseid'>{index+1}.</CTableDataCell>
                         <CTableDataCell colSpan="3">{product.name}</CTableDataCell>
                         {/* <CTableDataCell>{product.course_review}</CTableDataCell> */}
                         <CTableDataCell>{product.price}</CTableDataCell>

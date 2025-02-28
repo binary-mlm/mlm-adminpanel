@@ -41,6 +41,7 @@ const Getrejectuser = () => {
           <CTable responsive="sm" color="dark">
             <CTableHead>
               <CTableRow>
+              <CTableDataCell>S/N</CTableDataCell>
                 <CTableHeaderCell scope="col">User Details</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Bank Details</CTableHeaderCell>
                 <CTableHeaderCell scope="col">PAN Card</CTableHeaderCell>
@@ -51,8 +52,9 @@ const Getrejectuser = () => {
               </CTableRow>
             </CTableHead>
             <CTableBody>
-              {userkycdata.map((user) => (
+              {userkycdata.map((user,index) => (
                 <CTableRow active key={user._id}>
+                <CTableDataCell>{index+1}.</CTableDataCell>
                   <CTableDataCell>
                     Sponsor ID: {user.userDetails.mySponsorId}<br/>
                     Name: {user.userDetails.name}<br/>

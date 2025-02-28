@@ -39,18 +39,18 @@ const _nav = [
     component: CNavTitle,
     name: 'User',
   },
-  {
-    component: CNavItem,
-    name: 'Add Product',
-    to: '/user/addproduct',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'User Inventory',
-    to: '/user/userInventory',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Add Product',
+  //   to: '/user/addproduct',
+  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'User Inventory',
+  //   to: '/user/userInventory',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
     name: 'All users',
