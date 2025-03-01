@@ -134,22 +134,55 @@ function Payout() {
       return updatedList;
     });
   };
-  
   const handleBulkPayment = async () => {
     if (selectedPayouts.length === 0) {
-      swal("Error", "No payouts selected!", "error");
+      swal("No payouts selected!", "Please select at least one payout to mark as Paid.", "warning");
       return;
     }
   
-    try {
-      const response = await axios.post(`${ROOT_URL}/api/payouts/updatebulkPayoutStatus`, { userPayouts: selectedPayouts });
+    swal({
+      title: "Are you sure?",
+      text: `You are about to mark ${selectedPayouts.length} payouts as Paid.`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willConfirm) => {
+      if (willConfirm) {
+        try {
+          const response = await axios.post(`${ROOT_URL}/api/payouts/updatebulkPayoutStatus`, {
+            userPayouts: selectedPayouts,
+          });
   
-      swal("Success", response.data.message, "success").then(() => window.location.reload());
-    } catch (error) {
-      console.error("Bulk payment error:", error);
-      swal("Error", "Failed to update payouts!", "error");
-    }
-  };  
+          if (response.status === 200) {
+            swal("Success!", "Selected payouts have been marked as Paid.", "success").then(() => {
+              window.location.reload(); // Reload the page to reflect changes
+            });
+          }
+        } catch (error) {
+          console.error("Error updating payouts:", error);
+          swal("Error!", "Failed to update payouts. Please try again later.", "error");
+        }
+      } else {
+        swal("No changes were made.");
+      }
+    });
+  };
+  
+  // const handleBulkPayment = async () => {
+  //   if (selectedPayouts.length === 0) {
+  //     swal("Error", "No payouts selected!", "error");
+  //     return;
+  //   }
+  
+  //   try {
+  //     const response = await axios.post(`${ROOT_URL}/api/payouts/updatebulkPayoutStatus`, { userPayouts: selectedPayouts });
+  
+  //     swal("Success", response.data.message, "success").then(() => window.location.reload());
+  //   } catch (error) {
+  //     console.error("Bulk payment error:", error);
+  //     swal("Error", "Failed to update payouts!", "error");
+  //   }
+  // };  
   // Handle payout status update
   const handleSubmit = async (userId, paymentId) => {
     try {
@@ -202,8 +235,8 @@ function Payout() {
             <CDropdown className='ms-3'>
                         <CDropdownToggle color="secondary">Actions</CDropdownToggle>
                         <CDropdownMenu>
-                        <CDropdownItem onClick={handleBulkPayment}>Mark Selected as Paid</CDropdownItem>
-                          <CDropdownItem>Unpaid</CDropdownItem>
+                        <CDropdownItem onClick={handleBulkPayment}>Paid</CDropdownItem>
+                          {/* <CDropdownItem>Unpaid</CDropdownItem> */}
                         </CDropdownMenu>
                       </CDropdown>
                       
