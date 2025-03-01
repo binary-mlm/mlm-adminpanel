@@ -55,25 +55,36 @@ const WidgetsDropdown = (props) => {
 
   const total_userdata = async () => {
     try {
-      const response = await axios.get(`${ROOT_URL}/api/franchise/getAllUsers`);
+      const response = await axios.get(`${ROOT_URL}/api/auth/handleAllUser`);
       console.log(response.data);
       setuserdata(response.data);
     } catch (err) {
       console.log(err);
     }
   };
+  const activeUsersCount = userdata.filter(user => user.isActive).length;
+  const inactiveUsersCount = userdata.filter(user => !user.isActive).length;
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
-      <CCol sm={6} xl={4} xxl={4}>
+    <CCol sm={6} xl={3} xxl={3}>
         <CWidgetStatsA
           className="widgetheight"
-          color="primary"
-          title="Total Users"
-          value={<span className="h2">{userdata.length}</span>}
+          color="success"
+          title="Active Users"
+          value={<span className="h2">{activeUsersCount}</span>}
         />
       </CCol>
-      <CCol sm={6} xl={4} xxl={4}>
+      <CCol sm={6} xl={3} xxl={3}>
+        <CWidgetStatsA
+          className="widgetheight"
+          color="danger"
+          title="Inactive Users"
+          value={<span className="h2">{inactiveUsersCount}</span>}
+        />
+      </CCol>
+      
+      <CCol sm={6} xl={3} xxl={3}>
         <CWidgetStatsA
           className="widgetheight"
           color="info"
@@ -81,7 +92,7 @@ const WidgetsDropdown = (props) => {
           title="Total Products"
         />
       </CCol>
-      <CCol sm={6} xl={4} xxl={4}>
+      <CCol sm={6} xl={3} xxl={3}>
         <CWidgetStatsA
           className="widgetheight"
           color="warning"
@@ -95,6 +106,7 @@ const WidgetsDropdown = (props) => {
           title="Total PUP"
         />
       </CCol>
+      
     </CRow>
   );
 };

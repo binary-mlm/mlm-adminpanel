@@ -24,6 +24,7 @@ function Payout() {
   const [loading, setLoading] = useState(false);
   const [selectedRows, setSelectedRows] = useState(new Set());
   const [totalSelectedPayout, setTotalSelectedPayout] = useState(0);
+  const [selectedPayouts, setSelectedPayouts] = useState([]);
 
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
 
@@ -98,22 +99,57 @@ function Payout() {
   
 
   // Checkbox selection
-  const handleCheckboxChange = (rowId, payoutAmount) => {
-    setSelectedRows((prevSelected) => {
-      const updatedSet = new Set(prevSelected);
+  // const handleCheckboxChange = (rowId, payoutAmount) => {
+  //   setSelectedRows((prevSelected) => {
+  //     const updatedSet = new Set(prevSelected);
+  //     let newTotal = totalSelectedPayout;
+  //     if (updatedSet.has(rowId)) {
+  //       updatedSet.delete(rowId);
+  //       newTotal -= payoutAmount;
+  //     } else {
+  //       updatedSet.add(rowId);
+  //       newTotal += payoutAmount;
+  //     }
+  //     setTotalSelectedPayout(newTotal);
+  //     return updatedSet;
+  //   });
+  // };
+  const handleCheckboxChange = (userId, payoutId, payoutAmount) => {
+    setSelectedPayouts((prevSelected) => {
+      const updatedList = [...prevSelected];
+      const index = updatedList.findIndex(payout => payout.userId === userId && payout.payoutId === payoutId);
       let newTotal = totalSelectedPayout;
-      if (updatedSet.has(rowId)) {
-        updatedSet.delete(rowId);
+  
+      if (index !== -1) {
+        // Remove if already selected
         newTotal -= payoutAmount;
+        updatedList.splice(index, 1);
       } else {
-        updatedSet.add(rowId);
+        // Add if not selected
         newTotal += payoutAmount;
+        updatedList.push({ userId, payoutId, payoutAmount });
       }
+  
       setTotalSelectedPayout(newTotal);
-      return updatedSet;
+      return updatedList;
     });
   };
-
+  
+  const handleBulkPayment = async () => {
+    if (selectedPayouts.length === 0) {
+      swal("Error", "No payouts selected!", "error");
+      return;
+    }
+  
+    try {
+      const response = await axios.post(`${ROOT_URL}/api/payouts/updatebulkPayoutStatus`, { userPayouts: selectedPayouts });
+  
+      swal("Success", response.data.message, "success").then(() => window.location.reload());
+    } catch (error) {
+      console.error("Bulk payment error:", error);
+      swal("Error", "Failed to update payouts!", "error");
+    }
+  };  
   // Handle payout status update
   const handleSubmit = async (userId, paymentId) => {
     try {
@@ -166,12 +202,12 @@ function Payout() {
             <CDropdown className='ms-3'>
                         <CDropdownToggle color="secondary">Actions</CDropdownToggle>
                         <CDropdownMenu>
-                          <CDropdownItem>Paid</CDropdownItem>
+                        <CDropdownItem onClick={handleBulkPayment}>Mark Selected as Paid</CDropdownItem>
                           <CDropdownItem>Unpaid</CDropdownItem>
                         </CDropdownMenu>
                       </CDropdown>
                       
-            <strong className='ms-4'>Selected rows: {selectedRows.size}</strong>
+            <strong className='ms-4'>Selected rows: {selectedPayouts.length}</strong>
             <strong className='ms-5'>Total Payout Amount: {totalSelectedPayout}</strong>
           
                       {/* <CButton className="ms-3" color="primary">
@@ -204,12 +240,13 @@ function Payout() {
                       <CTableRow key={earning._id}>
                         <CTableDataCell className="text-start">
                           <div className='d-flex'>
-                            <input
-                              className="form-check-input me-2"
-                              type="checkbox"
-                              checked={selectedRows.has(earning._id)}
-                              onChange={() => handleCheckboxChange(earning._id, earning.payoutAmount)}
-                            /> 
+                          <input
+  className="form-check-input me-2"
+  type="checkbox"
+  checked={selectedPayouts.some(payout => payout.userId === order.userobjectid && payout.payoutId === earning._id)}
+  onChange={() => handleCheckboxChange(order.userobjectid, earning._id, earning.payoutAmount)}
+/>
+
                             {order.userId}
                           </div>
                         </CTableDataCell>
