@@ -82,13 +82,20 @@ function Payout() {
 
   // Filter payouts based on payout amount condition
   const filterPayoutsByAmount = (amount, condition) => {
-    let filtered = weeklypayout.filter((order) =>
-      order.weeklyEarnings.some((earning) =>
-        condition === 'less' ? earning.payoutAmount < amount : earning.payoutAmount > amount
+    if (condition === 'all') {
+      setFilteredPayouts([...weeklypayout]); // Show all payouts
+      return;
+    }
+  
+    let filtered = weeklypayout.filter(order => 
+      order.weeklyEarnings.some(earning => 
+        condition === 'greater' ? earning.payoutAmount > amount : earning.payoutAmount < amount
       )
     );
+  
     setFilteredPayouts(filtered);
   };
+  
 
   // Checkbox selection
   const handleCheckboxChange = (rowId, payoutAmount) => {
@@ -166,6 +173,9 @@ function Payout() {
                 <CDropdownItem onClick={() =>filterPayoutsByAmount(200, 'less')} >
                 Less than 200
                 </CDropdownItem> 
+                <CDropdownItem onClick={() => filterPayoutsByAmount(0, 'all')}>
+               All Payouts
+              </CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
       <div className="table-responsive mt-1">
@@ -191,7 +201,7 @@ function Payout() {
               {filteredPayouts.length > 0 ? (
                 filteredPayouts.map((order) =>
                   order.weeklyEarnings.map((earning) => (
-                    earning.week === "2025-02-28" && (
+                    earning.week === "2025-02-21" && (
                       <CTableRow key={earning._id}>
                         <CTableDataCell className="text-start">
                           <div className='d-flex'>
