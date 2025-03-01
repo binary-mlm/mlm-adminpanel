@@ -127,30 +127,15 @@ function Payout() {
   return (
     <>
       <div className="row">
-        <div className="col-md-6 col-sm-12">
+        <div className="col-md-8 col-sm-12">
           <div className='d-flex'>
-           <CDropdown>
-                        <CDropdownToggle color="secondary">Actions</CDropdownToggle>
-                        <CDropdownMenu>
-                          <CDropdownItem>Paid</CDropdownItem>
-                          <CDropdownItem>Unpaid</CDropdownItem>
-                        </CDropdownMenu>
-                      </CDropdown>
-                      <CButton className="ms-3" color="primary">
-                        Submit
-                      </CButton>
+          
             
           </div>
-          <div className="mt-3 d-flex">
-            <strong>Selected rows: {selectedRows.size}</strong>
-            <strong className='ms-5'>Total Payout Amount: {totalSelectedPayout}</strong>
-          </div>
+         
         </div>
-          <div className="col-md-6 col-sm-12">
+          <div className="col-md-4 col-sm-12">
                   <div className="d-flex justify-content-end">
-                    <CFormLabel className="mt-1" htmlFor="searchFranchise">
-                      Search user:
-                    </CFormLabel>
                     <div>
                       <CFormInput
                         className="ms-3"
@@ -178,6 +163,20 @@ function Payout() {
               </CDropdownItem>
               </CDropdownMenu>
             </CDropdown>
+            <CDropdown className='ms-3'>
+                        <CDropdownToggle color="secondary">Actions</CDropdownToggle>
+                        <CDropdownMenu>
+                          <CDropdownItem>Paid</CDropdownItem>
+                          <CDropdownItem>Unpaid</CDropdownItem>
+                        </CDropdownMenu>
+                      </CDropdown>
+                      
+            <strong className='ms-4'>Selected rows: {selectedRows.size}</strong>
+            <strong className='ms-5'>Total Payout Amount: {totalSelectedPayout}</strong>
+          
+                      {/* <CButton className="ms-3" color="primary">
+                        Submit
+                      </CButton> */}
       <div className="table-responsive mt-1">
         {loading ? (
           <p>Loading...</p>
