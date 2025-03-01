@@ -98,22 +98,6 @@ function Payout() {
   };
   
 
-  // Checkbox selection
-  // const handleCheckboxChange = (rowId, payoutAmount) => {
-  //   setSelectedRows((prevSelected) => {
-  //     const updatedSet = new Set(prevSelected);
-  //     let newTotal = totalSelectedPayout;
-  //     if (updatedSet.has(rowId)) {
-  //       updatedSet.delete(rowId);
-  //       newTotal -= payoutAmount;
-  //     } else {
-  //       updatedSet.add(rowId);
-  //       newTotal += payoutAmount;
-  //     }
-  //     setTotalSelectedPayout(newTotal);
-  //     return updatedSet;
-  //   });
-  // };
   const handleCheckboxChange = (userId, payoutId, payoutAmount) => {
     setSelectedPayouts((prevSelected) => {
       const updatedList = [...prevSelected];
@@ -168,21 +152,7 @@ function Payout() {
     });
   };
   
-  // const handleBulkPayment = async () => {
-  //   if (selectedPayouts.length === 0) {
-  //     swal("Error", "No payouts selected!", "error");
-  //     return;
-  //   }
-  
-  //   try {
-  //     const response = await axios.post(`${ROOT_URL}/api/payouts/updatebulkPayoutStatus`, { userPayouts: selectedPayouts });
-  
-  //     swal("Success", response.data.message, "success").then(() => window.location.reload());
-  //   } catch (error) {
-  //     console.error("Bulk payment error:", error);
-  //     swal("Error", "Failed to update payouts!", "error");
-  //   }
-  // };  
+ 
   // Handle payout status update
   const handleSubmit = async (userId, paymentId) => {
     try {

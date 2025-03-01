@@ -4,6 +4,11 @@ import {Link } from 'react-router-dom';
 import {
   CFormInput,
   CFormLabel,
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+  CButton,
   
 } from '@coreui/react'
 const Allusers = () => {
@@ -12,15 +17,34 @@ const Allusers = () => {
   const [currentPage, setCurrentPage] = useState(1); // Current page
   const [query, setQuery] = useState('');
   const [searchuserdata, setsearchuserdata] = useState([]);
+  const [filterType, setFilterType] = useState(""); 
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
 
-  const usersPerPage = 50
+  const usersPerPage = 60
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(ROOT_URL+"/api/auth/handleAllUser"); // Example API
-        setUsers(response.data);
+        let apiUrl = `${ROOT_URL}/api/auth/handleAllUser`;
+
+        // Change API URL based on the selected filter
+        if (filterType === "activeWithKyc") {
+          apiUrl = `${ROOT_URL}/api/admin/active-kyc-users`;
+        } else if (filterType === "activeNoKyc") {
+          apiUrl = `${ROOT_URL}/api/admin/active-nokyc-users`;
+        } else if (filterType === "inactiveWithKyc") {
+          apiUrl = `${ROOT_URL}/api/admin/inactive-kyc-users`;
+        } else if (filterType === "inactiveNoKyc") {
+          apiUrl = `${ROOT_URL}/api/admin/inactive-nokyc-users`;
+        }
+
+        const response = await axios.get(apiUrl);
+        if (response.data.length === 0) {
+          setUsers([]); // Handle empty response
+        } else {
+          setUsers(response.data);
+        }
+       
       } catch (error) {
         console.error("Error fetching user data:", error);
       } finally {
@@ -29,7 +53,7 @@ const Allusers = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [filterType]);
 
   const handleInputfieldChange = (e) => {
     setQuery(e.target.value);
@@ -70,9 +94,32 @@ const totalUsers = query ? searchuserdata.length : users.length;
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+   
     <div className="row mx-1">
-    <div className="col-md-6 col-sm-12 h3">All users</div>
-    <div className="col-md-6 col-sm-12"> 
+    <div className="col-md-4 col-sm-12">
+    <CDropdown>
+            <CDropdownToggle color="secondary">User Filter</CDropdownToggle>
+            <CDropdownMenu>
+              <CDropdownItem onClick={() => setFilterType("activeWithKyc")}>
+                Active with KYC
+              </CDropdownItem>
+              <CDropdownItem onClick={() => setFilterType("activeNoKyc")}>
+                Active with no KYC
+              </CDropdownItem>
+              <CDropdownItem onClick={() => setFilterType("inactiveWithKyc")}>
+                Inactive with KYC
+              </CDropdownItem>
+              <CDropdownItem onClick={() => setFilterType("inactiveNoKyc")}>
+                Inactive with no KYC
+              </CDropdownItem>
+              <CDropdownItem onClick={() => setFilterType("")}>
+                All Users
+              </CDropdownItem>
+            </CDropdownMenu>
+          </CDropdown>
+    </div>
+   
+    <div className="col-md-8 col-sm-12"> 
     <div className="d-flex justify-content-end">
               <CFormLabel className="mt-1" htmlFor="searchFranchise">
                 Search user:
@@ -89,11 +136,17 @@ const totalUsers = query ? searchuserdata.length : users.length;
                 
               </div>
               </div>
-             
-                
-            
             </div>
     </div>
+    {filterType && (
+      <h4 style={{ marginTop: "20px", textAlign: "center", color: "#007bff" }}>
+        {filterType === "activeWithKyc" && "Active Users with KYC"}
+        {filterType === "activeNoKyc" && "Active Users without KYC"}
+        {filterType === "inactiveWithKyc" && "Inactive Users with KYC"}
+        {filterType === "inactiveNoKyc" && "Inactive Users without KYC"}
+        {filterType === "" && "All Users"}
+      </h4>
+    )}
     {loading ? (
         <p>Loading...</p>
       ) : query && searchuserdata.length === 0 ? (
@@ -115,6 +168,7 @@ const totalUsers = query ? searchuserdata.length : users.length;
 };
 
 const UserTable = ({ users }) => (
+  
     <div className="table-responsive">
     <table
       style={{
@@ -131,7 +185,7 @@ const UserTable = ({ users }) => (
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>User ID</th>
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>Email</th>
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>phone number</th>
-          <th style={{ border: "1px solid #ddd", padding: "8px" }}>Date of birth</th>
+          {/* <th style={{ border: "1px solid #ddd", padding: "8px" }}>Date of birth</th> */}
           <th style={{ border: "1px solid #ddd", padding: "8px" }}>Address</th>
           <th className="text-center" style={{ border: "1px solid #ddd", padding: "8px" }}>Action</th>
         </tr>
@@ -144,7 +198,7 @@ const UserTable = ({ users }) => (
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.mySponsorId}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.email}</td>
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.mobileNumber}</td>
-            <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.dob ? new Date(user.dob).toISOString().split('T')[0] : ''}</td>
+            {/* <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.dob ? new Date(user.dob).toISOString().split('T')[0] : ''}</td> */}
             <td style={{ border: "1px solid #ddd", padding: "8px" }}>{user.address}</td>
             <td className="text-center" style={{ border: "1px solid #ddd", padding: "8px" }}>
             <Link to={`/user/edituser/${user.mySponsorId}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1"></i></Link></td>
