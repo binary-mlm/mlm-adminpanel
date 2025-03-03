@@ -57,7 +57,7 @@ const routes = [
   { path: '/user/allusers', name: 'Allusers', element: Allusers },
   { path: '/user/edituser/:id', name: 'Edituser', element: Edituser },
   { path: '/rankachievers', name: 'RankAchievers', element: RankAchievers },
-  { path: '/userachieved', name: 'Userachieved', element: Userachieved },
+  { path: '/userachieved/:rankId', name: 'Userachieved', element: Userachieved },
 
 ]
 export default routes

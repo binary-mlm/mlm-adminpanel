@@ -1,7 +1,28 @@
-import React from 'react'
-import { CButton , CTable , CTableBody, CTableDataCell , CTableHead, CTableRow, CTableHeaderCell} from '@coreui/react'
+import React, { useEffect, useState } from 'react';
+import { CButton, CTable, CTableBody, CTableDataCell, CTableHead, CTableRow, CTableHeaderCell } from '@coreui/react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 const Rankachived = () => {
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+  const [userRanks, setUserRanks] = useState([]);
+
+  useEffect(() => {
+    const fetchUserRanks = async () => {
+      try {
+        const response = await axios.get(`${ROOT_URL}/api/payouts/allUserRanks`);
+        if (response.data.success) {
+          setUserRanks(response.data.data);
+          console.log('User ranks:', response.data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user ranks:', error);
+      }
+    };
+
+    fetchUserRanks();
+  }, []);
+
   const tableData = [
     { no: 1, rankName: "Star", vbMatching: "25,000 VB MATCHING", reward: "Udbhab T-shirt" },
     { no: 2, rankName: "Double Star", vbMatching: "50,000 VB MATCHING", reward: "Business tool kit" },
@@ -20,37 +41,47 @@ const Rankachived = () => {
     { no: 15, rankName: "Udbhab Crown Diamond Club", vbMatching: "5,00,00,000 VB MATCHING", reward: "Rank pin + Rs. 10 lakhs" },
     { no: 16, rankName: "Udbhab Unicorn Diamond Club", vbMatching: "10,00,00,000 VB MATCHING", reward: "Rank pin + Rs. 20 lakhs" },
   ];
+
+  // ** Function to check if a rank has achieved users **
+  const getAchievedUsers = (rankName) => {
+    const rankData = userRanks.find((rank) => rank.rank === rankName);
+    return rankData ? rankData.users.length : 0;
+  };
+
   return (
     <>
       <div className="table-container table-responsive">
-          <CTable>
-            <CTableHead>
-              <CTableRow>
-                <CTableHeaderCell>No</CTableHeaderCell>
-                <CTableHeaderCell>Rank Name</CTableHeaderCell>
-                {/* <CTableHeaderCell>VB Matching</CTableHeaderCell> */}
-                <CTableHeaderCell>Reward</CTableHeaderCell>
-              
-                <CTableHeaderCell >View</CTableHeaderCell>
-              </CTableRow>
-            </CTableHead>
-            <CTableBody>
-              {tableData.map((item) => (
-                <CTableRow key={item.no}>
-                  <CTableDataCell>{item.no}</CTableDataCell>
-                  <CTableDataCell>{item.rankName}</CTableDataCell>
-                  {/* <CTableDataCell>{item.vbMatching}</CTableDataCell> */}
-                  <CTableDataCell>{item.reward}</CTableDataCell>
-                 
-                  <CTableDataCell><Link to='/userachieved'><i className='fa fa-eye'></i></Link></CTableDataCell>
-                </CTableRow>
-              ))}
-            </CTableBody>
-          </CTable>
-        </div>
-    
+        <CTable bordered hover>
+          <CTableHead>
+            <CTableRow>
+              <CTableHeaderCell>S/N</CTableHeaderCell>
+              <CTableHeaderCell>Rank Name</CTableHeaderCell>
+              {/* <CTableHeaderCell>BV point</CTableHeaderCell> */}
+              <CTableHeaderCell>Users Achieved</CTableHeaderCell>
+              <CTableHeaderCell>View</CTableHeaderCell>
+            </CTableRow>
+          </CTableHead>
+         
+          <CTableBody>
+            
+          {userRanks.map((rank, index) => (
+            <CTableRow key={rank._id}>
+              <CTableDataCell>{index + 1}</CTableDataCell>
+              <CTableDataCell>{rank.rank}</CTableDataCell>
+              {/* <CTableDataCell>{rank.commonbv}</CTableDataCell> */}
+              <CTableDataCell>{`${rank.users.length} Achievers`}</CTableDataCell>
+              <CTableDataCell>
+                <Link to={`/userachieved/${rank._id}`}>
+                  <i className="fa fa-eye"></i>
+                </Link>
+              </CTableDataCell>
+            </CTableRow>
+          ))}
+          </CTableBody>
+        </CTable>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default Rankachived
+export default Rankachived;

@@ -83,17 +83,17 @@ const _nav = [
   
   {
     component: CNavTitle,
-    name: 'Fanchise',
+    name: 'Pick-up point',
   },
   {
     component: CNavItem,
-    name: 'Add fanchise',
+    name: 'Add pick-up point',
     to: '/addfanchise',
     icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
-    name: 'View fanchise',
+    name: 'View pick-up point',
     to: '/viewfanchise',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
@@ -105,7 +105,7 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'Franchise inventory',
+    name: 'Pick-up point inventory',
     to: '/inventoryfranchise',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
