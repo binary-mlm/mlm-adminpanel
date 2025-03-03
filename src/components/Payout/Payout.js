@@ -24,8 +24,7 @@ function Payout() {
   const [loading, setLoading] = useState(false)
   const [totalSelectedPayout, setTotalSelectedPayout] = useState(0)
   const [selectedPayouts, setSelectedPayouts] = useState([])
-  const [weeks, setWeeks] = useState([]) // Weeks list
-
+  const [weeks, setWeeks] = useState([])
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
 
   const handleInputChange = (e) => {
@@ -38,7 +37,15 @@ function Payout() {
       try {
         const response = await axios.get(`${ROOT_URL}/api/payouts/all-weekly-earnings`)
         setWeeklypayout(response.data.data)
-        setFilteredPayouts(response.data.data) // Initially show all payouts
+        setFilteredPayouts(response.data.data)
+
+        const uniqueWeeks = new Set()
+        response.data.data.forEach((payout) => {
+          payout.weeklyEarnings.forEach((earning) => {
+            uniqueWeeks.add(earning.week)
+          })
+        })
+        setWeeks([...uniqueWeeks])
       } catch (error) {
         console.error('Error fetching payouts:', error)
       }
@@ -112,7 +119,22 @@ function Payout() {
   
     setFilteredPayouts(filtered);
   };
-  
+  //week filter
+  const filterPayoutsByWeek = (selectedWeek) => {
+    if (!selectedWeek) {
+      setFilteredPayouts([...weeklypayout])
+      return
+    }
+
+    const filtered = weeklypayout
+      .map((payout) => ({
+        ...payout,
+        weeklyEarnings: payout.weeklyEarnings.filter((earning) => earning.week === selectedWeek),
+      }))
+      .filter((payout) => payout.weeklyEarnings.length > 0)
+
+    setFilteredPayouts(filtered)
+  }
   const handleCheckboxChange = (userId, payoutId, payoutAmount) => {
     setSelectedPayouts((prevSelected) => {
       const updatedList = [...prevSelected]
@@ -184,11 +206,22 @@ function Payout() {
       <div className="row">
         <div className="col-md-8 col-sm-12">
           <div className="d-flex">
+         
           
 </div>
         </div>
         <div className="col-md-4 col-sm-12">
           <div className="d-flex justify-content-end">
+          <CDropdown className="ms-3">
+        <CDropdownToggle color="secondary">Filter by Week</CDropdownToggle>
+        <CDropdownMenu>
+          {weeks.map((week) => (
+            <CDropdownItem key={week} onClick={() => filterPayoutsByWeek(week)}>
+              {week}
+            </CDropdownItem>
+          ))}
+        </CDropdownMenu>
+      </CDropdown>
             <div>
               <CFormInput
                 className="ms-3"
@@ -251,7 +284,7 @@ function Payout() {
                 filteredPayouts.map((order) =>
                   order.weeklyEarnings.map(
                     (earning) =>
-                      earning.week === '2025-02-28' && (
+                      
                         <CTableRow key={earning._id}>
                           <CTableDataCell className="text-start">
                             <div className="d-flex">
@@ -302,7 +335,7 @@ function Payout() {
                             </CButton>
                           </CTableDataCell>
                         </CTableRow>
-                      ),
+                      
                   ),
                 )
               ) : (
