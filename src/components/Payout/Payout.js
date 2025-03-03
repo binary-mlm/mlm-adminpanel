@@ -84,21 +84,35 @@ function Payout() {
   }, [query, weeklypayout]) // Ensure filtering updates when payouts change
 
   // Filter payouts based on payout amount condition
+  // const filterPayoutsByAmount = (amount, condition) => {
+  //   if (condition === 'all') {
+  //     setFilteredPayouts([...weeklypayout]) // Show all payouts
+  //     return
+  //   }
+
+  //   let filtered = weeklypayout.filter((order) =>
+  //     order.weeklyEarnings.some((earning) =>
+  //       condition === 'greater' ? earning.payoutAmount > amount : earning.payoutAmount < amount,
+  //     ),
+  //   )
+
+  //   setFilteredPayouts(filtered)
+  // }
   const filterPayoutsByAmount = (amount, condition) => {
     if (condition === 'all') {
-      setFilteredPayouts([...weeklypayout]) // Show all payouts
-      return
+      setFilteredPayouts([...weeklypayout]); // Show all payouts
+      return;
     }
-
-    let filtered = weeklypayout.filter((order) =>
-      order.weeklyEarnings.some((earning) =>
-        condition === 'greater' ? earning.payoutAmount > amount : earning.payoutAmount < amount,
-      ),
-    )
-
-    setFilteredPayouts(filtered)
-  }
-
+  
+    const filtered = weeklypayout.filter((order) =>
+      order.weeklyEarnings.every((earning) =>
+        condition === 'greater' ? earning.payoutAmount > amount : earning.payoutAmount < amount
+      )
+    );
+  
+    setFilteredPayouts(filtered);
+  };
+  
   const handleCheckboxChange = (userId, payoutId, payoutAmount) => {
     setSelectedPayouts((prevSelected) => {
       const updatedList = [...prevSelected]
