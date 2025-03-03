@@ -237,7 +237,7 @@ function Payout() {
                 filteredPayouts.map((order) =>
                   order.weeklyEarnings.map(
                     (earning) =>
-                      earning.week === '2025-02-21' && (
+                      earning.week === '2025-02-28' && (
                         <CTableRow key={earning._id}>
                           <CTableDataCell className="text-start">
                             <div className="d-flex">
