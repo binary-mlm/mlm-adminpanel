@@ -57,6 +57,12 @@ const _nav = [
     to: '/user/allusers',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  // {
+  //   component: CNavItem,
+  //   name: 'activeuser',
+  //   to: '/user/activeuser',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
   {
     component: CNavTitle,
     name: 'KYC',

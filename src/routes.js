@@ -29,6 +29,7 @@ const RankAchievers = React.lazy(() => import("./components/RankAchived/Rankachi
 const Userachieved = React.lazy(() => import("./components/RankAchived/Userachieved"));
 //All products
 const Allproduct = React.lazy(() => import("./components/Allproduct/Allproduct"));
+ const Allactiveuser= React.lazy(() => import('./components/User/Activeuser'));
 
 
 const routes = [
@@ -58,6 +59,7 @@ const routes = [
   { path: '/user/edituser/:id', name: 'Edituser', element: Edituser },
   { path: '/rankachievers', name: 'RankAchievers', element: RankAchievers },
   { path: '/userachieved/:rankId', name: 'Userachieved', element: Userachieved },
+  { path: '/user/activeuser', name: 'Activeuser', element: Allactiveuser },
 
 ]
 export default routes
