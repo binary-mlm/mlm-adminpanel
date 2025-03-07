@@ -81,18 +81,16 @@ const Inventorfranchise = () => {
         ))}
       </CFormSelect>
       </div>
-
-     
-
       {/* Inventory Table */}
       {inventory.length > 0 && (
+        <div>
         <CTable>
           <CTableHead>
             <CTableRow>
               {/* <CTableHeaderCell>Product ID</CTableHeaderCell> */}
               <CTableDataCell>S/N</CTableDataCell>
               <CTableHeaderCell className='text-center'>Order Number</CTableHeaderCell>
-              <CTableHeaderCell className='text-center'>Total Amount</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Order Amount</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Order date </CTableHeaderCell>
               {/* <CTableHeaderCell className='text-center'>BV Points</CTableHeaderCell> */}
               <CTableHeaderCell className='text-center'>Invoice</CTableHeaderCell>
@@ -106,11 +104,17 @@ const Inventorfranchise = () => {
                 <CTableDataCell className='text-center'>{order.orderDetails.totalAmount}</CTableDataCell>
                 <CTableDataCell className='text-center'>{new Date(order.orderDetails.orderDate).toLocaleDateString()}</CTableDataCell>
                 <CTableDataCell className='text-center'><span><i className="fa fa-eye"  onClick={() => handleInvoice(order)}  style={{ fontSize: "20px", color:"white" }} ></i> </span></CTableDataCell>
+               
               </CTableRow>
             ))}
           </CTableBody>
         </CTable>
+        <div className="text-end mt-3">
+      <h4>Total Order Amount: <strong>₹{inventory.reduce((sum , order) => sum + order.orderDetails.totalAmount, 0)}</strong></h4>
+      </div>
+        </div>
       )}
+      
     </div>
   )
 }
