@@ -299,10 +299,10 @@ const handleInputChange = (e) => {
                                                 {earning.matchedBV}
                                               </CTableDataCell>
                                               <CTableDataCell className="text-center">
-                                                {earning.directSalesBonus}
+                                                {earning.teamSalesBonus}
                                               </CTableDataCell>
                                               <CTableDataCell className="text-center">
-                                                {earning.teamSalesBonus}
+                                                {earning.directSalesBonus}
                                               </CTableDataCell>
                                               <CTableDataCell className="text-center">{earning.tds}</CTableDataCell>
                                               <CTableDataCell className="text-center">
