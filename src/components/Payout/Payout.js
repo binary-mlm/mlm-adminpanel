@@ -225,7 +225,7 @@ const handleInputChange = (e) => {
             </div>
           </div>
       
-
+          <div className='d-flex'>
       <CDropdown>
         <CDropdownToggle color="secondary">Payout filter</CDropdownToggle>
         <CDropdownMenu>
@@ -247,7 +247,9 @@ const handleInputChange = (e) => {
                 {/* <CDropdownItem>Unpaid</CDropdownItem> */}
               </CDropdownMenu>
             </CDropdown>
-
+            <div className='mt-2 ms-3 fw-bold'>Total selected: {selectedPayouts.length}</div>
+          <div className='mt-2 ms-3 fw-bold'>Total selected amount: {totalSelectedPayout}/-</div>
+          </div>
       <div className="table-responsive mt-1">
         {loading ? (
           <p>Loading...</p>
@@ -255,6 +257,7 @@ const handleInputChange = (e) => {
           <CTable>
             <CTableHead>
                <CTableRow>
+               <CTableHeaderCell className="text-center">S/N</CTableHeaderCell> 
                               <CTableHeaderCell className="text-center">User ID</CTableHeaderCell>
                               <CTableHeaderCell className="text-center">User Name</CTableHeaderCell>
                               <CTableHeaderCell className="text-center">Week</CTableHeaderCell>
@@ -269,11 +272,11 @@ const handleInputChange = (e) => {
             </CTableHead>
             <CTableBody>
               {filteredPayouts.length > 0 ? (
-                filteredPayouts.map((order) =>
+                filteredPayouts.map((order, index) =>
                   order.weeklyEarnings.map((earning) => (
+                    
                      <CTableRow key={earning._id}>
-                                              <CTableDataCell className="text-start">
-                                                <div className="d-flex">
+                     <CTableDataCell> <div className="d-flex">
                                                   <input
                                                     className="form-check-input me-2"
                                                     type="checkbox"
@@ -290,8 +293,12 @@ const handleInputChange = (e) => {
                                                       )
                                                     }
                                                   />
+                                                  {index+1}
+                                                </div></CTableDataCell>
+                                              <CTableDataCell className="text-start">
+                                                
                                                   {order.userId}
-                                                </div>
+                                                
                                               </CTableDataCell>
                                               <CTableDataCell className="text-center">{order.userName}</CTableDataCell>
                                               <CTableDataCell className="text-center">{earning.week}</CTableDataCell>
