@@ -19,6 +19,7 @@ const Editproduct = () => {
     bvpoints: '',
     description: '',
     stock: '',
+    totalStock: '',
     ingredients: '',
     product_benefits: '',
     how_to_use: '',
@@ -42,6 +43,8 @@ const Editproduct = () => {
           bvpoints: fetchedProduct.bvPoints || '',
           description: fetchedProduct.description || '',
           stock: fetchedProduct.stock || '',
+          totalStock: fetchedProduct.totalStock || '',
+
           ingredients: fetchedProduct.ingredients || '',
           product_benefits: fetchedProduct.product_benefits || '',
           how_to_use: fetchedProduct.how_to_use || '',
@@ -93,6 +96,7 @@ const Editproduct = () => {
       formData.append('bvpoints', product.bvpoints);
       formData.append('description', product.description);
       formData.append('stock', product.stock);
+      formData.append('totalStock', product.totalStock);
       formData.append('ingredients', product.ingredients);
       formData.append('product_benefits', product.product_benefits);
       formData.append('how_to_use', product.how_to_use);
@@ -156,7 +160,7 @@ const Editproduct = () => {
             </CCol>
           </CRow>
           <CRow className="mb-3">
-            <CCol md="6">
+            <CCol md="2">
               <CFormLabel>Price</CFormLabel>
               <CFormInput
                 type="number"
@@ -167,6 +171,18 @@ const Editproduct = () => {
                 
               />
             </CCol>
+            <CCol md="3">
+  <CFormLabel>Total Stock</CFormLabel>
+  <CFormInput
+    type="number"
+    name="totalStock"
+    value={product.totalStock}
+    onChange={handleChange}
+    placeholder="Enter total stock"
+    min="0"
+  />
+</CCol>
+
             <CCol md="6">
               <CFormLabel>BV Points</CFormLabel>
               <CFormInput

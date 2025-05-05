@@ -16,6 +16,11 @@ const Inventorfranchise = () => {
     const [franchises, setFranchises] = useState([]);
   const [selectedFranchise, setSelectedFranchise] = useState('');
   const [inventory, setInventory] = useState([]);
+  const [totalTulsi, setTotalTulsi] = useState(0);
+  const [totalCurcumin, setTotalCurcumin] = useState(0);
+  const [totalkamasakti, setKamasakti] = useState(0);
+  const [totalbooster, setBooster] = useState(0);
+  const [totalapplesoap, setApplesoap] = useState(0);
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
   const navigate = useNavigate()
   // Fetch franchises on component mount
@@ -44,15 +49,53 @@ const Inventorfranchise = () => {
         if (response.data.length === 0) {
             swal('Opps!', 'No inventory found for this franchise!', 'error')
         } else {
-          setInventory(response.data.orders);
-          console.log(response.data.orders)
-         
+          const sortedOrders = response.data.orders.sort((a, b) => {
+            return new Date(b.orderDetails.orderDate) - new Date(a.orderDetails.orderDate);
+            
+          });
+          setInventory(sortedOrders);
+          console.log(response.data.orders);
+            // Calculate totals for Tulsi and Curcumin+
+            let tulsi = 0;
+            let curcumin = 0;
+            let kamasakti = 0;
+            let booster = 0;
+            let applesoap = 0;
+  
+            sortedOrders.forEach(order => {
+              order.products.forEach(product => {
+                if (product.name.includes('Udbhab Panch Tulsi')) {
+                  tulsi += product.quantity;
+                }
+                if (product.name.includes('Udbhab Curcumin +')) {
+                  curcumin += product.quantity;
+                }
+                if (product.name.includes('Udbhab Kama Shakti')) {
+                  kamasakti += product.quantity;
+                }
+                if(product.name.includes('Udbhab Immune Booster +')) {
+                  booster += product.quantity;
+                 
+                }
+                if(product.name.includes('Udbhab Aloe Green Apple Soap')){
+                  applesoap += product.quantity;
+                }
+              });
+            });
+  
+            setTotalTulsi(tulsi);
+            setTotalCurcumin(curcumin);
+            setKamasakti(kamasakti);
+            setBooster(booster);
+            setApplesoap(applesoap);
         }
       } catch (error) {
         console.error('Error fetching inventory:', error);
       }
     } else {
       setInventory([]);
+      setTotalTulsi(0);
+      setTotalCurcumin(0);
     }
   };
  
@@ -62,7 +105,28 @@ const Inventorfranchise = () => {
 
   return (
     <div>
-      <h1>Franchise Inventory</h1>
+    <div className='row'>
+    <div className='col-4'>
+    <h5>Total <strong>Panch Tulsi</strong> :- {totalTulsi}</h5>
+    </div>
+    <div className='col-4'>
+    <h5 className='ms-3'>Total <strong>Curcumin+</strong>: {totalCurcumin}</h5>
+    </div>
+    <div className='col-4'>
+    <h5 className='ms-3'>Total  Kama Shakti: {totalkamasakti}</h5>
+    </div>
+    </div>
+    <div className='row mt-2'>
+    <div className='col-4'>
+    <h5>Total Immune Booster+ : {totalbooster}</h5>
+    </div>
+    <div className='col-4'>
+    <h5 className='ms-3'>Total Aloe Green Apple Soap: {totalapplesoap}</h5>
+
+    </div>
+
+    </div>
+      <h1 className='mt-5'>Franchise Inventory</h1>
 
       {/* Franchise Dropdown */}
       <div className='mb-4 d-flex justify-content-center'>

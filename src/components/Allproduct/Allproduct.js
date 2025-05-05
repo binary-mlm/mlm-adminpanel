@@ -91,7 +91,8 @@ const Allproduct = () => {
                     <CTableHeaderCell scope="col">Price</CTableHeaderCell>
                     <CTableHeaderCell scope="col">bvPoints</CTableHeaderCell>
                     {/* <CTableHeaderCell scope="col">Teacher dept</CTableHeaderCell> */}
-                    <CTableHeaderCell scope="col">Stock</CTableHeaderCell>
+                    <CTableHeaderCell scope="col">Total Stock</CTableHeaderCell>
+                    <CTableHeaderCell scope="col"> Available Stock</CTableHeaderCell>
                     {/* <CTableHeaderCell scope="col" className='text-center'>Product description</CTableHeaderCell> */}
                     <CTableHeaderCell scope="col">Product image </CTableHeaderCell>
                     <CTableHeaderCell scope="col" className='text-center'>Action</CTableHeaderCell>
@@ -107,7 +108,7 @@ const Allproduct = () => {
                         <CTableDataCell>{product.price}</CTableDataCell>
                         <CTableDataCell>{product.bvPoints}</CTableDataCell>
                         
-                        {/* <CTableDataCell>{product.teacher_dept}</CTableDataCell> */}
+                        <CTableDataCell>{product.total_stock}</CTableDataCell>
                         <CTableDataCell>{product.stock}</CTableDataCell>
                         {/* <CTableDataCell className='text-center'  dangerouslySetInnerHTML={{
                         __html: product.description

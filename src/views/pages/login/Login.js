@@ -101,7 +101,7 @@ const Login = () => {
                         onChange={e => setpassword(e.target.value)}
                       />
                       <CInputGroupText onClick={() => setShowPassword(!showPassword)} style={{ cursor: 'pointer' }}>
-                                              {showPassword ? <i className="fa fa-eye-slash"></i> :  <i className="fa fa-eye"></i>}
+                                              {showPassword ? <i className="fa fa-eye"></i> :  <i className="fa fa-eye-slash"></i>}
                                             </CInputGroupText>
                     </CInputGroup>
                     <CRow>
