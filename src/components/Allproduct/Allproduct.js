@@ -108,7 +108,7 @@ const Allproduct = () => {
                         <CTableDataCell>{product.price}</CTableDataCell>
                         <CTableDataCell>{product.bvPoints}</CTableDataCell>
                         
-                        <CTableDataCell>{product.total_stock}</CTableDataCell>
+                        <CTableDataCell>{product.totalStock}</CTableDataCell>
                         <CTableDataCell>{product.stock}</CTableDataCell>
                         {/* <CTableDataCell className='text-center'  dangerouslySetInnerHTML={{
                         __html: product.description
